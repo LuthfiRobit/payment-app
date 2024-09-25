@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Judul Halaman -->
+    <title>
+      Aplikasi Pembayaran Iuran Madrasah Ibtidaiyah Ihyauddiniyah Desa Kecil
+      Besuk Probolinggo
+    </title>
+
+    <!-- Meta begin -->
+    <!-- Set Karakter -->
+    <meta charset="utf-8" />
+    <!-- Mode Rendering -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Penulis Halaman -->
+    <meta name="author" content="Madrasah Ibtidaiyah Ihyauddiniyah" />
+    <!-- Pengindeksan Mesin Pencari -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Kata Kunci SEO -->
+    <meta
+      name="keywords"
+      content="Pembayaran Iuran, Madrasah Ibtidaiyah Ihyauddiniyah, Desa Kecil Besuk, Probolinggo, Aplikasi Pembayaran, Sistem Pembayaran Iuran, Pendidikan, Madrasah Ibtidaiyah, Manajemen Keuangan, Desain Responsif, UI Modern, Aplikasi Web, Sistem Administrasi, Pembayaran Mudah, Pengelolaan Iuran, Formulir Pembayaran, Pembayaran Online, Solusi Keuangan Madrasah"
+    />
+
+    <!-- Deskripsi Halaman -->
+    <meta
+      name="description"
+      content="Aplikasi Pembayaran Iuran untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pembayaran iuran, melacak transaksi keuangan, dan mengelola administrasi dengan desain responsif dan fitur yang user-friendly."
+    />
+
+    <!-- Metadata Open Graph -->
+    <meta
+      property="og:title"
+      content="Aplikasi Pembayaran Iuran Madrasah Ibtidaiyah Ihyauddiniyah Desa Kecil Besuk Probolinggo"
+    />
+    <meta
+      property="og:description"
+      content="Aplikasi Pembayaran Iuran untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pembayaran iuran, melacak transaksi keuangan, dan mengelola administrasi dengan desain responsif dan fitur yang user-friendly."
+    />
+    <meta property="og:image" content="social-image.png" />
+
+    <!-- Twitter Card Metadata -->
+    <meta
+      name="twitter:title"
+      content="Aplikasi Pembayaran Iuran Madrasah Ibtidaiyah Ihyauddiniyah Desa Kecil Besuk Probolinggo"
+    />
+    <meta
+      name="twitter:description"
+      content="Aplikasi Pembayaran Iuran untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pembayaran iuran, melacak transaksi keuangan, dan mengelola administrasi dengan desain responsif dan fitur yang user-friendly."
+    />
+    <meta name="twitter:image" content="social-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Meta end -->
+
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo_mi.png" />
+
+    <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css" />
+    <link
+      href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css"
+      rel="stylesheet"
+    />
+    <link href="vendor/owl-carousel/owl.carousel.css" rel="stylesheet" />
+
+    <link href="vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+
+    <!-- Datatable -->
+    <link
+      href="vendor/datatables/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom Stylesheet -->
+    <link href="vendor/datatables/responsive/responsive.css" rel="stylesheet" />
+    <link class="main-css" href="css/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Preloader start -->
+    <div id="preloader">
+      <!-- Bouncing animation container -->
+      <div class="sk-three-bounce">
+        <!-- Individual bouncing elements -->
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+      </div>
+    </div>
+    <!-- Preloader end -->
+
+    <!--Main wrapper start-->
+    <div id="main-wrapper">
+      <!-- Nav header start -->
+      <div class="nav-header">
+        <!-- Brand logo with different images for various screen sizes -->
+        <a href="index.html" class="brand-logo">
+          <!-- Logo for abbreviated view (e.g., mobile) -->
+          <!-- <img class="logo-abbr" src="images/logo.png" alt="" /> -->
+          <img class="logo-abbr" src="images/logo_mi.png" alt="" />
+          <!-- Compact logo with text (e.g., for sidebar) -->
+          <!-- <img class="logo-compact" src="images/logo-text.png" alt="" /> -->
+          <img class="logo-compact" src="images/logo_mi.png" alt="" />
+          <!-- Full brand title logo -->
+          <!-- <img class="brand-title" src="images/logo-text.png" alt="" /> -->
+          <!-- <img class="brand-title" src="images/logo-text.png" alt="" /> -->
+        </a>
+
+        <!-- Navigation control for mobile view -->
+        <div class="nav-control">
+          <div class="hamburger">
+            <!-- Hamburger menu lines for toggling navigation -->
+            <span class="line"></span><span class="line"></span
+            ><span class="line"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Nav header end -->
+
+      <!-- Header start -->
+      <div class="header">
+        <div class="header-content">
+          <!-- Navbar with expandable and collapsible features -->
+          <nav class="navbar navbar-expand">
+            <div class="collapse navbar-collapse justify-content-between">
+              <!-- Left side of the header -->
+              <div class="header-left">
+                <!-- Dashboard bar placeholder -->
+                <div class="dashboard_bar"></div>
+              </div>
+              <!-- Right side of the header with navigation items -->
+              <ul class="navbar-nav header-right">
+                <!-- Weather detail item -->
+                <li class="nav-item">
+                  <div class="d-flex weather-detail">
+                    <span><i class="las la-cloud"></i></span>
+                    Probolinggo, IDN
+                  </div>
+                </li>
+                <!-- Theme mode toggle dropdown -->
+                <li class="nav-item dropdown notification_dropdown">
+                  <a
+                    class="nav-link bell dz-theme-mode"
+                    href="javascript:void(0);"
+                  >
+                    <i id="icon-light" class="fas fa-sun"></i>
+                    <i id="icon-dark" class="fas fa-moon"></i>
+                  </a>
+                </li>
+                <!-- User profile dropdown -->
+                <li class="nav-item dropdown header-profile">
+                  <a
+                    class="nav-link"
+                    href="javascript:void(0)"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    <div class="header-info">
+                      <span class="text-black"
+                        >Hello,<strong>Franklin</strong></span
+                      >
+                      <p class="fs-12 mb-0">Super Admin</p>
+                    </div>
+                    <img
+                      src="images/profile/17.jpg"
+                      width="20"
+                      alt="User Profile Picture"
+                    />
+                  </a>
+                  <!-- Dropdown menu with profile and logout options -->
+                  <div class="dropdown-menu dropdown-menu-end">
+                    <a href="app-profile.html" class="dropdown-item ai-icon">
+                      <i
+                        class="fas fa-user text-primary"
+                        style="font-size: 18px"
+                      ></i>
+                      <span class="ms-2">Profile</span>
+                    </a>
+                    <a href="page-login.html" class="dropdown-item ai-icon">
+                      <i
+                        class="fas fa-sign-out-alt text-danger"
+                        style="font-size: 18px"
+                      ></i>
+                      <span class="ms-2">Logout</span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <!-- Header end -->
+
+      <!-- Sidebar start -->
+      <div class="deznav">
+        <div class="deznav-scroll">
+          <!-- Sidebar menu -->
+          <ul class="metismenu" id="menu">
+            <!-- Main section -->
+            <li>
+              <a
+                class="has-arrow ai-icon"
+                href="javascript:void(0);"
+                aria-expanded="false"
+              >
+                <i class="fas fa-chart-line fw-bold"></i>
+                <span class="nav-text">Main</span>
+              </a>
+              <ul aria-expanded="false">
+                <li><a href="index.html" class="fs-6">Dashboard</a></li>
+              </ul>
+            </li>
+            <!-- Payment section -->
+            <li>
+              <a
+                class="has-arrow ai-icon"
+                href="javascript:void(0);"
+                aria-expanded="false"
+              >
+                <i class="fas fa-money-check-alt fw-bold"></i>
+                <span class="nav-text">Payment</span>
+              </a>
+              <ul aria-expanded="false">
+                <li>
+                  <a href="payment_create.html" class="fs-6">Create Payment</a>
+                </li>
+                <li>
+                  <a href="payment_history.html" class="fs-6"
+                    >History Payment</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Master section -->
+            <li>
+              <a
+                class="has-arrow ai-icon"
+                href="javascript:void(0);"
+                aria-expanded="false"
+              >
+                <i class="fas fa-server fw-bold"></i>
+                <span class="nav-text">Master</span>
+              </a>
+              <ul aria-expanded="false">
+                <li>
+                  <a href="master_academic_year.html" class="fs-6"
+                    >Academic Year</a
+                  >
+                </li>
+                <li><a href="mater_student.html" class="fs-6">Student</a></li>
+              </ul>
+            </li>
+            <!-- Fees section -->
+            <li>
+              <a
+                class="has-arrow ai-icon"
+                href="javascript:void(0);"
+                aria-expanded="false"
+              >
+                <i class="fas fa-rupiah-sign fw-bold"></i>
+                <span class="nav-text">Fees</span>
+              </a>
+              <ul aria-expanded="false">
+                <li><a href="fee_setting.html" class="fs-6">Fee Setting</a></li>
+                <li>
+                  <a href="fee_exemption.html" class="fs-6">Fee Exemption</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Footer with copyright information -->
+          <div class="copyright">
+            <p><strong>Payment App</strong> © 2024 All Rights Reserved</p>
+            <p>Developed by _LnH'79</p>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar end -->
+
+      <!-- Content body start-->
+      <div class="content-body default-height">
+        <!-- row -->
+        <div class="container-fluid">
+          <div class="form-head mb-4">
+            <h2 class="text-black font-w600 mb-0">Academic Year Data</h2>
+          </div>
+          <!-- coba -->
+          <div class="row">
+            <div class="card">
+              <div
+                class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap"
+              >
+                <div class="pr-3 me-auto mb-sm-0 mb-3">
+                  <h4 class="fs-20 text-black mb-1">Academic Year List</h4>
+                  <span class="fs-12"
+                    >You can filter list by activation status</span
+                  >
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <!-- Filter Activation Status -->
+                  <div class="">
+                    <select
+                      class="default-select form-control form-control-md wide"
+                      placeholder="Activation status"
+                    >
+                      <option value="">All</option>
+                      <option value="1">Active</option>
+                      <option value="0">Inactive</option>
+                    </select>
+                  </div>
+                  <!-- Import Button -->
+                  <a
+                    href="javascript:void(0)"
+                    class="btn btn-rounded btn-outline-secondary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ImportModal"
+                    title="Import"
+                  >
+                    <i class="las la-file-import scale5 me-1"></i>Import
+                  </a>
+                  <!-- Create Button -->
+                  <a
+                    href="javascript:void(0)"
+                    class="btn btn-rounded btn-outline-primary light btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ModalCreate"
+                    title="Create"
+                  >
+                    <i class="las la-plus scale5 me-1"></i>Create
+                  </a>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="alert alert-primary">
+                  <div class="row g-1">
+                    <div class="col-lg-6 col-sm-12">
+                      <strong>Catatan :</strong> <br />
+                      <span
+                        >Gunakan template import untuk melakukan import
+                        data</span
+                      >
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                      <strong>Ekstra :</strong> <br />
+                      <a href=""
+                        ><i class="fas fa-download me-1"></i> Template import
+                        (excel)</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table
+                    id="example"
+                    class="table table-striped display min-w850"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Aksi</th>
+                        <th>Tahun Pelajaran</th>
+                        <th>Semester</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- automatic render data here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Content body end-->
+
+      <!--  Modal Import Start -->
+      <div
+        class="modal fade"
+        id="ImportModal"
+        tabindex="-1"
+        aria-labelledby="ImportModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ImportModalLabel">
+                Import Excel File
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                id="importForm"
+                enctype="multipart/form-data"
+                class="form-sm"
+              >
+                <div class="mb-3">
+                  <label for="fileInput" class="form-label"
+                    >Choose an Excel file</label
+                  >
+                  <input
+                    class="form-control form-control-sm"
+                    type="file"
+                    id="fileInput"
+                    accept=".xlsx, .xls"
+                    required
+                  />
+                  <div class="form-text">
+                    Only .xlsx and .xls files are allowed.
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" form="importForm" class="btn btn-primary">
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Import End-->
+
+      <!-- Modal Create Start-->
+      <div
+        class="modal fade"
+        id="ModalCreate"
+        tabindex="-1"
+        aria-labelledby="ModalCreateLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalCreateLabel">
+                Create New Entry
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="createForm" class="form-sm">
+                <div class="mb-3">
+                  <label for="academicYear" class="form-label"
+                    >Academic Year</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="academicYear"
+                    placeholder="e.g., 2024/2025"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="semester" class="form-label">Semester</label>
+                  <select
+                    class="default-select form-control form-control-sm wide"
+                    placeholder="Select semester"
+                    id="semester"
+                    required
+                  >
+                    <option value="Ganjil">Ganjil</option>
+                    <option value="Genap">Genap</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select
+                    class="default-select form-control form-control-sm wide"
+                    placeholder="Select status"
+                    id="status"
+                    required
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" form="createForm" class="btn btn-primary">
+                Create
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Create end -->
+
+      <!-- Modal Edit start -->
+      <div
+        class="modal fade"
+        id="ModalEdit"
+        tabindex="-1"
+        aria-labelledby="ModalEditLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalEditLabel">Edit Entry</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="createForm" class="form-sm">
+                <div class="mb-3">
+                  <label for="academicYear" class="form-label"
+                    >Academic Year</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control form-control-sm"
+                    id="academicYear"
+                    placeholder="e.g., 2024/2025"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="semester" class="form-label">Semester</label>
+                  <select
+                    class="default-select form-control form-control-sm wide"
+                    placeholder="Select semester"
+                    id="semester"
+                    required
+                  >
+                    <option value="Ganjil">Ganjil</option>
+                    <option value="Genap">Genap</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select
+                    class="default-select form-control form-control-sm wide"
+                    placeholder="Select status"
+                    id="status"
+                    required
+                  >
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" form="createForm" class="btn btn-primary">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Edit end -->
+
+      <!--Footer start-->
+      <div class="footer">
+        <div class="copyright">
+          <p>
+            Copyright © Designed &amp; Developed by
+            <a href="" target="_blank">_LnH'79</a>
+            <span class="current-year">2024</span>
+          </p>
+        </div>
+      </div>
+      <!--Footer end-->
+    </div>
+    <!--Main wrapper end-->
+
+    <!--Scripts-->
+    <!-- Required vendors -->
+    <script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="vendor/chart-js/chart.bundle.min.js"></script>
+    <script src="vendor/owl-carousel/owl.carousel.js"></script>
+    <script src="vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/responsive/responsive.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="js/custom.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+
+    <!-- Script theme mode start -->
+    <script>
+      jQuery(document).ready(function () {
+        setTimeout(function () {
+          dezSettingsOptions.version = "light";
+          new dezSettings(dezSettingsOptions);
+          setCookie("version", "light");
+        }, 1500);
+      });
+    </script>
+    <!-- Script theme mode end -->
+
+    <script>
+      $(document).ready(function () {
+        // Sample data
+        var data = [
+          {
+            aksi: [
+              {
+                kelas: "btn btn-outline-primary btn-sm",
+                title: "Edit",
+                icon: "fas fa-edit",
+              },
+            ],
+            tahun_pelajaran: "2023/2024",
+            semester: "Ganjil",
+            status: '<span class="badge bg-success">Active</span>',
+          },
+          {
+            aksi: [
+              {
+                kelas: "btn btn-outline-primary btn-sm",
+                title: "Edit",
+                icon: "fas fa-edit",
+              },
+            ],
+            tahun_pelajaran: "2022/2023",
+            semester: "Genap",
+            status: '<span class="badge bg-danger">Inactive</span>',
+          },
+          {
+            aksi: [
+              {
+                kelas: "btn btn-outline-primary btn-sm",
+                title: "Edit",
+                icon: "fas fa-edit",
+              },
+            ],
+            tahun_pelajaran: "2021/2022",
+            semester: "Ganjil",
+            status: '<span class="badge bg-success">Active</span>',
+          },
+          {
+            aksi: [
+              {
+                kelas: "btn btn-outline-primary btn-sm",
+                title: "Edit",
+                icon: "fas fa-edit",
+              },
+            ],
+            tahun_pelajaran: "2020/2021",
+            semester: "Genap",
+            status: '<span class="badge bg-danger">Inactive</span>',
+          },
+          {
+            aksi: [
+              {
+                kelas: "btn btn-outline-primary btn-sm",
+                title: "Edit",
+                icon: "fas fa-edit",
+              },
+            ],
+            tahun_pelajaran: "2019/2020",
+            semester: "Ganjil",
+            status: '<span class="badge bg-success">Active</span>',
+          },
+        ];
+
+        // Initialize DataTable
+        var table = $("#example").DataTable({
+          data: data,
+          columns: [
+            {
+              data: "aksi",
+              render: function (data) {
+                return data
+                  .map(
+                    (action) =>
+                      `<a href=\"#ModalEdit\" data-bs-toggle=\"modal\" data-bs-target=\"#ModalEdit\" class="${action.kelas}" title="${action.title}">
+                    <i class="${action.icon}"></i>
+                  </a>`
+                  )
+                  .join(" ");
+              },
+              orderable: false,
+              searchable: false,
+            },
+            { data: "tahun_pelajaran" },
+            { data: "semester", orderable: false, searchable: false },
+            { data: "status", orderable: false, searchable: false },
+          ],
+          language: {
+            searchPlaceholder: "Cari tahun pelajaran",
+          },
+        });
+
+        // Custom search functionality
+        $("#example_filter input").on("input", function () {
+          var searchValue = this.value;
+          if (searchValue.length >= 4) {
+            // Search in column 1 (Nomor Transaksi)
+            table.column(1).search(searchValue).draw();
+          } else {
+            // Clear column search and perform global search
+            table.column(1).search(searchValue).draw();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
