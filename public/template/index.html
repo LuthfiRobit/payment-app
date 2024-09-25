@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Judul Halaman -->
+    <title>
+      Aplikasi Pembayaran Iuran Madrasah Ibtidaiyah Ihyauddiniyah Desa Kecil
+      Besuk Probolinggo
+    </title>
+
+    <!-- Meta begin -->
+    <!-- Set Karakter -->
+    <meta charset="utf-8" />
+    <!-- Mode Rendering -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Penulis Halaman -->
+    <meta name="author" content="Madrasah Ibtidaiyah Ihyauddiniyah" />
+    <!-- Pengindeksan Mesin Pencari -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Kata Kunci SEO -->
+    <meta
+      name="keywords"
+      content="Pembayaran Iuran, Madrasah Ibtidaiyah Ihyauddiniyah, Desa Kecil Besuk, Probolinggo, Aplikasi Pembayaran, Sistem Pembayaran Iuran, Pendidikan, Madrasah Ibtidaiyah, Manajemen Keuangan, Desain Responsif, UI Modern, Aplikasi Web, Sistem Administrasi, Pembayaran Mudah, Pengelolaan Iuran, Formulir Pembayaran, Pembayaran Online, Solusi Keuangan Madrasah"
+    />
+
+    <!-- Deskripsi Halaman -->
+    <meta
+      name="description"
+      content="Aplikasi Pembayaran Iuran untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pembayaran iuran, melacak transaksi keuangan, dan mengelola administrasi dengan desain responsif dan fitur yang user-friendly."
+    />
+
+    <!-- Metadata Open Graph -->
+    <meta
+      property="og:title"
+      content="Aplikasi Pembayaran Iuran Madrasah Ibtidaiyah Ihyauddiniyah Desa Kecil Besuk Probolinggo"
+    />
+    <meta
+      property="og:description"
+      content="Aplikasi Pembayaran Iuran untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pembayaran iuran, melacak transaksi keuangan, dan mengelola administrasi dengan desain responsif dan fitur yang user-friendly."
+    />
+    <meta property="og:image" content="social-image.png" />
+
+    <!-- Twitter Card Metadata -->
+    <meta
+      name="twitter:title"
+      content="Aplikasi Pembayaran Iuran Madrasah Ibtidaiyah Ihyauddiniyah Desa Kecil Besuk Probolinggo"
+    />
+    <meta
+      name="twitter:description"
+      content="Aplikasi Pembayaran Iuran untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pembayaran iuran, melacak transaksi keuangan, dan mengelola administrasi dengan desain responsif dan fitur yang user-friendly."
+    />
+    <meta name="twitter:image" content="social-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Meta end -->
+
+    <!-- Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo_mi.png" />
+
+    <!-- CSS Pustaka -->
+    <link href="vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css" />
+    <link
+      href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css"
+      rel="stylesheet"
+    />
+    <link href="vendor/owl-carousel/owl.carousel.css" rel="stylesheet" />
+    <!-- CSS Utama -->
+    <link class="main-css" href="css/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Preloader start -->
+    <div id="preloader">
+      <!-- Bouncing animation container -->
+      <div class="sk-three-bounce">
+        <!-- Individual bouncing elements -->
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+      </div>
+    </div>
+    <!-- Preloader end -->
+
+    <!--Main wrapper start-->
+    <div id="main-wrapper">
+      <!-- Nav header start -->
+      <div class="nav-header">
+        <!-- Brand logo with different images for various screen sizes -->
+        <a href="index.html" class="brand-logo">
+          <!-- Logo for abbreviated view (e.g., mobile) -->
+          <!-- <img class="logo-abbr" src="images/logo.png" alt="" /> -->
+          <img class="logo-abbr" src="images/logo_mi.png" alt="" />
+          <!-- Compact logo with text (e.g., for sidebar) -->
+          <!-- <img class="logo-compact" src="images/logo-text.png" alt="" /> -->
+          <img class="logo-compact" src="images/logo_mi.png" alt="" />
+          <!-- Full brand title logo -->
+          <!-- <img class="brand-title" src="images/logo-text.png" alt="" /> -->
+          <!-- <img class="brand-title" src="images/logo-text.png" alt="" /> -->
+        </a>
+
+        <!-- Navigation control for mobile view -->
+        <div class="nav-control">
+          <div class="hamburger">
+            <!-- Hamburger menu lines for toggling navigation -->
+            <span class="line"></span><span class="line"></span
+            ><span class="line"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Nav header end -->
+
+      <!-- Header start -->
+      <div class="header">
+        <div class="header-content">
+          <!-- Navbar with expandable and collapsible features -->
+          <nav class="navbar navbar-expand">
+            <div class="collapse navbar-collapse justify-content-between">
+              <!-- Left side of the header -->
+              <div class="header-left">
+                <!-- Dashboard bar placeholder -->
+                <div class="dashboard_bar"></div>
+              </div>
+              <!-- Right side of the header with navigation items -->
+              <ul class="navbar-nav header-right">
+                <!-- Weather detail item -->
+                <li class="nav-item">
+                  <div class="d-flex weather-detail">
+                    <span><i class="las la-cloud"></i></span>
+                    Probolinggo, IDN
+                  </div>
+                </li>
+                <!-- Theme mode toggle dropdown -->
+                <li class="nav-item dropdown notification_dropdown">
+                  <a
+                    class="nav-link bell dz-theme-mode"
+                    href="javascript:void(0);"
+                  >
+                    <i id="icon-light" class="fas fa-sun"></i>
+                    <i id="icon-dark" class="fas fa-moon"></i>
+                  </a>
+                </li>
+                <!-- User profile dropdown -->
+                <li class="nav-item dropdown header-profile">
+                  <a
+                    class="nav-link"
+                    href="javascript:void(0)"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    <div class="header-info">
+                      <span class="text-black"
+                        >Hello,<strong>Franklin</strong></span
+                      >
+                      <p class="fs-12 mb-0">Super Admin</p>
+                    </div>
+                    <img
+                      src="images/profile/17.jpg"
+                      width="20"
+                      alt="User Profile Picture"
+                    />
+                  </a>
+                  <!-- Dropdown menu with profile and logout options -->
+                  <div class="dropdown-menu dropdown-menu-end">
+                    <a href="app-profile.html" class="dropdown-item ai-icon">
+                      <i
+                        class="fas fa-user text-primary"
+                        style="font-size: 18px"
+                      ></i>
+                      <span class="ms-2">Profile</span>
+                    </a>
+                    <a href="page-login.html" class="dropdown-item ai-icon">
+                      <i
+                        class="fas fa-sign-out-alt text-danger"
+                        style="font-size: 18px"
+                      ></i>
+                      <span class="ms-2">Logout</span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <!-- Header end -->
+
+      <!-- Sidebar start -->
+      <div class="deznav">
+        <div class="deznav-scroll">
+          <!-- Sidebar menu -->
+          <ul class="metismenu" id="menu">
+            <!-- Main section -->
+            <li>
+              <a
+                class="has-arrow ai-icon"
+                href="javascript:void(0);"
+                aria-expanded="false"
+              >
+                <i class="fas fa-chart-line fw-bold"></i>
+                <span class="nav-text">Main</span>
+              </a>
+              <ul aria-expanded="false">
+                <li><a href="index.html" class="fs-6">Dashboard</a></li>
+              </ul>
+            </li>
+            <!-- Payment section -->
+            <li>
+              <a
+                class="has-arrow ai-icon"
+                href="javascript:void(0);"
+                aria-expanded="false"
+              >
+                <i class="fas fa-money-check-alt fw-bold"></i>
+                <span class="nav-text">Payment</span>
+              </a>
+              <ul aria-expanded="false">
+                <li>
+                  <a href="payment_create.html" class="fs-6">Create Payment</a>
+                </li>
+                <li>
+                  <a href="payment_history.html" class="fs-6"
+                    >History Payment</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Master section -->
+            <li>
+              <a
+                class="has-arrow ai-icon"
+                href="javascript:void(0);"
+                aria-expanded="false"
+              >
+                <i class="fas fa-server fw-bold"></i>
+                <span class="nav-text">Master</span>
+              </a>
+              <ul aria-expanded="false">
+                <li>
+                  <a href="master_academic_year.html" class="fs-6"
+                    >Academic Year</a
+                  >
+                </li>
+                <li><a href="mater_student.html" class="fs-6">Student</a></li>
+              </ul>
+            </li>
+            <!-- Fees section -->
+            <li>
+              <a
+                class="has-arrow ai-icon"
+                href="javascript:void(0);"
+                aria-expanded="false"
+              >
+                <i class="fas fa-rupiah-sign fw-bold"></i>
+                <span class="nav-text">Fees</span>
+              </a>
+              <ul aria-expanded="false">
+                <li><a href="fee_setting.html" class="fs-6">Fee Setting</a></li>
+                <li>
+                  <a href="fee_exemption.html" class="fs-6">Fee Exemption</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <!-- Footer with copyright information -->
+          <div class="copyright">
+            <p><strong>Payment App</strong> © 2024 All Rights Reserved</p>
+            <p>Developed by _LnH'79</p>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar end -->
+
+      <!-- Content body start -->
+      <div class="content-body default-height">
+        <div class="container-fluid">
+          <!-- Section heading -->
+          <div class="form-head mb-4">
+            <h2 class="text-black font-w600 mb-0">Dashboard</h2>
+          </div>
+
+          <!-- Row for overview cards -->
+          <div class="row">
+            <!-- Card for Total Iuran -->
+            <div class="col-xl-4">
+              <div class="card">
+                <div class="card-header flex-wrap border-0 pb-0">
+                  <div class="me-3 mb-2">
+                    <p class="fs-14 mb-1">Total Iuran</p>
+                    <span class="fs-24 text-black font-w600"
+                      >Rp. 10.000.000</span
+                    >
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  <canvas id="widgetChart1" height="80"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card for Iuran Terbayar -->
+            <div class="col-xl-4">
+              <div class="card">
+                <div class="card-header flex-wrap border-0 pb-0">
+                  <div class="me-3 mb-2">
+                    <p class="fs-14 mb-1">Iuran Terbayar</p>
+                    <span class="fs-24 text-black font-w600"
+                      >Rp. 2.000.000</span
+                    >
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  <canvas id="widgetChart2" height="80"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card for Sisa Iuaran -->
+            <div class="col-xl-4">
+              <div class="card overflow-hidden">
+                <div class="card-header d-sm-flex d-block border-0 pb-0">
+                  <div class="me-3 mb-2">
+                    <p class="fs-14 mb-1">Sisa Iuaran</p>
+                    <span class="fs-24 text-black font-w600"
+                      >Rp. 8.000.000</span
+                    >
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  <canvas id="widgetChart3" height="80"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row for detailed information -->
+          <div class="row">
+            <!-- Card for Pembayaran Hari Ini -->
+            <div class="col-xl-6">
+              <div class="card">
+                <div
+                  class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap"
+                >
+                  <div class="pr-3 me-auto mb-sm-0 mb-3">
+                    <h4 class="fs-20 text-black mb-1">Pembayaran Hari Ini</h4>
+                    <span class="fs-12">01 September 2024</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table
+                      id="example"
+                      class="table table-striped display min-w850"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Nomor Transaksi</th>
+                          <th>Siswa</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>PS010</td>
+                          <td>88990 | Joko</td>
+                          <td>Rp 100,000</td>
+                        </tr>
+                        <tr>
+                          <td>PS011</td>
+                          <td>88991 | Siti</td>
+                          <td>Rp 150,000</td>
+                        </tr>
+                        <tr>
+                          <td>PS012</td>
+                          <td>88992 | Budi</td>
+                          <td>Rp 200,000</td>
+                        </tr>
+                        <tr>
+                          <td>PS013</td>
+                          <td>88993 | Dewi</td>
+                          <td>Rp 250,000</td>
+                        </tr>
+                        <tr>
+                          <td>PS014</td>
+                          <td>88994 | Edi</td>
+                          <td>Rp 300,000</td>
+                        </tr>
+                        <tr>
+                          <td>PS015</td>
+                          <td>88995 | Lina</td>
+                          <td>Rp 350,000</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card for Detail Iuran -->
+            <div class="col-xl-6">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <!-- Detail Iuran List -->
+                    <div class="col-xl-5 col-xxl-12 col-md-5">
+                      <h4 class="fs-20 text-black mb-4">Detail Iuran</h4>
+                      <div class="row">
+                        <!-- Detail item: LKS -->
+                        <div
+                          class="d-flex col-xl-12 col-xxl-6 col-md-12 col-sm-6 mb-4"
+                        >
+                          <svg
+                            class="me-3"
+                            width="14"
+                            height="54"
+                            viewBox="0 0 14 54"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              x="-6.10352e-05"
+                              width="14"
+                              height="54"
+                              rx="7"
+                              fill="#AC39D4"
+                            />
+                          </svg>
+                          <div>
+                            <p class="fs-14 mb-2">LKS</p>
+                            <span class="fs-14 font-w500"
+                              ><span class="text-black me-2">Rp. 100.000</span
+                              >/RP. 200.000</span
+                            >
+                          </div>
+                        </div>
+
+                        <!-- Detail item: Tasyakuran -->
+                        <div
+                          class="d-flex col-xl-12 col-xxl-6 col-md-12 col-sm-6 mb-4"
+                        >
+                          <svg
+                            class="me-3"
+                            width="14"
+                            height="54"
+                            viewBox="0 0 14 54"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              x="-6.10352e-05"
+                              width="14"
+                              height="54"
+                              rx="7"
+                              fill="#40D4A8"
+                            />
+                          </svg>
+                          <div>
+                            <p class="fs-14 mb-2">Tasyakuran</p>
+                            <span class="fs-14 font-w500"
+                              ><span class="text-black me-2">Rp. 100.000</span
+                              >/RP. 200.000</span
+                            >
+                          </div>
+                        </div>
+
+                        <!-- Detail item: Kelulusan -->
+                        <div
+                          class="d-flex col-xl-12 col-xxl-6 col-md-12 col-sm-6 mb-4"
+                        >
+                          <svg
+                            class="me-3"
+                            width="14"
+                            height="54"
+                            viewBox="0 0 14 54"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              x="-6.10352e-05"
+                              width="14"
+                              height="54"
+                              rx="7"
+                              fill="#1EB6E7"
+                            />
+                          </svg>
+                          <div>
+                            <p class="fs-14 mb-2">Kelulusan</p>
+                            <span class="fs-14 font-w500"
+                              ><span class="text-black me-2">Rp. 100.000</span
+                              >/RP. 200.000</span
+                            >
+                          </div>
+                        </div>
+
+                        <!-- Detail item: Total -->
+                        <div
+                          class="d-flex col-xl-12 col-xxl-6 col-md-12 col-sm-6 mb-4"
+                        >
+                          <svg
+                            class="me-3"
+                            width="14"
+                            height="54"
+                            viewBox="0 0 14 54"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <rect
+                              x="-6.10352e-05"
+                              width="14"
+                              height="54"
+                              rx="7"
+                              fill="#461EE7"
+                            />
+                          </svg>
+                          <div>
+                            <p class="fs-14 mb-2">Total</p>
+                            <span class="fs-14 font-w500"
+                              ><span class="text-black me-2">Rp. 100.000</span
+                              >/RP. 200.000</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Donut charts for each detail -->
+                    <div class="col-xl-7 col-xxl-12 col-md-7">
+                      <div class="row g-3">
+                        <!-- Donut chart: LKS -->
+                        <div class="col-sm-6">
+                          <div class="bg-secondary rounded text-center p-3">
+                            <div
+                              class="d-inline-block position-relative donut-chart-sale mb-3"
+                            >
+                              <span
+                                class="donut1"
+                                data-peity='{ "fill": ["rgb(255, 255, 255)", "rgba(255, 255, 255, 0.2)"], "innerRadius": 33, "radius": 10}'
+                                >5/8</span
+                              >
+                              <small class="text-white">71%</small>
+                            </div>
+                            <span class="fs-14 text-white d-block">LKS</span>
+                          </div>
+                        </div>
+
+                        <!-- Donut chart: Tasyakuran -->
+                        <div class="col-sm-6">
+                          <div class="bg-success rounded text-center p-3">
+                            <div
+                              class="d-inline-block position-relative donut-chart-sale mb-3"
+                            >
+                              <span
+                                class="donut1"
+                                data-peity='{ "fill": ["rgb(255, 255, 255)", "rgba(255, 255, 255, 0.2)"], "innerRadius": 33, "radius": 10}'
+                                >3/8</span
+                              >
+                              <small class="text-white">30%</small>
+                            </div>
+                            <span class="fs-14 text-white d-block"
+                              >Tasyakuran</span
+                            >
+                          </div>
+                        </div>
+
+                        <!-- Donut chart: Kelulusan -->
+                        <div class="col-sm-6">
+                          <div
+                            class="border border-2 border-primary rounded text-center p-3"
+                          >
+                            <div
+                              class="d-inline-block position-relative donut-chart-sale mb-3"
+                            >
+                              <span
+                                class="donut1"
+                                data-peity='{ "fill": ["rgb(30, 170, 231)", "rgba(234, 234, 234, 1)"], "innerRadius": 33, "radius": 10}'
+                                >1/8</span
+                              >
+                              <small class="text-black">5%</small>
+                            </div>
+                            <span class="fs-14 text-black d-block"
+                              >Kelulusan</span
+                            >
+                          </div>
+                        </div>
+
+                        <!-- Donut chart: Total -->
+                        <div class="col-sm-6">
+                          <div class="bg-info rounded text-center p-3">
+                            <div
+                              class="d-inline-block position-relative donut-chart-sale mb-3"
+                            >
+                              <span
+                                class="donut1"
+                                data-peity='{ "fill": ["rgb(255, 255, 255)", "rgba(255, 255, 255, 0.2)"], "innerRadius": 33, "radius": 10}'
+                                >9/10</span
+                              >
+                              <small class="text-white">96%</small>
+                            </div>
+                            <span class="fs-14 text-white d-block">Total</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Content body end -->
+
+      <!-- Footer start -->
+      <div class="footer">
+        <div class="copyright">
+          <p>
+            Copyright © Designed &amp; Developed by
+            <a href="" target="_blank">_LnH'79</a>
+            <span class="current-year">2024</span>
+          </p>
+        </div>
+      </div>
+      <!-- Footer end -->
+    </div>
+    <!--Main wrapper end-->
+
+    <!-- Scripts start -->
+    <!-- Required vendors start -->
+    <script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="vendor/chart-js/chart.bundle.min.js"></script>
+    <script src="vendor/owl-carousel/owl.carousel.js"></script>
+    <!-- Required vendors end -->
+
+    <!-- Chart piety plugin files start -->
+    <script src="vendor/peity/jquery.peity.min.js"></script>
+    <!-- Chart piety plugin files end -->
+
+    <!-- Apex Chart start -->
+    <script src="vendor/apexchart/apexchart.js"></script>
+    <!-- Apex Chart end -->
+
+    <!-- Dashboard 1 start -->
+    <script src="js/dashboard/dashboard-1.js"></script>
+    <!-- Dashboard 1 end -->
+
+    <!-- Custom scripts start -->
+    <script src="js/custom.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <!-- Custom scripts end -->
+    <!-- Scripts end -->
+
+    <!-- Script theme mode start -->
+    <script>
+      jQuery(document).ready(function () {
+        setTimeout(function () {
+          dezSettingsOptions.version = "light";
+          new dezSettings(dezSettingsOptions);
+          setCookie("version", "light");
+        }, 1500);
+      });
+    </script>
+    <!-- Script theme mode end -->
+  </body>
+</html>
