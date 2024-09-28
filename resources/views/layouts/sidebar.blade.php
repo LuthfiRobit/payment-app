@@ -35,10 +35,10 @@
                     <span class="nav-text">Master</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li>
-                        <a href="master_academic_year.html" class="fs-6">Academic Year</a>
-                    </li>
-                    <li><a href="mater_student.html" class="fs-6">Student</a></li>
+                    <li><a href="{{ route('master-data.tahun-akademik.index') }}" class="fs-6">Tahun Akademik</a></li>
+                    <li><a href="{{ route('master-data.iuran.index') }}" class="fs-6">Iuran</a></li>
+                    <li><a href="{{ route('master-data.potongan.index') }}" class="fs-6">Potongan</a></li>
+                    <li><a href="{{ route('master-data.siswa.index') }}" class="fs-6">Siswa</a></li>
                 </ul>
             </li>
             <!-- Fees section -->
