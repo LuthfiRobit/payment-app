@@ -18,6 +18,7 @@ class TahunAkademik extends Model
 
     protected $fillable = [
         'tahun',
+        'semester',
         'status',
         'created_at',
         'updated_at'

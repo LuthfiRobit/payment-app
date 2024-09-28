@@ -34,6 +34,6 @@ class Potongan extends Model
      */
     public function potonganSiswa(): HasMany
     {
-        return $this->hasMany(PotonganSiswa::class, 'potongan_Id', 'id_potongan');
+        return $this->hasMany(PotonganSiswa::class, 'potongan_id', 'id_potongan');
     }
 }
