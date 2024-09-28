@@ -7,6 +7,8 @@
         Aplikasi Pembayaran Iuran Madrasah Ibtidaiyah Ihyauddiniyah Desa Kecil Besuk Probolinggo
     </title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Meta begin -->
     <!-- Set Karakter -->
     <meta charset="utf-8" />
@@ -87,6 +89,7 @@
     <script src="{{ asset('template/js/custom.min.js') }}"></script>
     {{-- <script src="{{ asset('template/js/deznav-init.js') }}"></script> --}}
     @include('layouts.deznav') <!-- Digunakan karna default js tidak bisa load -->
+    @include('layouts.costumeScript') <!-- Digunakan untuk form handler store/update -->
     <!-- Global script end -->
 
     <!-- Script theme mode start -->
@@ -100,6 +103,16 @@
         });
     </script>
     <!-- Script theme mode end -->
+
+    <!-- Script token start -->
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+    <!-- Script token end -->
 
     @yield('this-page-scripts') <!-- Menyertakan JS tambahan dari halaman -->
 </body>
