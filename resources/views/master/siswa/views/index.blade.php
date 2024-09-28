@@ -24,6 +24,20 @@
                             <span class="fs-12">Anda bisa memfilter berdasarkan status</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
+                            <!-- Filter Class -->
+                            <div class="">
+                                <select id="filter_kelas" class="selectpicker form-control wide form-select-md"
+                                    data-live-search="false" aria-describedby="instansi-feedback" placeholder="Pilih kelas"
+                                    required>
+                                    <option value="">Semua</option>
+                                    <option value="1">1 (Satu)</option>
+                                    <option value="2">2 (Dua)</option>
+                                    <option value="3">3 (Tiga)</option>
+                                    <option value="4">4 (Empat)</option>
+                                    <option value="5">5 (Lima)</option>
+                                    <option value="6">6 (Enam)</option>
+                                </select>
+                            </div>
                             <!-- Filter Activation Status -->
                             <div class="">
                                 <select id="filter_status" class="selectpicker form-control wide form-select-md"

@@ -9,6 +9,7 @@
                 type: 'GET',
                 data: function(d) {
                     d.filter_status = $('#filter_status').val(); // Send filter status
+                    d.filter_kelas = $('#filter_kelas').val(); // Send filter status
                 }
             },
             columns: [{
@@ -68,6 +69,10 @@
         });
 
         $('#filter_status').change(function() {
+            table.ajax.reload(); // Reload DataTable with new filter
+        });
+
+        $('#filter_kelas').change(function() {
             table.ajax.reload(); // Reload DataTable with new filter
         });
     });
