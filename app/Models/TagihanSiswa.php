@@ -50,6 +50,16 @@ class TagihanSiswa extends Model
     }
 
     /**
+     * Get all of the potonganSiswa for the TagihanSiswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function potonganSiswa(): HasMany
+    {
+        return $this->hasMany(PotonganSiswa::class, 'tagihan_siswa_id', 'id_tagihan_siswa');
+    }
+
+    /**
      * Get all of the rincianTagihan for the TagihanSiswa
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

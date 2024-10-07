@@ -27,6 +27,11 @@ class SiswaController extends Controller
             $query->where('status', $request->filter_status);
         }
 
+        // Filter berdasarkan kelas jika ada
+        if ($request->has('filter_kelas') && $request->filter_kelas != '') {
+            $query->where('kelas', $request->filter_kelas);
+        }
+
         $result = $query->get();
 
         // Mengambil data dengan Yajra DataTables

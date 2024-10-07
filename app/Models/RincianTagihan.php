@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class RincianTagihan extends Model
 {
@@ -23,7 +24,8 @@ class RincianTagihan extends Model
         'potongan_siswa_id',
         'besar_tagihan',
         'besar_potongan',
-        'sisa_iuran',
+        'total_tagihan',
+        'sisa_tagihan',
         'status',
         'created_at',
         'updated_at'
@@ -71,5 +73,32 @@ class RincianTagihan extends Model
     public function rincianTransaksi(): HasMany
     {
         return $this->hasMany(RincianTransaksi::class, 'rincian_tagihan_id', 'id_rincian_tagihan');
+    }
+
+    /**
+     * Additional method
+     */
+
+    // Method untuk mendapatkan data rincian tagihan berdasarkan tagihan id
+    public static function getByTagihan($id_tagihan)
+    {
+        $query = DB::table('rincian_tagihan')
+            ->leftJoin('tagihan_siswa', 'tagihan_siswa.id_tagihan_siswa', '=', 'rincian_tagihan.tagihan_siswa_id')
+            ->leftJoin('iuran', 'iuran.id_iuran', '=', 'tagihan_siswa.iuran_id')
+            ->leftJoin('potongan_siswa', 'potongan_siswa.id_potongan_siswa', '=', 'rincian_tagihan.potongan_siswa_id')
+            ->leftJoin('potongan', 'potongan.id_potongan', '=', 'potongan_siswa.potongan_id')
+            ->where('tagihan_id', $id_tagihan)
+            ->select(
+                'rincian_tagihan.tagihan_id',
+                'iuran.nama_iuran',
+                'rincian_tagihan.besar_tagihan',
+                'potongan.nama_potongan',
+                'potongan_siswa.potongan_persen',
+                'rincian_tagihan.besar_potongan',
+                'rincian_tagihan.total_tagihan',
+                'rincian_tagihan.status'
+            );
+
+        return $query->get();
     }
 }

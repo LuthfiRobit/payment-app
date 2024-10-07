@@ -13,14 +13,14 @@
     <div class="content-body default-height">
         <div class="container-fluid">
             <div class="form-head mb-4">
-                <h2 class="text-black font-w600 mb-0">Master - Siswa</h2>
+                <h2 class="text-black font-w600 mb-0">Setting - Tagihan Siswa</h2>
             </div>
             <!-- coba -->
             <div class="row">
                 <div class="card">
                     <div class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap">
                         <div class="pr-3 me-auto mb-sm-0 mb-3">
-                            <h4 class="fs-20 text-black mb-1">List Siswa</h4>
+                            <h4 class="fs-20 text-black mb-1">List Tagihan Siswa</h4>
                             <span class="fs-12">Anda bisa memfilter berdasarkan status</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
@@ -49,14 +49,14 @@
                                 </select>
                             </div>
                             <!-- Import Button -->
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-secondary btn-sm"
+                            {{-- <a href="javascript:void(0)" class="btn btn-rounded btn-outline-secondary btn-sm"
                                 data-bs-toggle="modal" data-bs-target="#ImportModal" title="Import">
                                 <i class="las la-file-import scale5 me-1"></i>Import
-                            </a>
+                            </a> --}}
                             <!-- Create Button -->
                             <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
-                                data-bs-toggle="modal" data-bs-target="#ModalCreate" title="Create">
-                                <i class="las la-plus scale5 me-1"></i>Buat
+                                id="setTagihanMassalBtn" title="Set tagihan siswa">
+                                <i class="las la-plus scale5 me-1"></i>Set Tagihan *
                             </a>
                         </div>
                     </div>
@@ -66,7 +66,8 @@
                                 <div class="col-lg-6 col-sm-12">
                                     <strong>Catatan :</strong> <br />
                                     <span>Gunakan template import untuk melakukan import
-                                        data</span>
+                                        data</span> <br>
+                                    <span>* Pilih setidaknya satu siswa untuk set tagihan</span>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <strong>Ekstra :</strong> <br />
@@ -79,11 +80,13 @@
                             <table id="example" class="table table-striped display min-w850">
                                 <thead>
                                     <tr>
+                                        <th style="max-width: 5px"><input type="checkbox" class="form-check-input"
+                                                id="selectAll"></th>
                                         <th>Aksi</th>
                                         <th>NIS</th>
                                         <th>Nama Siswa</th>
                                         <th>Kelas</th>
-                                        <th>No. Telepon</th>
+                                        <th>Tagihan</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -96,11 +99,13 @@
                 </div>
             </div>
         </div>
+
     </div>
 
-    @include('master.siswa.views.create')
-    @include('master.siswa.views.import')
-    @include('master.siswa.views.edit')
+    @include('setting.tagihan.views.create')
+    {{-- @include('setting.tagihan.views.import') --}}
+    {{-- @include('setting.tagihan.views.edit') --}}
+    @include('setting.tagihan.views.detail')
 @endsection
 
 @section('this-page-scripts')
@@ -112,8 +117,8 @@
     {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
     {{-- <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> --}}
 
-    @include('master.siswa.scripts.store')
-    @include('master.siswa.scripts.list')
-    @include('master.siswa.scripts.show')
-    @include('master.siswa.scripts.update')
+    @include('setting.tagihan.scripts.store')
+    @include('setting.tagihan.scripts.list')
+    @include('setting.tagihan.scripts.show')
+    {{-- @include('setting.tagihan.scripts.update') --}}
 @endsection

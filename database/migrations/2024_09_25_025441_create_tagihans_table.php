@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('besar_tagihan');
             $table->integer('besar_potongan');
             $table->integer('total_tagihan');
+            $table->integer('sisa_tagihan');
             $table->enum('status', ['lunas', 'belum lunas']);
             $table->timestamps();
 

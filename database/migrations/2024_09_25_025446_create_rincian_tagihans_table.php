@@ -18,7 +18,8 @@ return new class extends Migration
             $table->uuid('potongan_siswa_id')->nullable();
             $table->integer('besar_tagihan');
             $table->integer('besar_potongan');
-            $table->integer('sisa_iuran');
+            $table->integer('total_tagihan');
+            $table->integer('sisa_tagihan');
             $table->enum('status', ['lunas', 'belum lunas']);
             $table->timestamps();
 

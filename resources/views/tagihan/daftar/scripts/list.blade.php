@@ -5,11 +5,11 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ route('master-data.siswa.list') }}', // Adjust to your route
+                url: '{{ route('tagihan.daftar-tagihan.list') }}', // Adjust to your route
                 type: 'GET',
                 data: function(d) {
-                    d.filter_status = $('#filter_status').val(); // Send filter status
                     d.filter_kelas = $('#filter_kelas').val(); // Send filter status
+                    d.filter_status = $('#filter_status').val(); // Send filter status
                 }
             },
             columns: [{
@@ -19,14 +19,14 @@
                     searchable: false
                 },
                 {
-                    data: 'nis',
-                    name: 'nis',
+                    data: 'tahun_akademik',
+                    name: 'tahun_akademik',
                     orderable: false,
                     searchable: true
                 },
                 {
-                    data: 'nama_siswa',
-                    name: 'nama_siswa',
+                    data: 'siswa',
+                    name: 'siswa',
                     orderable: false,
                     searchable: true
                 },
@@ -37,8 +37,20 @@
                     searchable: false
                 },
                 {
-                    data: 'nomor_telepon',
-                    name: 'nomor_telepon',
+                    data: 'besar_tagihan',
+                    name: 'besar_tagihan',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'besar_potongan',
+                    name: 'besar_potongan',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'total_tagihan',
+                    name: 'total_tagihan',
                     orderable: false,
                     searchable: false
                 },
@@ -61,10 +73,10 @@
             // Hanya cari jika panjang karakter >= 4
             if (searchValue.length >= 4) {
                 // Cari di kolom NIS (kolom index 1) dan Nama Siswa (kolom index 2)
-                table.columns([1, 2]).search(searchValue).draw();
+                table.columns([2]).search(searchValue).draw();
             } else {
                 // Kosongkan pencarian jika kurang dari 4 karakter
-                table.columns([1, 2]).search('').draw();
+                table.columns([2]).search('').draw();
             }
         });
 

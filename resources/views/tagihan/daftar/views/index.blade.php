@@ -7,20 +7,50 @@
     <link href="{{ asset('template/vendor/datatables/responsive/responsive.css') }}" rel="stylesheet" />
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"> --}}
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"> --}}
+    <style>
+        #container-rincian .rincian-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            /* Add padding for better spacing */
+        }
+
+        #container-rincian .rincian-item {
+            flex: 1;
+            /* Each item will take equal space */
+            min-width: 120px;
+            /* Adjust this width as needed */
+            text-align: left;
+            /* Align text to the left */
+        }
+
+        #container-rincian p {
+            margin: 0;
+            /* Remove margin for better alignment */
+        }
+
+        #container-rincian span {
+            display: block;
+            /* Ensure spans stack vertically */
+        }
+    </style>
 @endsection
 
 @section('content')
+    @php
+        $activeYear = \App\Helpers\AppHelper::getActiveAcademicYear();
+    @endphp
     <div class="content-body default-height">
         <div class="container-fluid">
             <div class="form-head mb-4">
-                <h2 class="text-black font-w600 mb-0">Master - Siswa</h2>
+                <h2 class="text-black font-w600 mb-0">Setting - Tagihan Siswa</h2>
             </div>
             <!-- coba -->
             <div class="row">
                 <div class="card">
                     <div class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap">
                         <div class="pr-3 me-auto mb-sm-0 mb-3">
-                            <h4 class="fs-20 text-black mb-1">List Siswa</h4>
+                            <h4 class="fs-20 text-black mb-1">List Tagihan Siswa</h4>
                             <span class="fs-12">Anda bisa memfilter berdasarkan status</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
@@ -38,26 +68,15 @@
                                     <option value="6">6 (Enam)</option>
                                 </select>
                             </div>
-                            <!-- Filter Activation Status -->
                             <div class="">
                                 <select id="filter_status" class="selectpicker form-control wide form-select-md"
                                     data-live-search="false" aria-describedby="instansi-feedback" placeholder="Pilih status"
                                     required>
                                     <option value="">Semua</option>
-                                    <option value="aktif">Aktif</option>
-                                    <option value="tidak aktif">Tidak aktif</option>
+                                    <option value="lunas">Lunas</option>
+                                    <option value="belum lunas">Belum Lunas</option>
                                 </select>
                             </div>
-                            <!-- Import Button -->
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-secondary btn-sm"
-                                data-bs-toggle="modal" data-bs-target="#ImportModal" title="Import">
-                                <i class="las la-file-import scale5 me-1"></i>Import
-                            </a>
-                            <!-- Create Button -->
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
-                                data-bs-toggle="modal" data-bs-target="#ModalCreate" title="Create">
-                                <i class="las la-plus scale5 me-1"></i>Buat
-                            </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -66,7 +85,8 @@
                                 <div class="col-lg-6 col-sm-12">
                                     <strong>Catatan :</strong> <br />
                                     <span>Gunakan template import untuk melakukan import
-                                        data</span>
+                                        data</span> <br>
+                                    <span>* Pilih setidaknya satu siswa untuk set tagihan</span>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <strong>Ekstra :</strong> <br />
@@ -80,10 +100,12 @@
                                 <thead>
                                     <tr>
                                         <th>Aksi</th>
-                                        <th>NIS</th>
-                                        <th>Nama Siswa</th>
+                                        <th>Tahun Akademik</th>
+                                        <th>Siswa</th>
                                         <th>Kelas</th>
-                                        <th>No. Telepon</th>
+                                        <th>Besar Tagihan</th>
+                                        <th>Besar Potongan</th>
+                                        <th>Total Tagihan</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -96,11 +118,13 @@
                 </div>
             </div>
         </div>
+
     </div>
 
-    @include('master.siswa.views.create')
-    @include('master.siswa.views.import')
-    @include('master.siswa.views.edit')
+    {{-- @include('tagihan.daftar.views.create') --}}
+    {{-- @include('tagihan.daftar.views.import') --}}
+    {{-- @include('tagihan.daftar.views.edit') --}}
+    @include('tagihan.daftar.views.detail')
 @endsection
 
 @section('this-page-scripts')
@@ -112,8 +136,8 @@
     {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
     {{-- <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> --}}
 
-    @include('master.siswa.scripts.store')
-    @include('master.siswa.scripts.list')
-    @include('master.siswa.scripts.show')
-    @include('master.siswa.scripts.update')
+    {{-- @include('tagihan.daftar.scripts.store') --}}
+    @include('tagihan.daftar.scripts.list')
+    @include('tagihan.daftar.scripts.show')
+    {{-- @include('tagihan.daftar.scripts.update') --}}
 @endsection

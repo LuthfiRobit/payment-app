@@ -5,28 +5,23 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ route('master-data.siswa.list') }}', // Adjust to your route
+                url: '{{ route('tagihan.generate-tagihan.list') }}', // Adjust to your route
                 type: 'GET',
                 data: function(d) {
-                    d.filter_status = $('#filter_status').val(); // Send filter status
                     d.filter_kelas = $('#filter_kelas').val(); // Send filter status
+                    d.filter_tagihan = $('#filter_tagihan').val(); // Send filter status
+                    d.filter_potongan = $('#filter_potongan').val(); // Send filter status
                 }
             },
             columns: [{
-                    data: 'aksi',
-                    name: 'aksi',
+                    data: 'checkbox',
+                    name: 'checkbox',
                     orderable: false,
                     searchable: false
                 },
                 {
-                    data: 'nis',
-                    name: 'nis',
-                    orderable: false,
-                    searchable: true
-                },
-                {
-                    data: 'nama_siswa',
-                    name: 'nama_siswa',
+                    data: 'siswa',
+                    name: 'siswa',
                     orderable: false,
                     searchable: true
                 },
@@ -37,14 +32,14 @@
                     searchable: false
                 },
                 {
-                    data: 'nomor_telepon',
-                    name: 'nomor_telepon',
+                    data: 'iuran',
+                    name: 'iuran',
                     orderable: false,
                     searchable: false
                 },
                 {
-                    data: 'status',
-                    name: 'status',
+                    data: 'potongan',
+                    name: 'potongan',
                     orderable: false,
                     searchable: false
                 }
@@ -68,12 +63,25 @@
             }
         });
 
-        $('#filter_status').change(function() {
+        $('#filter_potongan').change(function() {
+            table.ajax.reload(); // Reload DataTable with new filter
+        });
+
+        $('#filter_tagihan').change(function() {
             table.ajax.reload(); // Reload DataTable with new filter
         });
 
         $('#filter_kelas').change(function() {
             table.ajax.reload(); // Reload DataTable with new filter
+        });
+
+        // // Select All checkbox logic
+        $('#selectAll').click(function() {
+            // Dapatkan status checked dari checkbox 'selectAll'
+            var isChecked = $(this).prop('checked');
+
+            // Pilih hanya checkbox yang tidak disabled dan set checked sesuai status selectAll
+            $('.siswa-checkbox:not(:disabled)').prop('checked', isChecked);
         });
     });
 </script>
