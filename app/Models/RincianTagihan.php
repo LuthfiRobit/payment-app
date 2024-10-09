@@ -90,12 +90,14 @@ class RincianTagihan extends Model
             ->where('tagihan_id', $id_tagihan)
             ->select(
                 'rincian_tagihan.tagihan_id',
+                'rincian_tagihan.id_rincian_tagihan',
                 'iuran.nama_iuran',
                 'rincian_tagihan.besar_tagihan',
                 'potongan.nama_potongan',
                 'potongan_siswa.potongan_persen',
                 'rincian_tagihan.besar_potongan',
                 'rincian_tagihan.total_tagihan',
+                'rincian_tagihan.sisa_tagihan',
                 'rincian_tagihan.status'
             );
 

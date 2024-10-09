@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->uuid('id_transaksi')->primary();
+            $table->string('nomor_transaksi')->unique(); // Kolom untuk nomor transaksi
             $table->uuid('siswa_id')->nullable();
             $table->uuid('tagihan_id')->nullable();
             $table->integer('jumlah_bayar');
