@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Master\IuranController;
 use App\Http\Controllers\Master\PotonganController;
 use App\Http\Controllers\Master\SiswaController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\Setting\PotonganSiswaController;
 use App\Http\Controllers\Setting\TagihanSiswaController;
 use App\Http\Controllers\Tagihan\DaftarTagihanController;
 use App\Http\Controllers\Tagihan\GenerateTagihanController;
+use App\Http\Controllers\Transaksi\LaporanController;
+use App\Http\Controllers\Transaksi\PembayaranController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +28,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('main')->name('main.')->group(
+    function () {
+
+        Route::prefix('dashboard')->name('dashboard.')->group(function () {
+            Route::get('/', [DashboardController::class, 'index'])->name('index');
+        });
+    }
+);
 
 Route::prefix('master-data')->name('master-data.')->group(function () {
 
@@ -65,6 +76,8 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::post('store', [SiswaController::class, 'store'])->name('store');
         Route::get('{id}', [SiswaController::class, 'show'])->name('show');
         Route::put('update/{id}', [SiswaController::class, 'update'])->name('update');
+        // Route for global usage
+        Route::get('/list/siswa', [SiswaController::class, 'getList'])->name('list-siswa');
     });
 });
 
@@ -92,7 +105,6 @@ Route::prefix('setting')->name('setting.')->group(function () {
     });
 });
 
-
 // Route group untuk setting
 Route::prefix('tagihan')->name('tagihan.')->group(function () {
 
@@ -114,5 +126,24 @@ Route::prefix('tagihan')->name('tagihan.')->group(function () {
         // Route::post('store-multiple', [DaftarTagihanController::class, 'storeMultiple'])->name('store-multiple');
         Route::get('{id}', [DaftarTagihanController::class, 'show'])->name('show');
         // Route::put('update/{id}', [GenerateTagihanController::class, 'update'])->name('update');
+    });
+});
+
+// Route group untuk transaksi
+Route::prefix('transaksi')->name('transaksi.')->group(function () {
+
+    //Route group untuk pembayaran
+    Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
+        Route::get('/', [PembayaranController::class, 'index'])->name('index');
+        Route::get('show', [PembayaranController::class, 'show'])->name('show');
+        Route::post('store', [PembayaranController::class, 'store'])->name('store');
+    });
+
+    //Route group untuk laporan
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        Route::get('/', [LaporanController::class, 'index'])->name('index');
+        Route::get('/list', [LaporanController::class, 'getData'])->name('list');
+        Route::get('/show/{id}', [LaporanController::class, 'show'])->name('show');
+        // Route::post('store', [PembayaranController::class, 'store'])->name('store');
     });
 });
