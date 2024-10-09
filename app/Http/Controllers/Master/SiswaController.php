@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Models\Siswa;
+use App\Services\ResponseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -12,6 +13,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class SiswaController extends Controller
 {
+    protected $responseService;
+
+    public function __construct(ResponseService $responseService)
+    {
+        $this->responseService = $responseService;
+    }
+
     public function index()
     {
         return view('master.siswa.views.index');
@@ -211,6 +219,34 @@ class SiswaController extends Controller
                 'success' => false,
                 'message' => 'Terjadi kesalahan saat memperbarui siswa.',
             ], 500);
+        }
+    }
+
+    public function getList(Request $request)
+    {
+        try {
+            $query = Siswa::select('id_siswa', 'nis', 'nama_siswa', 'kelas')
+                ->where('status', 'aktif');
+
+            // Cek jika ada parameter pencarian
+            if ($request->has('search') && !empty($request->input('search'))) {
+                $search = $request->input('search');
+                $query->where(function ($q) use ($search) {
+                    $q->where('nis', 'LIKE', "%{$search}%")
+                        ->orWhere('nama_siswa', 'LIKE', "%{$search}%");
+                });
+            }
+
+            $query = $query->orderBy('created_at', 'DESC')->get();
+            // Jika data ditemukan
+            return $this->responseService->successResponse('Data siswa berhasil ditemukan', $query);
+        } catch (\Exception $e) {
+
+            // Logging kesalahan untuk debugging
+            Log::error('Error saat mengambil data siswa: ' . $e->getMessage());
+
+            // Mengembalikan response error jika terjadi exception
+            return $this->responseService->errorResponse('Terjadi kesalahan saat mengambil data siswa', $e->getMessage());
         }
     }
 }
