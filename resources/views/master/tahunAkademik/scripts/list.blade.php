@@ -37,7 +37,7 @@
                   }
               ],
               language: {
-                  searchPlaceholder: "Cari tahun pelajaran",
+                  searchPlaceholder: "Cari tahun",
                   search: ''
               },
           });
@@ -63,5 +63,51 @@
           //       $('#ModalEdit').modal('show'); // Show edit modal
           //       // Fetch and fill data as needed
           //   });
+
+          // Event listener untuk switch
+          $(document).on('change', '.form-check-input[type="checkbox"]', function() {
+              var id = $(this).data('id');
+              var isChecked = $(this).is(':checked');
+
+              if (isChecked) {
+                  // Tampilkan SweetAlert untuk konfirmasi
+                  Swal.fire({
+                      title: 'Aktifkan Tahun Akademik?',
+                      text: "Apakah Anda yakin ingin mengaktifkan tahun akademik ini? Tindakan ini akan menonaktifkan tahun akademik lainnya.",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonText: 'Ya, Aktifkan!',
+                      cancelButtonText: 'Batal'
+                  }).then((result) => {
+                      if (result.isConfirmed) {
+                          // Kirim permintaan untuk mengganti status
+                          $.ajax({
+                              url: '{{ route('master-data.tahun-akademik.update.status') }}',
+                              method: 'POST',
+                              data: {
+                                  id: id
+                              },
+                              success: function(response) {
+                                  if (response.success) {
+                                      Swal.fire('Berhasil!', response.message,
+                                          'success');
+                                      table.ajax.reload(); // Reload data
+                                  } else {
+                                      Swal.fire('Gagal!', response.message, 'error');
+                                  }
+                              },
+                              error: function() {
+                                  Swal.fire('Gagal!',
+                                      'Terjadi kesalahan saat mengubah status tahun akademik.',
+                                      'error');
+                              }
+                          });
+                      } else {
+                          // Jika dibatalkan, set switch kembali
+                          $(this).prop('checked', false);
+                      }
+                  });
+              }
+          });
       });
   </script>
