@@ -35,10 +35,10 @@
                                 </select>
                             </div>
                             <!-- Import Button -->
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-secondary btn-sm"
+                            {{-- <a href="javascript:void(0)" class="btn btn-rounded btn-outline-secondary btn-sm"
                                 data-bs-toggle="modal" data-bs-target="#ImportModal" title="Import">
                                 <i class="las la-file-import scale5 me-1"></i>Import
-                            </a>
+                            </a> --}}
                             <!-- Create Button -->
                             <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
                                 data-bs-toggle="modal" data-bs-target="#ModalCreate" title="Create">
@@ -48,18 +48,14 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
-                            <div class="row g-1">
-                                <div class="col-lg-6 col-sm-12">
-                                    <strong>Catatan :</strong> <br />
-                                    <span>Gunakan template import untuk melakukan import
-                                        data</span>
-                                </div>
-                                <div class="col-lg-6 col-sm-12">
-                                    <strong>Ekstra :</strong> <br />
-                                    <a href=""><i class="fas fa-download me-1"></i> Template import
-                                        (excel)</a>
-                                </div>
-                            </div>
+                            <strong>Catatan:</strong> <br />
+                            <span>Gunakan fitur ini untuk mengelola iuran siswa dengan efisien. Anda dapat melakukan hal-hal
+                                berikut:</span>
+                            <ul>
+                                <li>Menambah iuran baru dengan mengisi formulir yang disediakan.</li>
+                                <li>Mengedit iuran yang sudah ada untuk memperbarui informasi.</li>
+                                <li>Mengaktifkan atau menonaktifkan status iuran sesuai kebutuhan.</li>
+                            </ul>
                         </div>
                         <div class="table-responsive">
                             <table id="example" class="table table-striped display min-w850">

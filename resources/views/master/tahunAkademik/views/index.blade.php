@@ -43,13 +43,21 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
-                            <div class="row g-1">
+                            <div class="row g-1 mt-3">
                                 <div class="col-lg-6 col-sm-12">
                                     <strong>Catatan:</strong> <br />
-                                    <span>Hanya satu tahun akademik yang dapat aktif pada satu waktu.</span>
+                                    <span>Gunakan fitur ini untuk mengelola tahun akademik dengan efisien. Anda dapat
+                                        melakukan
+                                        hal-hal berikut:</span>
+                                    <ul>
+                                        <li>Menambahkan tahun akademik baru dengan mengisi formulir yang disediakan.</li>
+                                        <li>Mengedit tahun akademik yang sudah ada untuk memperbarui informasi.</li>
+                                        <li>Mengaktifkan atau menonaktifkan status tahun akademik sesuai kebutuhan.</li>
+                                    </ul>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <strong>Ekstra:</strong> <br />
+                                    <span>Hanya satu tahun akademik yang dapat aktif pada satu waktu.</span> <br />
                                     <span>Pastikan pengaturan tagihan dan potongan siswa telah diselesaikan sebelum
                                         mengganti tahun akademik yang aktif.</span><br />
                                     <span>Pastikan semua tagihan telah dihasilkan sebelumnya sebelum mengaktifkan tahun
@@ -57,6 +65,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="table-responsive">
                             <table id="example" class="table table-striped display min-w850">
                                 <thead>

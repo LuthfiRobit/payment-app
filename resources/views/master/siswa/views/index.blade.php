@@ -62,19 +62,27 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
-                            <div class="row g-1">
+                            <strong>Catatan:</strong> <br />
+                            <span>Gunakan fitur ini untuk mengelola data master siswa dengan efisien. Anda dapat melakukan
+                                hal-hal berikut:</span>
+                            <ul>
+                                <li>Menambahkan data siswa baru dengan mengisi formulir yang disediakan.</li>
+                                <li>Mengedit data siswa yang sudah ada untuk memperbarui informasi.</li>
+                                <li>Mengaktifkan atau menonaktifkan status siswa sesuai kebutuhan.</li>
+                            </ul>
+
+                            <div class="row g-1 mt-3">
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Catatan :</strong> <br />
-                                    <span>Gunakan template import untuk melakukan import
-                                        data</span>
+                                    <strong>Catatan Import:</strong> <br />
+                                    <span>Gunakan template import untuk melakukan impor data siswa.</span>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Ekstra :</strong> <br />
-                                    <a href=""><i class="fas fa-download me-1"></i> Template import
-                                        (excel)</a>
+                                    <strong>Ekstra:</strong> <br />
+                                    <a href=""><i class="fas fa-download me-1"></i> Template import (Excel)</a>
                                 </div>
                             </div>
                         </div>
+
                         <div class="table-responsive">
                             <table id="example" class="table table-striped display min-w850">
                                 <thead>
