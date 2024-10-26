@@ -34,11 +34,6 @@
                                     <option value="tidak aktif">Tidak aktif</option>
                                 </select>
                             </div>
-                            <!-- Import Button -->
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-secondary btn-sm"
-                                data-bs-toggle="modal" data-bs-target="#ImportModal" title="Import">
-                                <i class="las la-file-import scale5 me-1"></i>Import
-                            </a>
                             <!-- Create Button -->
                             <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
                                 data-bs-toggle="modal" data-bs-target="#ModalCreate" title="Create">
@@ -48,25 +43,35 @@
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
-                            <div class="row g-1">
+                            <div class="row g-1 mt-3">
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Catatan :</strong> <br />
-                                    <span>Gunakan template import untuk melakukan import
-                                        data</span>
+                                    <strong>Catatan:</strong> <br />
+                                    <span>Gunakan fitur ini untuk mengelola tahun akademik dengan efisien. Anda dapat
+                                        melakukan
+                                        hal-hal berikut:</span>
+                                    <ul>
+                                        <li>Menambahkan tahun akademik baru dengan mengisi formulir yang disediakan.</li>
+                                        <li>Mengedit tahun akademik yang sudah ada untuk memperbarui informasi.</li>
+                                        <li>Mengaktifkan atau menonaktifkan status tahun akademik sesuai kebutuhan.</li>
+                                    </ul>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Ekstra :</strong> <br />
-                                    <a href=""><i class="fas fa-download me-1"></i> Template import
-                                        (excel)</a>
+                                    <strong>Ekstra:</strong> <br />
+                                    <span>Hanya satu tahun akademik yang dapat aktif pada satu waktu.</span> <br />
+                                    <span>Pastikan pengaturan tagihan dan potongan siswa telah diselesaikan sebelum
+                                        mengganti tahun akademik yang aktif.</span><br />
+                                    <span>Pastikan semua tagihan telah dihasilkan sebelumnya sebelum mengaktifkan tahun
+                                        akademik yang baru.</span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="table-responsive">
                             <table id="example" class="table table-striped display min-w850">
                                 <thead>
                                     <tr>
                                         <th>Aksi</th>
-                                        <th>Tahun Pelajaran</th>
+                                        <th>Tahun</th>
                                         <th>Semester</th>
                                         <th>Status</th>
                                     </tr>

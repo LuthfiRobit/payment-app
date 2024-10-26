@@ -25,13 +25,22 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
+                        {{-- <label for="status" class="form-label">Status</label>
                         <select id="status" class="selectpicker form-control wide form-select-md"
                             data-live-search="false" aria-describedby="instansi-feedback" placeholder="Pilih status"
                             required>
                             <option value="aktif">Aktif</option>
                             <option value="tidak aktif">Tidak Aktif</option>
-                        </select>
+                        </select> --}}
+                        <div class="alert alert-primary">
+                            <div class="row g-1">
+                                <div class="col-lg-12 col-sm-12">
+                                    <strong>Catatan:</strong> <br />
+                                    <span>Status secara otomatis diatur sistem, lakukan perubahan status pada
+                                        tabel.</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>

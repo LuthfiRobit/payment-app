@@ -3,7 +3,7 @@
         return {
             tahun: form.find('#tahun').val(),
             semester: form.find('#semester').val(),
-            status: form.find('#status').val()
+            // status: form.find('#status').val()
         };
     }
 

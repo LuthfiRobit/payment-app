@@ -32,8 +32,8 @@ class TahunAkademikController extends Controller
         return DataTables::of($result)
             ->addColumn('aksi', function ($item) {
                 return '<button class="btn btn-outline-primary btn-sm edit-button" title="Edit" data-id="' . $item->id_tahun_akademik . '">
-                    <i class="fas fa-edit"></i>
-                </button>';
+                <i class="fas fa-edit"></i>
+            </button>';
             })
             ->editColumn('tahun', function ($item) {
                 return $item->tahun;
@@ -42,9 +42,13 @@ class TahunAkademikController extends Controller
                 return strtoupper($item->semester); // Mengubah semester menjadi kapital
             })
             ->editColumn('status', function ($item) {
-                // Menampilkan status dalam bentuk badge dan kapital
-                $badgeClass = ($item->status == 'aktif') ? 'light badge-primary' : 'light badge-danger';
-                return '<span class="fs-7 badge ' . $badgeClass . '">' . strtoupper($item->status) . '</span>';
+                $checked = ($item->status == 'aktif') ? 'checked disabled' : '';
+                $label = ($item->status == 'aktif') ? 'Aktif' : 'Tidak Aktif';
+
+                return '<div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="switch_' . $item->id_tahun_akademik . '" ' . $checked . ' data-id="' . $item->id_tahun_akademik . '">
+                            <label class="form-check-label" for="switch_' . $item->id_tahun_akademik . '">' . $label . '</label>
+                        </div>';
             })
             ->rawColumns(['aksi', 'status']) // Tambahkan status agar HTML bisa dirender
             ->make(true);
@@ -56,7 +60,7 @@ class TahunAkademikController extends Controller
         $validatedData = $request->validate([
             'tahun' => 'required|regex:/^\d{4}\/\d{4}$/',
             'semester' => 'required|in:ganjil,genap',
-            'status' => 'required|in:aktif,tidak aktif', // Tanda underscore di sini
+            // 'status' => 'required|in:aktif,tidak aktif', // Tanda underscore di sini
         ]);
 
         try {
@@ -77,7 +81,7 @@ class TahunAkademikController extends Controller
             $tahunAkademik->id_tahun_akademik = Str::uuid(); // Menggunakan UUID
             $tahunAkademik->tahun = $request->tahun;
             $tahunAkademik->semester = $request->semester;
-            $tahunAkademik->status = $request->status;
+            $tahunAkademik->status = 'tidak aktif';
             // $tahunAkademik->created_at = now();
             // $tahunAkademik->updated_at = now();
             $tahunAkademik->save();
@@ -130,7 +134,7 @@ class TahunAkademikController extends Controller
         $validatedData = $request->validate([
             'tahun' => 'required|regex:/^\d{4}\/\d{4}$/',
             'semester' => 'required|in:ganjil,genap',
-            'status' => 'required|in:aktif,tidak aktif',
+            // 'status' => 'required|in:aktif,tidak aktif',
         ]);
 
         try {
@@ -160,7 +164,7 @@ class TahunAkademikController extends Controller
             // Update data tahun akademik
             $tahunAkademik->tahun = $request->tahun;
             $tahunAkademik->semester = $request->semester;
-            $tahunAkademik->status = $request->status;
+            // $tahunAkademik->status = $request->status;
             $tahunAkademik->save();
 
             return response()->json([
@@ -174,6 +178,35 @@ class TahunAkademikController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan saat memperbarui tahun akademik.',
+            ], 500);
+        }
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required|exists:tahun_akademik,id_tahun_akademik',
+        ]);
+
+        try {
+            // Nonaktifkan semua tahun akademik
+            TahunAkademik::query()->update(['status' => 'tidak aktif']);
+
+            // Aktifkan tahun akademik yang dipilih
+            $tahunAkademik = TahunAkademik::find($validatedData['id']);
+            $tahunAkademik->status = 'aktif';
+            $tahunAkademik->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Tahun akademik berhasil diaktifkan.',
+            ], 200); // 200 OK
+        } catch (\Exception $e) {
+            Log::error('Error saat mengubah status tahun akademik: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengubah status tahun akademik.',
             ], 500);
         }
     }
