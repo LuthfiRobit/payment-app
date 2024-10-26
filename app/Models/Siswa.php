@@ -90,13 +90,37 @@ class Siswa extends Model
     }
 
     /**
-     * Additional method
+     * Count the number of Siswa with an 'aktif' status
+     *
+     * @return int
      */
+    public static function countAktif()
+    {
+        return self::where('status', 'aktif')->count();
+    }
 
-    // Method untuk mendapatkan data siswa beserta tagihan
+    /**
+     * Count Siswa with tagihan for a specific academic year
+     *
+     * @param int|null $tahunAkademik
+     * @return int
+     */
+    public static function countWithTagihanForTahunAkademik($tahunAkademik = null)
+    {
+        return self::join('tagihan', 'siswa.id_siswa', '=', 'tagihan.siswa_id')
+            ->where('tagihan.tahun_akademik_id', $tahunAkademik)
+            ->count('siswa.id_siswa');
+    }
+
+    /**
+     * Get Siswa data along with their tagihan, applying optional filters
+     *
+     * @param array $filters
+     * @return \Illuminate\Support\Collection
+     */
     public static function getSiswaWithTagihan($filters = [])
     {
-        // Query Builder untuk mendapatkan data siswa beserta tagihan
+        // Query Builder to retrieve Siswa data along with tagihan
         $query = DB::table('siswa')
             ->select('siswa.id_siswa', 'siswa.nama_siswa as nama_siswa', 'siswa.nis', 'siswa.kelas', 'siswa.status')
             ->leftJoin('tagihan_siswa', 'siswa.id_siswa', '=', 'tagihan_siswa.siswa_id')
@@ -104,23 +128,29 @@ class Siswa extends Model
             ->groupBy('siswa.id_siswa')
             ->orderBy('siswa.created_at', 'DESC');
 
-        // Filter berdasarkan status jika ada
+        // Filter by status if provided
         if (!empty($filters['filter_status'])) {
             $query->where('siswa.status', $filters['filter_status']);
         }
 
-        // Filter berdasarkan kelas jika ada
+        // Filter by class if provided
         if (!empty($filters['filter_kelas'])) {
             $query->where('siswa.kelas', $filters['filter_kelas']);
         }
 
-        // Return data siswa beserta tagihan
+        // Return the retrieved Siswa data with tagihan
         return $query->get();
     }
 
+    /**
+     * Get Siswa data along with tagihan and potential discounts, applying optional filters
+     *
+     * @param array $filters
+     * @return \Illuminate\Support\Collection
+     */
     public static function getSiswaWithPotongan($filters = [])
     {
-        // Query Builder untuk mendapatkan data siswa beserta tagihan
+        // Query Builder to retrieve Siswa data along with tagihan and potongan
         $query = DB::table('siswa')
             ->select(
                 'siswa.id_siswa',
@@ -131,40 +161,45 @@ class Siswa extends Model
                 DB::raw('GROUP_CONCAT(DISTINCT iuran.nama_iuran SEPARATOR ", ") as tagihan'),
                 DB::raw('COALESCE(GROUP_CONCAT(DISTINCT potongan.nama_potongan SEPARATOR ", "), "tidak ada potongan") as potongan')
             )
-            ->join('tagihan_siswa', 'tagihan_siswa.siswa_id', '=', 'siswa.id_siswa') // Menggunakan INNER JOIN
-            ->leftJoin('iuran', 'tagihan_siswa.iuran_id', '=', 'iuran.id_iuran') // Masih LEFT JOIN untuk iuran
-            ->leftJoin('potongan_siswa', 'potongan_siswa.siswa_id', '=', 'siswa.id_siswa') // LEFT JOIN untuk potongan
-            ->leftJoin('potongan', 'potongan_siswa.potongan_id', '=', 'potongan.id_potongan') // LEFT JOIN untuk potongan
+            ->join('tagihan_siswa', 'tagihan_siswa.siswa_id', '=', 'siswa.id_siswa') // Using INNER JOIN
+            ->leftJoin('iuran', 'tagihan_siswa.iuran_id', '=', 'iuran.id_iuran') // LEFT JOIN for iuran
+            ->leftJoin('potongan_siswa', 'potongan_siswa.siswa_id', '=', 'siswa.id_siswa') // LEFT JOIN for potongan
+            ->leftJoin('potongan', 'potongan_siswa.potongan_id', '=', 'potongan.id_potongan') // LEFT JOIN for potongan
             ->groupBy('siswa.id_siswa')
             ->orderBy('siswa.created_at', 'DESC');
 
-
-        // Filter berdasarkan kelas jika ada
+        // Filter by class if provided
         if (!empty($filters['filter_kelas'])) {
             $query->where('siswa.kelas', $filters['filter_kelas']);
         }
 
-        // Filter berdasarkan potongan (apakah memiliki potongan atau tidak)
+        // Filter by potongan (whether they have a discount or not)
         if (isset($filters['filter_potongan'])) {
             if ($filters['filter_potongan'] == 'ada') {
-                // Menampilkan siswa yang memiliki potongan
+                // Show Siswa who have potongan
                 $query->havingRaw('COUNT(potongan.id_potongan) > 0');
             } elseif ($filters['filter_potongan'] == 'tidak') {
-                // Menampilkan siswa yang tidak memiliki potongan
+                // Show Siswa who do not have potongan
                 $query->havingRaw('COUNT(potongan.id_potongan) = 0');
             }
         }
 
-        // Return data siswa beserta tagihan
+        // Return the retrieved Siswa data along with tagihan and potongan
         return $query->get();
     }
 
+    /**
+     * Get Siswa data along with their tagihan filtered by the active academic year
+     *
+     * @param array $filters
+     * @return \Illuminate\Support\Collection
+     */
     public static function getSiswaWithTagihanByAkedemik($filters = [])
     {
         // Get the active academic year
         $activeAcademicYear = AppHelper::getActiveAcademicYear();
 
-        // Query Builder untuk mendapatkan data siswa beserta tagihan
+        // Query Builder to retrieve Siswa data along with tagihan
         $query = DB::table('siswa')
             ->select(
                 'siswa.id_siswa',
@@ -187,34 +222,34 @@ class Siswa extends Model
             ->groupBy('siswa.id_siswa')
             ->orderBy('siswa.created_at', 'DESC');
 
-        // Filter berdasarkan kelas jika ada
+        // Filter by class if provided
         if (!empty($filters['filter_kelas'])) {
             $query->where('siswa.kelas', $filters['filter_kelas']);
         }
 
-        // Filter berdasarkan potongan (apakah memiliki potongan atau tidak)
+        // Filter by potongan (whether they have a discount or not)
         if (isset($filters['filter_potongan'])) {
             if ($filters['filter_potongan'] == 'ada') {
-                // Menampilkan siswa yang memiliki potongan
+                // Show Siswa who have potongan
                 $query->havingRaw('COUNT(potongan.id_potongan) > 0');
             } elseif ($filters['filter_potongan'] == 'tidak') {
-                // Menampilkan siswa yang tidak memiliki potongan
+                // Show Siswa who do not have potongan
                 $query->havingRaw('COUNT(potongan.id_potongan) = 0');
             }
         }
 
-        // Filter berdasarkan tagihan (apakah memiliki tagihan atau tidak)
+        // Filter by tagihan (whether they have tagihan or not)
         if (isset($filters['filter_tagihan'])) {
             if ($filters['filter_tagihan'] == 'ada') {
-                // Menampilkan siswa yang memiliki tagihan
+                // Show Siswa who have tagihan
                 $query->havingRaw('COUNT(tagihan.id_tagihan) > 0');
             } elseif ($filters['filter_tagihan'] == 'tidak') {
-                // Menampilkan siswa yang tidak memiliki tagihan
+                // Show Siswa who do not have tagihan
                 $query->havingRaw('COUNT(tagihan.id_tagihan) = 0');
             }
         }
 
-        // Return data siswa beserta tagihan
+        // Return the retrieved Siswa data along with tagihan
         return $query->get();
     }
 }
