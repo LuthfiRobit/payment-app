@@ -34,11 +34,6 @@
                                     <option value="tidak aktif">Tidak aktif</option>
                                 </select>
                             </div>
-                            <!-- Import Button -->
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-secondary btn-sm"
-                                data-bs-toggle="modal" data-bs-target="#ImportModal" title="Import">
-                                <i class="las la-file-import scale5 me-1"></i>Import
-                            </a>
                             <!-- Create Button -->
                             <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
                                 data-bs-toggle="modal" data-bs-target="#ModalCreate" title="Create">
@@ -50,14 +45,15 @@
                         <div class="alert alert-primary">
                             <div class="row g-1">
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Catatan :</strong> <br />
-                                    <span>Gunakan template import untuk melakukan import
-                                        data</span>
+                                    <strong>Catatan:</strong> <br />
+                                    <span>Hanya satu tahun akademik yang dapat aktif pada satu waktu.</span>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Ekstra :</strong> <br />
-                                    <a href=""><i class="fas fa-download me-1"></i> Template import
-                                        (excel)</a>
+                                    <strong>Ekstra:</strong> <br />
+                                    <span>Pastikan pengaturan tagihan dan potongan siswa telah diselesaikan sebelum
+                                        mengganti tahun akademik yang aktif.</span><br />
+                                    <span>Pastikan semua tagihan telah dihasilkan sebelumnya sebelum mengaktifkan tahun
+                                        akademik yang baru.</span>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +62,7 @@
                                 <thead>
                                     <tr>
                                         <th>Aksi</th>
-                                        <th>Tahun Pelajaran</th>
+                                        <th>Tahun</th>
                                         <th>Semester</th>
                                         <th>Status</th>
                                     </tr>
