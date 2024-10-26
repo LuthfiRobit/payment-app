@@ -33,6 +33,10 @@ Route::prefix('main')->name('main.')->group(
 
         Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
+            Route::get('/show/report-one', [DashboardController::class, 'showReportOne'])->name('show.report.one');
+            Route::get('/show/report-two', [DashboardController::class, 'showReportTwo'])->name('show.report.two');
+            Route::get('/show/report-three', [DashboardController::class, 'showReportThree'])->name('show.report.three');
+            Route::get('/show/report-four', [DashboardController::class, 'showReportFour'])->name('show.report.four');
         });
     }
 );

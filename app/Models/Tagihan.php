@@ -79,6 +79,33 @@ class Tagihan extends Model
      * Additional method
      */
 
+
+    public static function  sumTagihan($tahunAkademikId)
+    {
+        // Mengambil semua total dalam satu query
+        $totals = self::select(
+            DB::raw('SUM(besar_tagihan) as total_besar_tagihan'),
+            DB::raw('SUM(besar_potongan) as total_besar_potongan'),
+            DB::raw('SUM(total_tagihan) as total_tagihan')
+        )
+            ->where('tahun_akademik_id', $tahunAkademikId)
+            ->first();
+
+        // Menghitung total bayar berdasarkan relasi dengan transaksi
+        $totalBayar = Transaksi::whereHas('tagihan', function ($query) use ($tahunAkademikId) {
+            $query->where('tahun_akademik_id', $tahunAkademikId);
+        })
+            ->sum('jumlah_bayar');
+
+        // Jika tidak ada hasil dari totals, atur ke nol
+        return [
+            'total_besar_tagihan' => $totals->total_besar_tagihan ?? 0,
+            'total_besar_potongan' => $totals->total_besar_potongan ?? 0,
+            'total_tagihan' => $totals->total_tagihan ?? 0,
+            'total_bayar' => $totalBayar ?? 0,
+        ];
+    }
+
     // Method untuk mendapatkan data tagihan berdasarkan tahun akademik
     public static function tagihanByTa($filters = [])
     {

@@ -63,10 +63,40 @@ class Transaksi extends Model
         return $this->hasMany(RincianTransaksi::class, 'transaksi_id', 'id_transaksi');
     }
 
-
     /**
      * Additional method
      */
+
+    /**
+     * Calculate the total jumlah_bayar for today's transactions
+     *
+     * @return float
+     */
+    public static function totalJumlahBayarToday()
+    {
+        return self::whereDate('tanggal_bayar', today())
+            ->sum('jumlah_bayar');
+    }
+
+    public static function getTransaksiToday()
+    {
+        return self::select('transaksi.nomor_transaksi', 'transaksi.jumlah_bayar', 'siswa.nis', 'siswa.nama_siswa')
+            ->leftJoin('siswa', 'siswa.id_siswa', '=', 'transaksi.siswa_id')
+            ->whereDate('transaksi.tanggal_bayar', today())
+            ->orderBy('transaksi.tanggal_bayar', 'DESC')
+            ->limit(5)
+            ->get();
+    }
+
+    public static function getTransaksiWeekly()
+    {
+        return self::select(DB::raw('DATE(tanggal_bayar) as date'), DB::raw('SUM(jumlah_bayar) as total_bayar'))
+            ->where('tanggal_bayar', '>=', now()->subDays(6)) // Last 7 days including today
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+    }
+
     // Method untuk mendapatkan data transaksi dengan filter yang diberikan
     public static function getTransaksiWithFilters($filters = [])
     {
@@ -87,7 +117,7 @@ class Transaksi extends Model
             ->leftJoin('siswa', 'siswa.id_siswa', '=', 'transaksi.siswa_id')
             ->leftJoin('tagihan', 'tagihan.id_tagihan', '=', 'transaksi.tagihan_id')
             ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'tagihan.tahun_akademik_id')
-            ->orderBy('transaksi.tanggal_bayar', 'DESC');
+            ->orderBy('transaksi.created_at', 'DESC');
 
         // Filter berdasarkan tahun akademik ID jika ada
         if (!empty($filters['filter_tahun'])) {
