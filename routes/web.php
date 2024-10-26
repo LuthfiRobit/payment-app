@@ -52,6 +52,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::get('{id}', [TahunAkademikController::class, 'show'])->name('show');
         // Route::get('tahun-akademik/{id}/edit', [TahunAkademikController::class, 'edit'])->name('edit');
         Route::put('update/{id}', [TahunAkademikController::class, 'update'])->name('update');
+        Route::post('update-status', [TahunAkademikController::class, 'updateStatus'])->name('update.status');
         // Route::delete('tahun-akademik/{id}', [TahunAkademikController::class, 'destroy'])->name('destroy');
     });
 
