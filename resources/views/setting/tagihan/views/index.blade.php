@@ -21,7 +21,7 @@
                     <div class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap">
                         <div class="pr-3 me-auto mb-sm-0 mb-3">
                             <h4 class="fs-20 text-black mb-1">List Tagihan Siswa</h4>
-                            <span class="fs-12">Anda bisa memfilter berdasarkan status</span>
+                            <span class="fs-12">Anda bisa memfilter berdasarkan kelas dan status siswa</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
                             <!-- Filter Class -->
@@ -64,15 +64,19 @@
                         <div class="alert alert-primary">
                             <div class="row g-1">
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Catatan :</strong> <br />
-                                    <span>Gunakan template import untuk melakukan import
-                                        data</span> <br>
-                                    <span>* Pilih setidaknya satu siswa untuk set tagihan</span>
+                                    <strong>Catatan:</strong> <br />
+                                    <span>Gunakan fitur ini untuk mengelola tagihan siswa dengan efisien. Anda dapat
+                                        melakukan hal-hal berikut:</span> <br />
+                                    <ul>
+                                        <li>Menambah tagihan baru, baik secara satuan maupun dalam jumlah banyak.</li>
+                                        <li>Mengaktifkan atau menonaktifkan status tagihan sesuai kebutuhan.</li>
+                                        <li>Siswa yang sudah memiliki tagihan akan terlihat pada halaman potongan.</li>
+                                    </ul>
+
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Ekstra :</strong> <br />
-                                    <a href=""><i class="fas fa-download me-1"></i> Template import
-                                        (excel)</a>
+                                    <strong>Ekstra:</strong> <br />
+                                    <span>* Pilih setidaknya satu siswa untuk mengatur tagihan.</span>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +85,7 @@
                                 <thead>
                                     <tr>
                                         <th style="max-width: 5px"><input type="checkbox" class="form-check-input"
-                                                id="selectAll"></th>
+                                                id="selectAll"> *</th>
                                         <th>Aksi</th>
                                         <th>NIS</th>
                                         <th>Nama Siswa</th>

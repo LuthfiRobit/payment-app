@@ -10,20 +10,22 @@
                  <div class="modal-body">
                      <input type="hidden" id="siswa_id">
                      <div class="mb-3">
-                         <label for="iuran_id" class="form-label">Iuran</label>
-                         <!-- Multiple select to choose more than one iuran -->
-                         <select class="form-control selectpicker" id="iuran_id" name="iuran_ids[]" multiple
-                             aria-describedby="iuran_idsHelpBlock">
+                         <label class="form-label">Iuran</label>
+                         <div id="iuran-checkboxes">
                              @foreach ($iuran as $i)
-                                 <option value="{{ $i->id_iuran }}">{{ $i->nama_iuran }} - {{ $i->besar_iuran }}
-                                 </option>
+                                 <div class="form-check">
+                                     <input class="form-check-input" type="checkbox" value="{{ $i->id_iuran }}"
+                                         id="iuran_{{ $i->id_iuran }}" name="iuran_ids[]">
+                                     <label class="form-check-label" for="iuran_{{ $i->id_iuran }}">
+                                         {{ $i->nama_iuran }} - {{ $i->besar_iuran }}
+                                     </label>
+                                 </div>
                              @endforeach
-                         </select>
-                         <small id="iuran_idsHelpBlock" class="form-text text-muted">
+                         </div>
+                         <small class="form-text text-muted">
                              Anda bisa memilih lebih dari satu iuran
                          </small>
                      </div>
-                     {{-- <button type="submit" class="btn btn-primary">Set Tagihan</button> --}}
                  </div>
                  <div class="modal-footer">
                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
