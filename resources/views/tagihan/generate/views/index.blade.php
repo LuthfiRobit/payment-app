@@ -15,8 +15,10 @@
     @endphp
     <div class="content-body default-height">
         <div class="container-fluid">
-            <div class="form-head mb-4">
-                <h2 class="text-black font-w600 mb-0">Setting - Tagihan Siswa</h2>
+            <div class="form-head mb-4 d-flex justify-content-between align-items-center">
+                <h2 class="text-black font-w600 mb-0">Tagihan - Generate Tagihan</h2>
+                <span class="badge badge-xl light badge-primary">Tahun Akademik
+                    {{ $activeYear ? $activeYear->tahun . '-' . $activeYear->semester : 'Tidak ada' }}</span>
             </div>
             <!-- coba -->
             <div class="row">
@@ -24,7 +26,8 @@
                     <div class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap">
                         <div class="pr-3 me-auto mb-sm-0 mb-3">
                             <h4 class="fs-20 text-black mb-1">List Tagihan Siswa</h4>
-                            <span class="fs-12">Anda bisa memfilter berdasarkan status</span>
+                            <span class="fs-12">Anda bisa memfilter berdasarkan kelas, status tagihan dan status
+                                potongan</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
                             <!-- Filter Class -->
@@ -69,15 +72,26 @@
                         <div class="alert alert-primary">
                             <div class="row g-1">
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Catatan :</strong> <br />
-                                    <span>Gunakan template import untuk melakukan import
-                                        data</span> <br>
-                                    <span>* Pilih setidaknya satu siswa untuk set tagihan</span>
+                                    <strong>Catatan:</strong> <br />
+                                    <span>Gunakan fitur ini untuk meng-generate tagihan siswa dengan efisien berdasarkan
+                                        tahun akademik aktif. Anda dapat melakukan hal-hal berikut:</span> <br />
+                                    <ul>
+                                        <li>Meng-generate tagihan, baik secara satuan maupun dalam jumlah banyak.</li>
+                                        <li>Hasil generate tagihan akan ditampilkan pada menu <strong><a
+                                                    href="{{ route('tagihan.daftar-tagihan.index') }}">Daftar
+                                                    Tagihan</a></strong>.</li>
+                                    </ul>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Ekstra :</strong> <br />
-                                    <a href=""><i class="fas fa-download me-1"></i> Template import
-                                        (excel)</a>
+                                    <strong>Ekstra:</strong> <br />
+                                    <span>* Pilih setidaknya satu siswa untuk meng-generate tagihan siswa.</span> <br />
+                                    <span>Data yang sudah ter-generate tidak bisa dikembalikan!</span> <br />
+                                    <span>Pastikan tagihan siswa sudah ter-plotting dengan benar pada menu <strong><a
+                                                href="{{ route('setting.tagihan-siswa.index') }}">Tagihan
+                                                Siswa</a></strong>.</span> <br />
+                                    <span>Pastikan potongan siswa sudah ter-plotting dengan benar pada menu <strong><a
+                                                href="{{ route('setting.potongan-siswa.index') }}">Potongan
+                                                Siswa</a></strong>.</span>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +100,7 @@
                                 <thead>
                                     <tr>
                                         <th style="max-width: 5px"><input type="checkbox" class="form-check-input"
-                                                id="selectAll"></th>
+                                                id="selectAll"> *</th>
                                         <th>Siswa</th>
                                         <th>Kelas</th>
                                         <th>Iuran</th>
