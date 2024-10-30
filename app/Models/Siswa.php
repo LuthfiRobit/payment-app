@@ -150,7 +150,7 @@ class Siswa extends Model
      */
     public static function getSiswaWithPotongan($filters = [])
     {
-        // Query Builder to retrieve Siswa data along with tagihan and potongan
+        // Query Builder to retrieve Siswa data along with tagihan and active potongan
         $query = DB::table('siswa')
             ->select(
                 'siswa.id_siswa',
@@ -163,7 +163,10 @@ class Siswa extends Model
             )
             ->join('tagihan_siswa', 'tagihan_siswa.siswa_id', '=', 'siswa.id_siswa') // Using INNER JOIN
             ->leftJoin('iuran', 'tagihan_siswa.iuran_id', '=', 'iuran.id_iuran') // LEFT JOIN for iuran
-            ->leftJoin('potongan_siswa', 'potongan_siswa.siswa_id', '=', 'siswa.id_siswa') // LEFT JOIN for potongan
+            ->leftJoin('potongan_siswa', function ($join) {
+                $join->on('potongan_siswa.siswa_id', '=', 'siswa.id_siswa')
+                    ->where('potongan_siswa.status', 'aktif'); // Filter for active potongan
+            })
             ->leftJoin('potongan', 'potongan_siswa.potongan_id', '=', 'potongan.id_potongan') // LEFT JOIN for potongan
             ->groupBy('siswa.id_siswa')
             ->orderBy('siswa.created_at', 'DESC');
@@ -187,6 +190,7 @@ class Siswa extends Model
         // Return the retrieved Siswa data along with tagihan and potongan
         return $query->get();
     }
+
 
     /**
      * Get Siswa data along with their tagihan filtered by the active academic year
@@ -213,7 +217,10 @@ class Siswa extends Model
             )
             ->join('tagihan_siswa', 'tagihan_siswa.siswa_id', '=', 'siswa.id_siswa')
             ->leftJoin('iuran', 'tagihan_siswa.iuran_id', '=', 'iuran.id_iuran')
-            ->leftJoin('potongan_siswa', 'potongan_siswa.siswa_id', '=', 'siswa.id_siswa')
+            ->leftJoin('potongan_siswa', function ($join) {
+                $join->on('potongan_siswa.siswa_id', '=', 'siswa.id_siswa')
+                    ->where('potongan_siswa.status', 'aktif'); // Filter for active potongan
+            })
             ->leftJoin('potongan', 'potongan_siswa.potongan_id', '=', 'potongan.id_potongan')
             ->leftJoin('tagihan', function ($join) use ($activeAcademicYear) {
                 $join->on('tagihan.siswa_id', '=', 'siswa.id_siswa')
