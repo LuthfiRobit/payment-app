@@ -42,8 +42,10 @@
     @endphp
     <div class="content-body default-height">
         <div class="container-fluid">
-            <div class="form-head mb-4">
-                <h2 class="text-black font-w600 mb-0">Setting - Tagihan Siswa</h2>
+            <div class="form-head mb-4 d-flex justify-content-between align-items-center">
+                <h2 class="text-black font-w600 mb-0">Tagihan - Daftar Tagihan</h2>
+                <span class="badge badge-xl light badge-primary">Tahun Akademik
+                    {{ $activeYear ? $activeYear->tahun . '-' . $activeYear->semester : 'Tidak ada' }}</span>
             </div>
             <!-- coba -->
             <div class="row">
@@ -51,7 +53,7 @@
                     <div class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap">
                         <div class="pr-3 me-auto mb-sm-0 mb-3">
                             <h4 class="fs-20 text-black mb-1">List Tagihan Siswa</h4>
-                            <span class="fs-12">Anda bisa memfilter berdasarkan status</span>
+                            <span class="fs-12">Anda bisa memfilter berdasarkan kelas dan status pelunasan</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
                             <!-- Filter Class -->
@@ -83,17 +85,18 @@
                         <div class="alert alert-primary">
                             <div class="row g-1">
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Catatan :</strong> <br />
-                                    <span>Gunakan template import untuk melakukan import
-                                        data</span> <br>
-                                    <span>* Pilih setidaknya satu siswa untuk set tagihan</span>
+                                    <strong>Catatan:</strong> <br />
+                                    <span>Berikut adalah daftar tagihan siswa pada tahun akademik
+                                        {{ $activeYear ? $activeYear->tahun . '-' . $activeYear->semester : 'Tidak ada' }}.</span>
+                                    <br />
+                                    <span>Anda bisa melihat status pelunasan tagihan siswa.</span>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Ekstra :</strong> <br />
-                                    <a href=""><i class="fas fa-download me-1"></i> Template import
-                                        (excel)</a>
+                                    <strong>Ekstra:</strong> <br />
+                                    <span>-</span>
                                 </div>
                             </div>
+
                         </div>
                         <div class="table-responsive">
                             <table id="example" class="table table-striped display min-w850">
