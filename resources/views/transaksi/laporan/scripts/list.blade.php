@@ -58,7 +58,7 @@
                 }
             ],
             language: {
-                searchPlaceholder: "Cari NIS atau nama siswa",
+                searchPlaceholder: "Cari No. Transaksi",
                 search: ''
             },
         });
@@ -68,11 +68,11 @@
             var searchValue = this.value;
             // Hanya cari jika panjang karakter >= 4
             if (searchValue.length >= 4) {
-                // Cari di kolom NIS (kolom index 2) dan Nama Siswa (kolom index 1)
-                table.columns([2]).search(searchValue).draw();
+                // Cari di kolom nomor_transaksi (kolom index 1) dan siswa (kolom index 3)
+                table.columns([1]).search(searchValue).draw();
             } else {
                 // Kosongkan pencarian jika kurang dari 4 karakter
-                table.columns([2]).search('').draw();
+                table.columns([1]).search('').draw();
             }
         });
 
