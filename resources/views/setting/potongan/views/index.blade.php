@@ -21,7 +21,8 @@
                     <div class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap">
                         <div class="pr-3 me-auto mb-sm-0 mb-3">
                             <h4 class="fs-20 text-black mb-1">List Potongan Siswa</h4>
-                            <span class="fs-12">Anda bisa memfilter berdasarkan status</span>
+                            <span class="fs-12">Anda bisa memfilter berdasarkan kelas siswa dan status potongan
+                                siswa</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
                             <!-- Filter Class -->
@@ -54,25 +55,33 @@
                                 <i class="las la-file-import scale5 me-1"></i>Import
                             </a> --}}
                             <!-- Create Button -->
-                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
+                            {{-- <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
                                 id="setTagihanMassalBtn" title="Set tagihan by tahun akademik">
                                 <i class="las la-plus scale5 me-1"></i>Set Tagihan *
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="alert alert-primary">
                             <div class="row g-1">
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Catatan :</strong> <br />
-                                    <span>List berdasarkan siswa yang sudah ter-setting tagihannnya pada menu (Tagihan
-                                        Siswa)</span> <br>
-                                    <span>* Pilih setidaknya satu siswa untuk set tagihan by tahun akademik</span>
+                                    <strong>Catatan:</strong> <br />
+                                    <span>Halaman ini digunakan untuk menambahkan potongan pada setiap tagihan. Anda dapat
+                                        melakukan hal-hal berikut:</span> <br />
+                                    <ul>
+                                        <li>Menambahkan potongan baru untuk setiap tagihan siswa.</li>
+                                        <li>Mengedit potongan yang sudah ada untuk memperbarui informasi.</li>
+                                        <li>Mengaktifkan atau menonaktifkan potongan sesuai kebutuhan.</li>
+                                    </ul>
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
-                                    <strong>Ekstra :</strong> <br />
-                                    <span>Hasil set tagihan by tahun akademik dilampirkan pada menu (Tagihan - List
-                                        Tagihan)</span>
+                                    <strong>Ekstra:</strong> <br />
+                                    <span>Daftar potongan ditampilkan berdasarkan siswa yang sudah ter-setting tagihannya
+                                        pada
+                                        menu <strong>Tagihan Siswa</strong>.</span> <br />
+                                    <span>Siswa yang sudah memiliki tagihan, baik yang memiliki potongan maupun tidak, akan
+                                        ditampilkan pada menu <strong>Generate Tagihan</strong>.</span>
+
                                 </div>
                             </div>
                         </div>
