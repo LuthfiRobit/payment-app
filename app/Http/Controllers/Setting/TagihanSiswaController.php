@@ -79,7 +79,6 @@ class TagihanSiswaController extends Controller
             ->make(true);
     }
 
-
     public function show($id)
     {
         try {
@@ -135,45 +134,113 @@ class TagihanSiswaController extends Controller
     public function storeMultiple(Request $request)
     {
         try {
-            // Validasi inputan yang masuk
-            $validatedData = $request->validate([
-                'siswa_ids' => 'required|array',
-                'siswa_ids.*' => 'exists:siswa,id_siswa', // Setiap siswa_id harus ada di tabel siswa
-                'iuran_ids' => 'required|array', // Mendukung banyak iuran
-                'iuran_ids.*' => 'exists:iuran,id_iuran', // Setiap iuran_id harus valid di tabel iuran
-            ]);
+            // Validasi inputan yang masuk dari request
+            $validatedData = $this->validateRequest($request);
 
-            // Ambil data dari request
+            // Ambil data siswa dan iuran dari validasi
             $siswa_ids = $validatedData['siswa_ids'];
             $iuran_ids = $validatedData['iuran_ids'];
 
-            // Looping untuk setiap siswa yang dipilih
+            // Looping melalui setiap siswa
             foreach ($siswa_ids as $siswa_id) {
-                // Looping untuk setiap iuran yang dipilih
+                // Looping melalui setiap iuran
                 foreach ($iuran_ids as $iuran_id) {
-                    // Pastikan tidak ada duplikasi tagihan
-                    TagihanSiswa::firstOrCreate([
-                        'siswa_id' => $siswa_id,
-                        'iuran_id' => $iuran_id,
-                    ], [
-                        'status' => 'aktif',
-                    ]);
+                    // Aktifkan atau buat tagihan untuk siswa dan iuran yang dipilih
+                    $this->activateOrCreateTagihan($siswa_id, $iuran_id);
                 }
             }
 
+            // Kembalikan respons sukses setelah proses selesai
             return response()->json([
                 'success' => true,
-                'message' => 'Tagihan berhasil ditambahkan untuk siswa dan iuran terpilih!'
+                'message' => 'Tagihan berhasil ditambahkan atau diaktifkan untuk siswa dan iuran terpilih!'
             ], 200);
         } catch (\Exception $e) {
-            // Log error untuk debugging
+            // Log error untuk debugging jika terjadi kesalahan
             Log::error('Error saat menyimpan tagihan massal: ' . $e->getMessage());
 
+            // Kembalikan respons kesalahan
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan saat menambahkan tagihan.',
                 'error' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required|exists:tagihan_siswa,id_tagihan_siswa',
+            'status' => 'required|in:aktif,tidak aktif',
+        ]);
+
+        try {
+            // Temukan tagihan siswa berdasarkan ID
+            $tagihanSiswa = TagihanSiswa::find($validatedData['id']);
+
+            // Update status
+            $tagihanSiswa->status = $validatedData['status'];
+            $tagihanSiswa->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Status tagihan siswa berhasil diubah.',
+            ], 200); // 200 OK
+        } catch (\Exception $e) {
+            Log::error('Error saat mengubah status tagihan siswa: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengubah status tagihan siswa.',
+            ], 500);
+        }
+    }
+
+    /**
+     * Validasi data input dari request.
+     *
+     * @param Request $request
+     * @return array Validated data
+     * @throws ValidationException
+     */
+    private function validateRequest(Request $request)
+    {
+        return $request->validate([
+            'siswa_ids' => 'required|array', // Pastikan siswa_ids adalah array
+            'siswa_ids.*' => 'exists:siswa,id_siswa', // Setiap siswa_id harus ada di tabel siswa
+            'iuran_ids' => 'required|array', // Pastikan iuran_ids adalah array
+            'iuran_ids.*' => 'exists:iuran,id_iuran', // Setiap iuran_id harus valid di tabel iuran
+        ]);
+    }
+
+    /**
+     * Mengaktifkan tagihan yang tidak aktif atau membuat tagihan baru jika belum ada.
+     *
+     * @param string $siswa_id ID siswa
+     * @param string $iuran_id ID iuran
+     * @return void
+     */
+    private function activateOrCreateTagihan($siswa_id, $iuran_id)
+    {
+        // Cek apakah tagihan untuk siswa dan iuran yang dipilih sudah ada
+        $tagihan = TagihanSiswa::where('siswa_id', $siswa_id)
+            ->where('iuran_id', $iuran_id)
+            ->first();
+
+        if ($tagihan) {
+            // Jika tagihan ada dan statusnya tidak aktif, aktifkan
+            if ($tagihan->status === 'tidak aktif') {
+                $tagihan->status = 'aktif';
+                $tagihan->save(); // Simpan perubahan status
+            }
+        } else {
+            // Jika tagihan belum ada, buat yang baru dengan status aktif
+            TagihanSiswa::create([
+                'siswa_id' => $siswa_id,
+                'iuran_id' => $iuran_id,
+                'status' => 'aktif',
+            ]);
         }
     }
 }
