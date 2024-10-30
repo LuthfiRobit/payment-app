@@ -9,6 +9,7 @@ use App\Http\Controllers\Setting\PotonganSiswaController;
 use App\Http\Controllers\Setting\TagihanSiswaController;
 use App\Http\Controllers\Tagihan\DaftarTagihanController;
 use App\Http\Controllers\Tagihan\GenerateTagihanController;
+use App\Http\Controllers\Tagihan\RiwayatTagihanController;
 use App\Http\Controllers\Transaksi\LaporanController;
 use App\Http\Controllers\Transaksi\PembayaranController;
 use Illuminate\Support\Facades\Route;
@@ -96,7 +97,7 @@ Route::prefix('setting')->name('setting.')->group(function () {
         // Route::post('store', [TagihanSiswaController::class, 'store'])->name('store');
         Route::post('store-multiple', [TagihanSiswaController::class, 'storeMultiple'])->name('store-multiple');
         Route::get('{id}', [TagihanSiswaController::class, 'show'])->name('show');
-        // Route::put('update/{id}', [TagihanSiswaController::class, 'update'])->name('update');
+        Route::post('update-status', [TagihanSiswaController::class, 'updateStatus'])->name('update-status');
     });
 
     // Route group untuk potongan siswa
@@ -106,7 +107,7 @@ Route::prefix('setting')->name('setting.')->group(function () {
         Route::post('store', [PotonganSiswaController::class, 'store'])->name('store');
         // Route::post('store-multiple', [PotonganSiswaController::class, 'storeMultiple'])->name('store-multiple');
         Route::get('{id}', [PotonganSiswaController::class, 'show'])->name('show');
-        // Route::put('update/{id}', [TagihanSiswaController::class, 'update'])->name('update');
+        Route::post('update-status', [PotonganSiswaController::class, 'updateStatus'])->name('update-status');
     });
 });
 
@@ -131,6 +132,13 @@ Route::prefix('tagihan')->name('tagihan.')->group(function () {
         // Route::post('store-multiple', [DaftarTagihanController::class, 'storeMultiple'])->name('store-multiple');
         Route::get('{id}', [DaftarTagihanController::class, 'show'])->name('show');
         // Route::put('update/{id}', [GenerateTagihanController::class, 'update'])->name('update');
+    });
+
+    // Route group untuk tagihan siswa
+    Route::prefix('riwayat-tagihan')->name('riwayat-tagihan.')->group(function () {
+        Route::get('/', [RiwayatTagihanController::class, 'index'])->name('index');
+        Route::get('/list', [RiwayatTagihanController::class, 'getData'])->name('list');
+        Route::get('{id}', [RiwayatTagihanController::class, 'show'])->name('show');
     });
 });
 
