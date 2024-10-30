@@ -43,6 +43,8 @@
                             {{ $activeYear ? $activeYear->tahun . '-' . $activeYear->semester : 'Tidak ada' }}
                         </a>
                     </li>
+                    <li><a href="{{ route('tagihan.riwayat-tagihan.index') }}" class="fs-6">Riwayat tagihan</a>
+                    </li>
                 </ul>
             </li>
             <li>
