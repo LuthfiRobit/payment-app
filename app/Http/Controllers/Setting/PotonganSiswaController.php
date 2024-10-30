@@ -79,98 +79,196 @@ class PotonganSiswaController extends Controller
     public function show($id)
     {
         try {
-            // Mencari siswa berdasarkan ID dan memuat relasi tagihanSiswa serta iuran
-            $siswa = Siswa::with(['tagihanSiswa.iuran'])->find($id);
+            $siswa = Siswa::with(['tagihanSiswa.iuran', 'potonganSiswa.potongan'])->find($id);
 
-            // Jika data siswa tidak ditemukan
             if (!$siswa) {
                 return $this->responseService->notFoundResponse('Data siswa tidak ditemukan');
             }
 
-            // Mengambil data potongan yang aktif
+            // Ambil hanya tagihan yang aktif
+            $tagihan_siswa = $siswa->tagihanSiswa->filter(function ($tagihan) {
+                return $tagihan->status === 'aktif';
+            })->map(function ($tagihan) use ($siswa) {
+                // Ambil potongan yang berelasi dengan tagihan
+                $potongan_siswa = $siswa->potonganSiswa->where('tagihan_siswa_id', $tagihan->id_tagihan_siswa);
+
+                return [
+                    'id_tagihan_siswa' => $tagihan->id_tagihan_siswa,
+                    'iuran' => [
+                        'id_iuran' => $tagihan->iuran->id_iuran,
+                        'nama_iuran' => $tagihan->iuran->nama_iuran,
+                        'besar_iuran' => $tagihan->iuran->besar_iuran,
+                    ],
+                    'potongan_siswa' => $potongan_siswa->map(function ($potongan) {
+                        return [
+                            'id_potongan_siswa' => $potongan->id_potongan_siswa,
+                            'potongan_id' => $potongan->potongan_id,
+                            'potongan_persen' => $potongan->potongan_persen,
+                            'status' => $potongan->status,
+                            'potongan' => [
+                                'id_potongan' => $potongan->potongan->id_potongan,
+                                'nama_potongan' => $potongan->potongan->nama_potongan,
+                                // Menghilangkan created_at dan updated_at
+                            ]
+                        ];
+                    })->values() // memastikan hasilnya adalah array terindeks
+                ];
+            });
+
             $potongan = Potongan::select('id_potongan', 'nama_potongan')->where('status', 'aktif')->get();
 
-            // Jika data ditemukan
-            return $this->responseService->successResponse('Data siswa berhasil ditemukan', $siswa, [
-                'potongan' => $potongan, // Tambahkan kunci tambahan sesuai kebutuhan
-            ]);
+            return $this->responseService->successResponse('Data siswa berhasil ditemukan', [
+                'id_siswa' => $siswa->id_siswa,
+                'nis' => $siswa->nis,
+                'nama_siswa' => $siswa->nama_siswa,
+                'status' => $siswa->status,
+                'kelas' => $siswa->kelas,
+                'tagihan_siswa' => $tagihan_siswa,
+            ], ['potongan' => $potongan]);
         } catch (\Exception $e) {
-            // Logging kesalahan untuk debugging
             Log::error('Error saat mengambil data siswa: ' . $e->getMessage());
-
-            // Mengembalikan response error jika terjadi exception
             return $this->responseService->errorResponse('Terjadi kesalahan saat mengambil data siswa', $e->getMessage());
         }
     }
 
     public function store(Request $request)
     {
-        // Mulai transaksi database untuk memastikan konsistensi data
         DB::beginTransaction();
 
         try {
-            // Validasi input
+            // Validasi input dengan pesan khusus untuk setiap aturan
             $request->validate([
                 'siswa_id' => 'required|uuid|exists:siswa,id_siswa',
                 'tagihan_siswa_id' => 'required|array',
                 'tagihan_siswa_id.*' => 'uuid|exists:tagihan_siswa,id_tagihan_siswa',
-                'jenis_potongan' => 'nullable|array',
-                'jenis_potongan.*' => 'nullable|uuid|exists:potongan,id_potongan',
+                'potongan_id' => 'nullable|array',
+                'potongan_id.*' => 'nullable|uuid|exists:potongan,id_potongan',
                 'potongan_persen' => 'nullable|array',
                 'potongan_persen.*' => 'nullable|integer|min:1|max:100',
-                'besar_iuran' => 'required|array',
-                'besar_iuran.*' => 'required|integer|min:0',
             ], [
                 'siswa_id.required' => 'Siswa ID wajib diisi.',
                 'siswa_id.exists' => 'Siswa tidak ditemukan.',
                 'tagihan_siswa_id.required' => 'Tagihan siswa wajib diisi.',
-                'tagihan_siswa_id.*.exists' => 'Tagihan siswa tidak ditemukan.',
-                'jenis_potongan.*.exists' => 'Jenis potongan tidak ditemukan.',
-                'potongan_persen.*.min' => 'Persentase potongan minimal 1%.',
-                'potongan_persen.*.max' => 'Persentase potongan maksimal 100%.',
-                'besar_iuran.*.min' => 'Besar iuran minimal 0.',
+                'tagihan_siswa_id.*.exists' => 'Tagihan siswa tidak valid.',
+                'potongan_id.*.exists' => 'Jenis potongan tidak valid.',
             ]);
 
-            // Ambil data dari request
-            $siswaId = $request->siswa_id;
-            $tagihanSiswaIds = $request->tagihan_siswa_id;
-            $jenisPotongan = $request->jenis_potongan ?? []; // Jika tidak ada, default array kosong
-            $potonganPersen = $request->potongan_persen ?? [];
+            // Mengambil data input dari request
+            $siswaId = $request->input('siswa_id');
+            $tagihanSiswaIds = $request->input('tagihan_siswa_id');
+            $potonganIds = $request->input('potongan_id', []);
+            $potonganPersen = $request->input('potongan_persen', []);
 
-            // Iterasi setiap tagihan_siswa_id untuk menyimpan potongan dan rincian tagihan
+            // Looping setiap tagihan siswa
             foreach ($tagihanSiswaIds as $index => $tagihanSiswaId) {
+                $potonganId = $potonganIds[$index] ?? null;
+                $persen = $potonganPersen[$index] ?? null;
 
-                // Periksa apakah ada potongan yang dipilih untuk tagihan ini
-                if (isset($jenisPotongan[$index]) && !empty($jenisPotongan[$index])) {
-                    // Hitung besar potongan berdasarkan persentase yang diberikan
-                    $currentPotonganPersen = $potonganPersen[$index] ?? 0;
-
-                    // Simpan data potongan_siswa
-                    PotonganSiswa::create([
-                        'id_potongan_siswa' => Str::uuid(),
-                        'siswa_id' => $siswaId,
-                        'tagihan_siswa_id' => $tagihanSiswaId,
-                        'potongan_id' => $jenisPotongan[$index],
-                        'potongan_persen' => $currentPotonganPersen,
-                        'status' => 'aktif',
-                    ]);
+                if ($potonganId && $persen) {
+                    // Jika potongan dipilih dan ada persentase, periksa apakah data sudah ada
+                    $this->upsertPotonganSiswa($siswaId, $tagihanSiswaId, $potonganId, $persen);
+                } else {
+                    // Jika potongan tidak dipilih atau persen kosong, nonaktifkan potongan jika ada
+                    $this->deactivatePotonganSiswa($siswaId, $tagihanSiswaId, $potonganId);
                 }
             }
 
-            // Commit transaksi jika semua operasi berhasil
             DB::commit();
-
-            // Kembalikan respon sukses
-            return $this->responseService->successResponse('Potongan berhasil ditambahkan untuk siswa dan iuran terpilih!', [], []);
+            return response()->json(['message' => 'Potongan berhasil disimpan atau diperbarui.'], 200);
         } catch (\Exception $e) {
-            // Rollback transaksi jika terjadi kesalahan
             DB::rollBack();
-
-            // Log kesalahan untuk debugging
-            Log::error('Error saat menyimpan tagihan massal: ' . $e->getMessage());
-
-            // Kembalikan respon error
-            return $this->responseService->errorResponse('Terjadi kesalahan saat menambahkan tagihan.', $e->getMessage());
+            Log::error('Error saat menyimpan potongan: ' . $e->getMessage());
+            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan potongan.'], 500);
         }
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id_potongan_siswa' => 'required|exists:potongan_siswa,id_potongan_siswa',
+            'potongan_id' => 'required|exists:potongan_siswa,potongan_id',
+        ]);
+
+        try {
+            // Find and deactivate the specific discount
+            $potongan = PotonganSiswa::where('id_potongan_siswa', $validatedData['id_potongan_siswa'])
+                ->where('potongan_id', $validatedData['potongan_id'])
+                ->first();
+
+            if ($potongan) {
+                $potongan->status = 'tidak aktif';
+                $potongan->save();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Potongan berhasil dinonaktifkan.',
+                ], 200); // HTTP 200 OK
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Potongan tidak ditemukan.',
+            ], 404); // HTTP 404 Not Found
+
+        } catch (\Exception $e) {
+            Log::error('Error saat menonaktifkan potongan: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat menonaktifkan potongan.',
+            ], 500); // HTTP 500 Internal Server Error
+        }
+    }
+
+    /**
+     * Upsert (insert or update) data potongan siswa.
+     *
+     * @param string $siswaId ID Siswa
+     * @param string $tagihanSiswaId ID Tagihan Siswa
+     * @param string $potonganId ID Potongan
+     * @param int $persen Persentase Potongan
+     */
+    private function upsertPotonganSiswa($siswaId, $tagihanSiswaId, $potonganId, $persen)
+    {
+        // Periksa apakah data potongan siswa sudah ada
+        $existingPotongan = PotonganSiswa::where([
+            'siswa_id' => $siswaId,
+            'tagihan_siswa_id' => $tagihanSiswaId,
+            'potongan_id' => $potonganId,
+        ])->first();
+
+        if ($existingPotongan) {
+            // Jika data ada, update persentase dan status
+            $existingPotongan->update([
+                'potongan_persen' => $persen,
+                'status' => 'aktif',
+            ]);
+        } else {
+            // Jika data belum ada, buat entri baru
+            PotonganSiswa::create([
+                'siswa_id' => $siswaId,
+                'tagihan_siswa_id' => $tagihanSiswaId,
+                'potongan_id' => $potonganId,
+                'potongan_persen' => $persen,
+                'status' => 'aktif',
+            ]);
+        }
+    }
+
+    /**
+     * Nonaktifkan potongan siswa jika ada.
+     *
+     * @param string $siswaId ID Siswa
+     * @param string $tagihanSiswaId ID Tagihan Siswa
+     * @param string|null $potonganId ID Potongan, bisa null
+     */
+    private function deactivatePotonganSiswa($siswaId, $tagihanSiswaId, $potonganId)
+    {
+        // Update status potongan menjadi tidak aktif jika data ada
+        PotonganSiswa::where([
+            'siswa_id' => $siswaId,
+            'tagihan_siswa_id' => $tagihanSiswaId,
+            'potongan_id' => $potonganId,
+        ])->update(['status' => 'tidak aktif']);
     }
 }

@@ -5,13 +5,12 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: '{{ route('transaksi.laporan.list') }}', // Sesuaikan dengan route Anda
+                url: '{{ route('tagihan.riwayat-tagihan.list') }}', // Adjust to your route
                 type: 'GET',
                 data: function(d) {
-                    // Mengirimkan filter berdasarkan input dari pengguna
-                    d.filter_tahun = $('#filter_tahun').val(); // Filter untuk tahun akademik
-                    d.filter_siswa = $('#filter_siswa').val(); // Filter untuk siswa
-                    d.filter_tanggal = $('#filter_tanggal').val(); // Filter untuk tanggal bayar
+                    d.filter_tahun = $('#filter_tahun').val(); // Send filter tahun
+                    d.filter_kelas = $('#filter_kelas').val(); // Send filter status
+                    d.filter_status = $('#filter_status').val(); // Send filter status
                 }
             },
             columns: [{
@@ -19,12 +18,6 @@
                     name: 'aksi',
                     orderable: false,
                     searchable: false
-                },
-                {
-                    data: 'nomor_transaksi',
-                    name: 'nomor_transaksi',
-                    orderable: false,
-                    searchable: true
                 },
                 {
                     data: 'tahun_akademik',
@@ -39,15 +32,27 @@
                     searchable: true
                 },
                 {
-                    data: 'jumlah_bayar',
-                    name: 'jumlah_bayar',
+                    data: 'kelas',
+                    name: 'kelas',
                     orderable: true,
                     searchable: false
                 },
                 {
-                    data: 'tanggal_bayar',
-                    name: 'tanggal_bayar',
-                    orderable: true,
+                    data: 'besar_tagihan',
+                    name: 'besar_tagihan',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'besar_potongan',
+                    name: 'besar_potongan',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'total_tagihan',
+                    name: 'total_tagihan',
+                    orderable: false,
                     searchable: false
                 },
                 {
@@ -58,27 +63,34 @@
                 }
             ],
             language: {
-                searchPlaceholder: "Cari No. Transaksi",
+                searchPlaceholder: "Cari NIS atau nama siswa",
                 search: ''
             },
         });
 
-        // Fungsi pencarian kustom
+        // Custom search functionality
         $("#example_filter input").on("input", function() {
             var searchValue = this.value;
             // Hanya cari jika panjang karakter >= 4
             if (searchValue.length >= 4) {
-                // Cari di kolom nomor_transaksi (kolom index 1) dan siswa (kolom index 3)
-                table.columns([1]).search(searchValue).draw();
+                // Cari di kolom NIS (kolom index 1) dan Nama Siswa (kolom index 2)
+                table.columns([2]).search(searchValue).draw();
             } else {
                 // Kosongkan pencarian jika kurang dari 4 karakter
-                table.columns([1]).search('').draw();
+                table.columns([2]).search('').draw();
             }
         });
 
-        // Reload DataTable saat filter berubah
-        $('#filter_tahun, #filter_siswa, #filter_tanggal').change(function() {
-            table.ajax.reload(); // Reload DataTable dengan filter baru
+        $('#filter_tahun').change(function() {
+            table.ajax.reload(); // Reload DataTable with new filter
+        });
+
+        $('#filter_status').change(function() {
+            table.ajax.reload(); // Reload DataTable with new filter
+        });
+
+        $('#filter_kelas').change(function() {
+            table.ajax.reload(); // Reload DataTable with new filter
         });
     });
 </script>

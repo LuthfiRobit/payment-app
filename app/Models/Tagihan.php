@@ -79,7 +79,6 @@ class Tagihan extends Model
      * Additional method
      */
 
-
     public static function  sumTagihan($tahunAkademikId)
     {
         // Mengambil semua total dalam satu query
@@ -140,6 +139,51 @@ class Tagihan extends Model
         // Filter berdasarkan kelas jika ada
         if (!empty($filters['filter_kelas'])) {
             $query->where('siswa.kelas', $filters['filter_kelas']);
+        }
+
+        // Mengurutkan berdasarkan tanggal dibuat dan mengembalikan hasil
+        return $query->get();
+    }
+
+    // Method untuk mendapatkan data tagihan semua tahun akademik
+    public static function tagihanAllTa($filters = [])
+    {
+        // Get the active academic year
+        // $activeAcademicYear = AppHelper::getActiveAcademicYear();
+
+        // Memulai query untuk mendapatkan data tagihan dan siswa
+        $query = DB::table('tagihan')
+            ->select(
+                'siswa.id_siswa',
+                'siswa.nis',
+                'siswa.nama_siswa',
+                'siswa.kelas',
+                'tagihan.id_tagihan',
+                'tagihan.besar_tagihan',
+                'tagihan.besar_potongan',
+                'tagihan.total_tagihan',
+                'tagihan.status',
+                'tahun_akademik.tahun',
+                'tahun_akademik.semester'
+            )
+            ->leftJoin('siswa', 'siswa.id_siswa', '=', 'tagihan.siswa_id')
+            ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'tagihan.tahun_akademik_id')
+            // ->where('tagihan.tahun_akademik_id', '=', $activeAcademicYear->id_tahun_akademik)
+            ->orderBy('tagihan.created_at', 'DESC');
+
+        // Filter berdasarkan status jika ada
+        if (!empty($filters['filter_status'])) {
+            $query->where('tagihan.status', $filters['filter_status']);
+        }
+
+        // Filter berdasarkan kelas jika ada
+        if (!empty($filters['filter_kelas'])) {
+            $query->where('siswa.kelas', $filters['filter_kelas']);
+        }
+
+        // Filter berdasarkan tahun akademik jika ada
+        if (!empty($filters['filter_tahun'])) {
+            $query->where('tagihan.tahun_akademik_id', $filters['filter_tahun']);
         }
 
         // Mengurutkan berdasarkan tanggal dibuat dan mengembalikan hasil

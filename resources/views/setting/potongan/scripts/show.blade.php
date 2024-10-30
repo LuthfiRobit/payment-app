@@ -1,6 +1,5 @@
 <script>
     $(document).ready(function() {
-        // Event listener for the detail button
         $('#example').on('click', '.detail-button', function() {
             var id = $(this).data('id');
             var url = '{{ route('setting.potongan-siswa.show', ':id') }}'.replace(':id', id);
@@ -9,26 +8,22 @@
                 url: url,
                 method: "GET",
                 success: function(response) {
-                    console.log(response);
                     $('#siswa_id').val(response.data.id_siswa);
-
                     $('#show_nama_siswa').text(response.data.nama_siswa);
                     $('#show_kelas').text(response.data.kelas);
                     $('#show_status').text(response.data.status);
-                    $('#container-tagihan')
-                .empty(); // Clear the container before populating
+                    $('#container-tagihan').empty();
 
                     if (response.data.tagihan_siswa.length > 0) {
-                        response.data.tagihan_siswa.forEach(function(tagihan) {
+                        response.data.tagihan_siswa.forEach(function(tagihan, index) {
                             $('#container-tagihan').append(createTagihanRow(tagihan,
-                                response.potongan));
+                                response.potongan, index + 1, response.data
+                                .id_siswa));
                         });
-                        // Refresh selectpicker after adding options
-                        $('.selectpicker').selectpicker('refresh');
                     } else {
                         $('#container-tagihan').append(
                             '<div class="alert alert-info text-center">Belum ada tagihan</div>'
-                            );
+                        );
                     }
                     $('#detailTagihanModal').modal('show');
                 },
@@ -38,56 +33,177 @@
             });
         });
 
-        // Function to create the rows for the tagihan
-        function createTagihanRow(tagihan, potongan) {
+        function createTagihanRow(tagihan, potongan, index, siswaId) {
             return `
-                <div class="row mb-3">
-                    <div class="col-xl-3 col-lg-3 col-md-3 mb-2">
+        <div class="row mb-2 tagihan-row" data-tagihan-id="${tagihan.id_tagihan_siswa}">
+            <div class="col-1 d-flex align-items-center justify-content-center">
+                <h6 class="mb-0">${index}</h6>
+            </div>
+            <div class="col-11">
+                <div class="row mb-1">
+                    <div class="col-6">
                         <label class="form-label">Jenis Iuran</label>
-                        <input type="text" class="form-control form-control-sm" name="jenis_iuran[]" id="jenis_iuran_${tagihan.id_tagihan_siswa}" value="${tagihan.iuran.nama_iuran}" readonly>
-                        <input type="hidden" class="form-control form-control-sm" name="tagihan_siswa_id[]" id="tagihan_siswa_id_${tagihan.id_tagihan_siswa}" value="${tagihan.id_tagihan_siswa}" readonly>
+                        <input type="text" class="form-control form-control-sm" name="jenis_iuran[]" value="${tagihan.iuran.nama_iuran}" readonly>
+                        <input type="hidden" name="tagihan_siswa_id[]" value="${tagihan.id_tagihan_siswa}">
+                        <input type="hidden" class="siswa-id" value="${siswaId}">
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 mb-2">
+                    <div class="col-6">
                         <label class="form-label">Besar Iuran (Rp.)</label>
-                        <input type="number" class="form-control form-control-sm" name="besar_iuran[]" id="besar_iuran_${tagihan.id_tagihan_siswa}" value="${tagihan.iuran.besar_iuran}" readonly>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 mb-2">
-                        <label for="potongan" class="form-label">Jenis Potongan</label>
-                        <select class="selectpicker form-control wide form-select-md jenis_potongan" name="jenis_potongan[]" id="potongan_${tagihan.id_tagihan_siswa}" data-live-search="false" placeholder="Pilih potongan">
-                            <option value="">Tidak Memiliki Potongan</option>
-                            ${potongan.map(item => `<option value="${item.id_potongan}">${item.nama_potongan}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 mb-2">
-                        <label for="potongan_persen" class="form-label">Besar Potongan (%)</label>
-                        <input type="number" class="form-control form-control-sm potongan_persen" name="potongan_persen[]" id="potongan_persen_${tagihan.id_tagihan_siswa}" min="1" max="100" placeholder="Presentase potongan" readonly>
+                        <input type="number" class="form-control form-control-sm" name="besar_iuran[]" value="${tagihan.iuran.besar_iuran}" readonly>
                     </div>
                 </div>
-            `;
+                <div class="row text-center">
+                    <h6 class="my-2">Pilih Potongan</h6>
+                    ${potongan.map((pot) => {
+                        const potonganAktif = tagihan.potongan_siswa.find(p => p.potongan_id === pot.id_potongan);
+                        const isChecked = potonganAktif && potonganAktif.status === 'aktif' ? 'checked' : '';
+                        const persenValue = potonganAktif ? potonganAktif.potongan_persen : '';
+                        const readonlyAttr = potonganAktif && potonganAktif.status === 'aktif' ? '' : 'readonly';
+                        const potonganSiswaId = potonganAktif ? potonganAktif.id_potongan_siswa : ''; // Corrected to use id_potongan_siswa
+
+                        return `
+                            <div class="col-auto">
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label" for="potongan_${tagihan.id_tagihan_siswa}_${pot.id_potongan}">${pot.nama_potongan}</label>
+                                    <input class="form-check-input potongan-checkbox" type="checkbox" role="switch" id="potongan_${tagihan.id_tagihan_siswa}_${pot.id_potongan}" ${isChecked} data-tagihan-id="${tagihan.id_tagihan_siswa}" data-potongan-siswa-id="${potonganSiswaId}" data-potongan-id="${pot.id_potongan}" data-from-response="${!!potonganAktif}" data-persentase-response="${persenValue !== ''}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="potongan_persen_${tagihan.id_tagihan_siswa}_${pot.id_potongan}" class="form-label">Besar Potongan (%)</label>
+                                    <input type="number" class="form-control form-control-sm potongan_persen" name="potongan_persen[]" id="potongan_persen_${tagihan.id_tagihan_siswa}_${pot.id_potongan}" min="1" max="100" value="${persenValue}" ${readonlyAttr} required>
+                                    <input type="hidden" name="potongan_siswa_id[]" value="${potonganSiswaId}">
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+        </div>`;
         }
 
-        // Event delegation to handle the change event on jenis_potongan select
-        $('#container-tagihan').on('change', 'select.jenis_potongan', function() {
-            var selected = $(this).find('option:selected').val(); // Get the selected value
-            var potonganPersenInput = $(this).closest('.row').find(
-            'input.potongan_persen'); // Get the corresponding potongan_persen input
 
-            // Debugging logs to ensure the correct option is being selected
-            console.log('Selected value:', selected);
+        $('#container-tagihan').on('change', 'input.potongan-checkbox', function() {
+            var isChecked = $(this).is(':checked');
+            var persenInput = $(this).closest('.col-auto').find('input.potongan_persen');
+            var fromResponse = $(this).data('from-response') === true;
+            var hasPersenValue = $(this).data('persentase-response') === true;
+            var tagihanId = $(this).data('tagihan-id');
+            var potonganSiswaId = $(this).data('potongan-siswa-id');
+            var potonganId = $(this).data('potongan-id');
+            var self = $(this);
 
-            // Check if a valid option is selected (not empty or null)
-            if (selected && selected !== "") {
-                console.log('Valid selection detected');
-                potonganPersenInput.prop('readonly', false).prop('required',
-                true); // Enable input and set as required
-                potonganPersenInput
-            .focus(); // Optional: Set focus to indicate that the input is now active
+            if (isChecked) {
+                persenInput.prop('readonly', false).attr('required', true).focus();
+
+                var activeCheckbox = $(this).closest('.tagihan-row').find(
+                    'input.potongan-checkbox[data-from-response=true]:checked'
+                );
+
+                if (activeCheckbox.length && !$(this).is(activeCheckbox)) {
+                    Swal.fire({
+                        title: 'Konfirmasi',
+                        text: 'Apakah Anda yakin ingin mengganti potongan? Potongan sebelumnya akan dinonaktifkan.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '{{ route('setting.potongan-siswa.update-status') }}',
+                                method: 'POST',
+                                data: {
+                                    id_potongan_siswa: activeCheckbox.data(
+                                        'potongan-siswa-id'),
+                                    potongan_id: activeCheckbox.data('potongan-id')
+                                },
+                                success: function(response) {
+                                    Swal.fire('Berhasil',
+                                        'Potongan sebelumnya berhasil dinonaktifkan.',
+                                        'success');
+
+                                    // Uncheck the previous active checkbox and update its attributes
+                                    activeCheckbox.prop('checked', false)
+                                        .data('from-response', false)
+                                        .data('persentase-response', false);
+                                    activeCheckbox.closest('.col-auto').find(
+                                            'input.potongan_persen')
+                                        .prop('readonly', true).removeAttr(
+                                            'required');
+
+                                    // Set `self` as active
+                                    self.prop('checked', true).data('from-response',
+                                        true);
+                                    persenInput.prop('readonly', false).attr(
+                                        'required', true);
+                                },
+                                error: function() {
+                                    Swal.fire('Error',
+                                        'Gagal menonaktifkan potongan.', 'error'
+                                    );
+                                }
+                            });
+                        } else {
+                            // Revert check state if user cancels
+                            self.prop('checked', false);
+                            persenInput.prop('readonly', true).removeAttr('required');
+                            activeCheckbox.prop('checked', true);
+                        }
+                    });
+                }
             } else {
-                console.log('No valid selection detected');
-                potonganPersenInput.prop('readonly', true).prop('required', false).val(
-                ''); // Disable input, remove required, and reset value
+                if (fromResponse) {
+                    Swal.fire({
+                        title: 'Konfirmasi',
+                        text: 'Apakah Anda yakin ingin menonaktifkan potongan pada tagihan ini?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '{{ route('setting.potongan-siswa.update-status') }}',
+                                method: 'POST',
+                                data: {
+                                    id_potongan_siswa: potonganSiswaId,
+                                    potongan_id: potonganId
+                                },
+                                success: function(response) {
+                                    Swal.fire('Berhasil',
+                                        'Potongan berhasil dinonaktifkan.',
+                                        'success');
+                                },
+                                error: function() {
+                                    Swal.fire('Error',
+                                        'Gagal menonaktifkan potongan.', 'error'
+                                    );
+                                }
+                            });
+                            persenInput.prop('readonly', true).removeAttr('required');
+                        } else {
+                            self.prop('checked', true);
+                        }
+                    });
+                } else {
+                    persenInput.prop('readonly', true).removeAttr('required');
+                    if (!hasPersenValue) {
+                        persenInput.val('');
+                    }
+                }
             }
+
+
+            $(this).closest('.tagihan-row').find('input.potongan-checkbox').not(this).each(function() {
+                var otherPersenInput = $(this).closest('.col-auto').find(
+                    'input.potongan_persen');
+                $(this).prop('checked', false);
+                otherPersenInput.prop('readonly', true).removeAttr('required');
+                if (!$(this).data('persentase-response')) {
+                    otherPersenInput.val('');
+                }
+            });
         });
+
 
     });
 </script>
