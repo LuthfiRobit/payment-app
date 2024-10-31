@@ -82,6 +82,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::post('store', [SiswaController::class, 'store'])->name('store');
         Route::get('{id}', [SiswaController::class, 'show'])->name('show');
         Route::put('update/{id}', [SiswaController::class, 'update'])->name('update');
+        Route::post('import-excel', [SiswaController::class, 'importExcel'])->name('import-excel');
         // Route for global usage
         Route::get('/list/siswa', [SiswaController::class, 'getList'])->name('list-siswa');
     });

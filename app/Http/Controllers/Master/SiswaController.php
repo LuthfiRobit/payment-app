@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
+use App\Imports\SiswaImport;
 use App\Models\Siswa;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Number;
 use Yajra\DataTables\Facades\DataTables;
@@ -248,5 +250,68 @@ class SiswaController extends Controller
             // Mengembalikan response error jika terjadi exception
             return $this->responseService->errorResponse('Terjadi kesalahan saat mengambil data siswa', $e->getMessage());
         }
+    }
+
+    public function importExcel(Request $request)
+    {
+        // Validasi input file
+        $validateFile = $this->validateData($request->all(), [
+            'file' => 'required|mimes:xlsx,xls'
+        ], [
+            'required' => 'Input :attribute wajib diisi.',
+            'mimes' => 'Input :attribute harus :values.'
+        ]);
+
+        if ($validateFile !== null) {
+            return $validateFile; // Mengembalikan respons validasi file
+        }
+
+        try {
+            $file = $request->file('file');
+            $import = new SiswaImport();
+            $import->import($file);
+
+            // Ambil kesalahan dan data yang berhasil dari SiswaImport
+            $failures = $import->failures();
+            $successfulRows = $import->successfulRows();
+
+            // Jika ada kegagalan
+            if ($failures || $successfulRows) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Impor selesai dengan beberapa hasil.',
+                    'failures' => $failures,
+                    'successes' => $successfulRows
+                ], 200);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Impor berhasil tanpa kesalahan!'], 200);
+        } catch (\Exception $e) {
+            Log::error('Import Excel error: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'Impor gagal: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function validateData(array $data, array $rules, array $messages = [])
+    {
+        $validator = Validator::make($data, $rules, $messages);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            $response = [
+                'success' => false,
+                'message' => 'Validasi gagal',
+                'errors' => []
+            ];
+
+            foreach ($errors->keys() as $key) {
+                $response['errors'][$key] = $errors->get($key);
+            }
+
+            return response()->json($response, 400);
+        }
+
+        return null;
     }
 }
