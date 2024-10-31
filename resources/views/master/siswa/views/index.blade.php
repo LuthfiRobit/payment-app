@@ -124,4 +124,5 @@
     @include('master.siswa.scripts.list')
     @include('master.siswa.scripts.show')
     @include('master.siswa.scripts.update')
+    @include('master.siswa.scripts.import')
 @endsection
