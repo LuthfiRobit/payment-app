@@ -28,8 +28,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
-        'nisn',  // Assuming 'nisn' is relevant for students in the context
+        'role',
         'status', // E.g., 'active' or 'inactive' for account status
         'created_at',
         'updated_at'
