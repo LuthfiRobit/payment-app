@@ -12,6 +12,16 @@
                     displayTransaksiInfo(response.data);
                     populateRincian(response.rincian);
                     $('#detailModal').modal('show');
+                },
+                error: function(xhr) {
+                    if (xhr.status === 403) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Unauthorized',
+                            text: 'You do not have permission to access this resource.',
+                            confirmButtonText: 'Okay'
+                        });
+                    }
                 }
             });
 
