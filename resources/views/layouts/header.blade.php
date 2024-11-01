@@ -54,22 +54,39 @@
                      <li class="nav-item dropdown header-profile">
                          <a class="nav-link" href="javascript:void(0)" role="button" data-bs-toggle="dropdown">
                              <div class="header-info">
-                                 <span class="text-black">Hello,<strong>Franklin</strong></span>
-                                 <p class="fs-12 mb-0">Super Admin</p>
+                                 @if (Auth::check())
+                                     <span class="text-black"><strong>{{ Auth::user()->name }}</strong></span>
+                                     <p class="fs-12 mb-0">{{ ucfirst(Auth::user()->role) }}</p>
+                                 @else
+                                     <span class="text-black">Hello,<strong>Guest</strong></span>
+                                     <p class="fs-12 mb-0">Please log in</p>
+                                 @endif
                              </div>
-                             <img src="{{ asset('template/images/profile/17.jpg') }}" width="20"
+                             <img src="{{ asset('template/images/avatar/1.png') }}" width="20"
                                  alt="User Profile Picture" />
                          </a>
                          <!-- Dropdown menu with profile and logout options -->
                          <div class="dropdown-menu dropdown-menu-end">
-                             <a href="app-profile.html" class="dropdown-item ai-icon">
-                                 <i class="fas fa-user text-primary" style="font-size: 18px"></i>
-                                 <span class="ms-2">Profile</span>
-                             </a>
-                             <a href="page-login.html" class="dropdown-item ai-icon">
-                                 <i class="fas fa-sign-out-alt text-danger" style="font-size: 18px"></i>
-                                 <span class="ms-2">Logout</span>
-                             </a>
+                             @if (Auth::check())
+                                 {{-- <a href="{{ route('profile') }}" class="dropdown-item ai-icon">
+                                     <i class="fas fa-user text-primary" style="font-size: 18px"></i>
+                                     <span class="ms-2">Profile</span>
+                                 </a> --}}
+                                 <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
+                                     style="display: none;">
+                                     @csrf
+                                 </form>
+                                 <a href="javascript:void(0)" class="dropdown-item ai-icon"
+                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                     <i class="fas fa-sign-out-alt text-danger" style="font-size: 18px"></i>
+                                     <span class="ms-2">Logout</span>
+                                 </a>
+                             @else
+                                 <a href="{{ route('login') }}" class="dropdown-item ai-icon">
+                                     <i class="fas fa-sign-in-alt text-success" style="font-size: 18px"></i>
+                                     <span class="ms-2">Login</span>
+                                 </a>
+                             @endif
                          </div>
                      </li>
                  </ul>
