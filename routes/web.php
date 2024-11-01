@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Master\IuranController;
 use App\Http\Controllers\Master\PotonganController;
@@ -26,10 +27,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect()->route('auth.form');
 });
 
-Route::prefix('main')->name('main.')->group(
+Route::get('/login', [AuthController::class, 'index'])->name('auth.form');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:login')->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+Route::middleware(['auth', 'role:developer,kepsek,admin'])->prefix('main')->name('main.')->group(
     function () {
 
         Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -45,7 +51,7 @@ Route::prefix('main')->name('main.')->group(
 Route::prefix('master-data')->name('master-data.')->group(function () {
 
     // Route group untuk Tahun Akademik
-    Route::prefix('tahun-akademik')->name('tahun-akademik.')->group(function () {
+    Route::middleware(['auth', 'role:developer,admin'])->prefix('tahun-akademik')->name('tahun-akademik.')->group(function () {
         Route::get('/', [TahunAkademikController::class, 'index'])->name('index');
         Route::get('/list', [TahunAkademikController::class, 'getData'])->name('list');
         // Route::get('tahun-akademik/create', [TahunAkademikController::class, 'create'])->name('create');
@@ -58,7 +64,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
     });
 
     // Route group untuk Iuran
-    Route::prefix('iuran')->name('iuran.')->group(function () {
+    Route::middleware(['auth', 'role:developer,admin'])->prefix('iuran')->name('iuran.')->group(function () {
         Route::get('/', [IuranController::class, 'index'])->name('index');
         Route::get('/list', [IuranController::class, 'getData'])->name('list');
         Route::post('store', [IuranController::class, 'store'])->name('store');
@@ -67,7 +73,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
     });
 
     // Route group untuk Potongan
-    Route::prefix('potongan')->name('potongan.')->group(function () {
+    Route::middleware(['auth', 'role:developer,admin'])->prefix('potongan')->name('potongan.')->group(function () {
         Route::get('/', [PotonganController::class, 'index'])->name('index');
         Route::get('/list', [PotonganController::class, 'getData'])->name('list');
         Route::post('store', [PotonganController::class, 'store'])->name('store');
@@ -76,20 +82,24 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
     });
 
     // Route group untuk Siswa
-    Route::prefix('siswa')->name('siswa.')->group(function () {
+    Route::middleware(['auth', 'role:developer,admin,kepsek'])->prefix('siswa')->name('siswa.')->group(function () {
+        // Rute yang bisa diakses oleh semua role
         Route::get('/', [SiswaController::class, 'index'])->name('index');
         Route::get('/list', [SiswaController::class, 'getData'])->name('list');
-        Route::post('store', [SiswaController::class, 'store'])->name('store');
         Route::get('{id}', [SiswaController::class, 'show'])->name('show');
-        Route::put('update/{id}', [SiswaController::class, 'update'])->name('update');
-        Route::post('import-excel', [SiswaController::class, 'importExcel'])->name('import-excel');
-        // Route for global usage
         Route::get('/list/siswa', [SiswaController::class, 'getList'])->name('list-siswa');
+
+        // Rute yang hanya bisa diakses oleh developer dan admin
+        Route::middleware('role:developer,admin')->group(function () {
+            Route::post('store', [SiswaController::class, 'store'])->name('store');
+            Route::put('update/{id}', [SiswaController::class, 'update'])->name('update');
+            Route::post('import-excel', [SiswaController::class, 'importExcel'])->name('import-excel');
+        });
     });
 });
 
 // Route group untuk setting
-Route::prefix('setting')->name('setting.')->group(function () {
+Route::middleware(['auth', 'role:developer,admin'])->prefix('setting')->name('setting.')->group(function () {
 
     // Route group untuk tagihan siswa
     Route::prefix('tagihan-siswa')->name('tagihan-siswa.')->group(function () {
@@ -115,8 +125,8 @@ Route::prefix('setting')->name('setting.')->group(function () {
 // Route group untuk setting
 Route::prefix('tagihan')->name('tagihan.')->group(function () {
 
-    // Route group untuk tagihan siswa
-    Route::prefix('generate-tagihan')->name('generate-tagihan.')->group(function () {
+    // Route group untuk generate tagihan siswa
+    Route::middleware(['auth', 'role:developer,admin'])->prefix('generate-tagihan')->name('generate-tagihan.')->group(function () {
         Route::get('/', [GenerateTagihanController::class, 'index'])->name('index');
         Route::get('/list', [GenerateTagihanController::class, 'getData'])->name('list');
         // Route::post('store', [GenerateTagihanController::class, 'store'])->name('store');
@@ -126,7 +136,7 @@ Route::prefix('tagihan')->name('tagihan.')->group(function () {
     });
 
     // Route group untuk tagihan siswa
-    Route::prefix('daftar-tagihan')->name('daftar-tagihan.')->group(function () {
+    Route::middleware(['auth', 'role:developer,admin,kepsek'])->prefix('daftar-tagihan')->name('daftar-tagihan.')->group(function () {
         Route::get('/', [DaftarTagihanController::class, 'index'])->name('index');
         Route::get('/list', [DaftarTagihanController::class, 'getData'])->name('list');
         // Route::post('store', [GenerateTagihanController::class, 'store'])->name('store');
@@ -136,7 +146,7 @@ Route::prefix('tagihan')->name('tagihan.')->group(function () {
     });
 
     // Route group untuk tagihan siswa
-    Route::prefix('riwayat-tagihan')->name('riwayat-tagihan.')->group(function () {
+    Route::middleware(['auth', 'role:developer,admin,kepsek'])->prefix('riwayat-tagihan')->name('riwayat-tagihan.')->group(function () {
         Route::get('/', [RiwayatTagihanController::class, 'index'])->name('index');
         Route::get('/list', [RiwayatTagihanController::class, 'getData'])->name('list');
         Route::get('{id}', [RiwayatTagihanController::class, 'show'])->name('show');
@@ -147,14 +157,14 @@ Route::prefix('tagihan')->name('tagihan.')->group(function () {
 Route::prefix('transaksi')->name('transaksi.')->group(function () {
 
     //Route group untuk pembayaran
-    Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
+    Route::middleware(['auth', 'role:developer,admin'])->prefix('pembayaran')->name('pembayaran.')->group(function () {
         Route::get('/', [PembayaranController::class, 'index'])->name('index');
         Route::get('show', [PembayaranController::class, 'show'])->name('show');
         Route::post('store', [PembayaranController::class, 'store'])->name('store');
     });
 
     //Route group untuk laporan
-    Route::prefix('laporan')->name('laporan.')->group(function () {
+    Route::middleware(['auth', 'role:developer,admin,kepsek'])->prefix('laporan')->name('laporan.')->group(function () {
         Route::get('/', [LaporanController::class, 'index'])->name('index');
         Route::get('/list', [LaporanController::class, 'getData'])->name('list');
         Route::get('/show/{id}', [LaporanController::class, 'show'])->name('show');
