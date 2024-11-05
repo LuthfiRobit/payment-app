@@ -44,5 +44,17 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+
+        RateLimiter::for('login', function (Request $request) {
+            $throttleKey = strtolower($request->ip()); // Atau sesuaikan sesuai kebutuhan
+            return Limit::perMinute(5)->by($throttleKey)->response(function () use ($throttleKey) {
+                $secondsUntilNextAttempt = RateLimiter::availableIn($throttleKey);
+
+                return response()->json([
+                    'message' => 'Too many login attempts. Please wait before retrying.',
+                    'retry_after' => $secondsUntilNextAttempt
+                ], 429);
+            });
+        });
     }
 }

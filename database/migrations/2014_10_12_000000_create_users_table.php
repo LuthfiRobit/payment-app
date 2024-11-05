@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->enum('role', ['admin', 'petugas', 'wali', 'siswa']); // Mengganti 'guru' dengan 'petugas'
+            $table->enum('role', ['developer', 'admin', 'kepsek', 'petugas', 'wali', 'siswa']); // Mengganti 'guru' dengan 'petugas'
             $table->timestamps();
         });
     }
