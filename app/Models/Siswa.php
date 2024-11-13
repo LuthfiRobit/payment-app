@@ -19,7 +19,9 @@ class Siswa extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    // Menentukan kolom yang boleh diisi (fillable)
     protected $fillable = [
+        'id_siswa',               // UUID id_siswa
         'user_id',
         'nis',
         'nama_siswa',
@@ -30,10 +32,9 @@ class Siswa extends Model
         'alamat',
         'nomor_telepon',
         'email',
-        'kelas',
-        'created_at',
-        'updated_at'
+        'kelas'
     ];
+
 
     /**
      * Relationships
