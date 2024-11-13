@@ -89,3 +89,44 @@
        </div>
    </div>
    <!-- Modal Edit end -->
+
+
+   <!-- Modal Edit start -->
+   <div class="modal fade" id="ModalEditKelas" tabindex="-1" aria-labelledby="ModalEditLabel" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered modal-md">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="ModalEditKelasLabel">Edit Data</h5>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+               <div class="modal-body">
+                   <form id="updateFormKelas" class="form-sm">
+
+                       <input type="hidden" id="siswa_id">
+                       <div class="row">
+                           <div class="col-xl-12">
+                               <div class="mb-3">
+                                   <label for="kelas" class="form-label">Kelas</label>
+                                   <select id="kelas" name="kelas"
+                                       class="selectpicker form-control wide form-select-md" data-live-search="true"
+                                       aria-describedby="instansi-feedback" placeholder="Pilih kelas" required>
+                                       <option value="1">1 (Satu)</option>
+                                       <option value="2">2 (Dua)</option>
+                                       <option value="3">3 (Tiga)</option>
+                                       <option value="4">4 (Empat)</option>
+                                       <option value="5">5 (Lima)</option>
+                                       <option value="6">6 (Enam)</option>
+                                   </select>
+                               </div>
+                           </div>
+                       </div>
+                   </form>
+               </div>
+               <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                   <button type="submit" form="updateFormKelas" class="btn btn-primary">Save Change</button>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- Modal Edit end -->

@@ -13,6 +13,12 @@
                 }
             },
             columns: [{
+                    data: 'checkbox',
+                    name: 'checkbox',
+                    orderable: false,
+                    searchable: false
+                },
+                {
                     data: 'aksi',
                     name: 'aksi',
                     orderable: false,
@@ -50,7 +56,7 @@
                 }
             ],
             language: {
-                searchPlaceholder: "Cari NIS atau nama siswa",
+                searchPlaceholder: "NIS",
                 search: ''
             },
         });
@@ -60,11 +66,11 @@
             var searchValue = this.value;
             // Hanya cari jika panjang karakter >= 4
             if (searchValue.length >= 4) {
-                // Cari di kolom NIS (kolom index 1) dan Nama Siswa (kolom index 2)
-                table.columns([1, 2]).search(searchValue).draw();
+                // Cari di kolom NIS (kolom index 2)
+                table.columns([2]).search(searchValue).draw();
             } else {
                 // Kosongkan pencarian jika kurang dari 4 karakter
-                table.columns([1, 2]).search('').draw();
+                table.columns([2]).search('').draw();
             }
         });
 
@@ -74,6 +80,15 @@
 
         $('#filter_kelas').change(function() {
             table.ajax.reload(); // Reload DataTable with new filter
+        });
+
+        // // Select All checkbox logic
+        $('#selectAll').click(function() {
+            // Dapatkan status checked dari checkbox 'selectAll'
+            var isChecked = $(this).prop('checked');
+
+            // Pilih hanya checkbox yang tidak disabled dan set checked sesuai status selectAll
+            $('.siswa-checkbox:not(:disabled)').prop('checked', isChecked);
         });
     });
 </script>

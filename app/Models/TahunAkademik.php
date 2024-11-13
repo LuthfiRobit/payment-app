@@ -37,4 +37,14 @@ class TahunAkademik extends Model
     {
         return $this->hasMany(Tagihan::class, 'tahun_akademik_id', 'id_tahun_akademik');
     }
+
+    /**
+     * Get all of the siswaBaru for the TahunAkademik
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function siswaBaru(): HasMany
+    {
+        return $this->hasMany(SiswaBaru::class, 'tahun_akademik_id', 'id_tahun_akademik');
+    }
 }

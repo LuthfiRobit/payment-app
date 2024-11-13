@@ -16,14 +16,14 @@ return new class extends Migration
             $table->uuid('user_id')->nullable();
             $table->string('nis')->unique(); // NISN harus unik
             $table->string('nama_siswa'); // Nama siswa
-            $table->enum('status', ['aktif', 'tidak aktif']); // Status siswa
+            $table->enum('status', ['aktif', 'tidak aktif', 'lulus']); // Status siswa
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']); // Jenis kelamin
             $table->date('tanggal_lahir')->nullable(); // Tanggal lahir (nullable)
             $table->string('tempat_lahir')->nullable(); // Tempat lahir (nullable)
             $table->string('alamat')->nullable(); // Alamat (nullable)
             $table->string('nomor_telepon')->nullable(); // Nomor telepon (nullable)
             $table->string('email')->nullable(); // Email (nullable)
-            $table->enum('kelas', ['1', '2', '3', '4', '5', '6']); // Kelas sebagai enum
+            $table->enum('kelas', ['0', '1', '2', '3', '4', '5', '6']); // Kelas sebagai enum
             $table->timestamps();
 
             $table->foreign('user_id')->references('id_user')->on('users')->onDelete('no action')->onUpdate('no action');

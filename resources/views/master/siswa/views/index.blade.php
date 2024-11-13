@@ -74,19 +74,28 @@
                             <div class="row g-1 mt-3">
                                 <div class="col-lg-6 col-sm-12">
                                     <strong>Catatan Import:</strong> <br />
-                                    <span>Gunakan template import untuk melakukan impor data siswa.</span>
+                                    <span>Gunakan template import untuk melakukan impor data siswa.</span><br />
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
                                     <strong>Ekstra:</strong> <br />
-                                    <a href=""><i class="fas fa-download me-1"></i> Template import (Excel)</a>
+                                    <a href="{{ asset('downloads/import_siswa_template.xlsx') }}"><i
+                                            class="fas fa-download me-1"></i> Template import (Excel)</a>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                        <div class="mt-3 text-center">
+                            <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
+                                id="setKelasBtn" title="Edit Kelas Siswa">
+                                <i class="fas fa-edit me-1"></i> Edit Kelas
+                            </a>
+                        </div>
                         <div class="table-responsive">
                             <table id="example" class="table table-striped display min-w850">
                                 <thead>
                                     <tr>
+                                        <th style="max-width: 5px"><input type="checkbox" class="form-check-input"
+                                                id="selectAll"> *</th>
                                         <th>Aksi</th>
                                         <th>NIS</th>
                                         <th>Nama Siswa</th>

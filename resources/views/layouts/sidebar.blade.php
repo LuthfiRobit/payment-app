@@ -69,6 +69,16 @@
                     <li><a href="{{ route('master-data.siswa.index') }}" class="fs-6">Siswa</a></li>
                 </ul>
             </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
+                    <i class="fas fa-id-card fw-bold"></i>
+                    <span class="nav-text">PPDB</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('ppdb.create') }}" class="fs-6">Tambah data siswa</a></li>
+                    <li><a href="{{ route('ppdb.index') }}" class="fs-6">List data siswa</a></li>
+                </ul>
+            </li>
         </ul>
 
         <!-- Footer with copyright information -->
