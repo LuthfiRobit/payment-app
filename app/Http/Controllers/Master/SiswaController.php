@@ -7,6 +7,7 @@ use App\Imports\SiswaImport;
 use App\Models\Siswa;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -46,6 +47,9 @@ class SiswaController extends Controller
 
         // Mengambil data dengan Yajra DataTables
         return DataTables::of($result)
+            ->addColumn('checkbox', function ($item) {
+                return '<input type="checkbox" class="siswa-checkbox form-check-input" value="' . $item->id_siswa . '">';
+            })
             ->addColumn('aksi', function ($item) {
                 return '<button class="btn btn-outline-primary btn-sm edit-button" title="Edit" data-id="' . $item->id_siswa . '">
                     <i class="fas fa-edit"></i>
@@ -68,7 +72,7 @@ class SiswaController extends Controller
                 $badgeClass = ($item->status == 'aktif') ? 'light badge-primary' : 'light badge-danger';
                 return '<span class="fs-7 badge ' . $badgeClass . '">' . strtoupper($item->status) . '</span>';
             })
-            ->rawColumns(['aksi', 'status']) // Tambahkan status agar HTML bisa dirender
+            ->rawColumns(['checkbox', 'aksi', 'status']) // Tambahkan status agar HTML bisa dirender
             ->make(true);
     }
 
@@ -291,6 +295,71 @@ class SiswaController extends Controller
             return response()->json(['success' => false, 'message' => 'Impor gagal: ' . $e->getMessage()], 500);
         }
     }
+
+    public function updateKelas(Request $request)
+    {
+        // Validasi bahwa 'ids' harus berupa array dan tidak kosong
+        // Menambahkan validasi bahwa 'kelas' harus ada dan berupa string
+        $validated = $request->validate([
+            'ids' => 'required|array|min:1', // Minimal 1 ID harus dipilih
+            'ids.*' => 'exists:siswa,id_siswa', // Pastikan ID valid dan ada di tabel siswa
+            'kelas' => 'required|string|max:255', // Kelas baru yang akan diupdate
+        ]);
+
+        // Menangkap ID siswa yang dipilih dari request
+        $selectedIds = $validated['ids'];
+        $newClass = $validated['kelas']; // Kelas baru yang akan diupdate
+
+        // Log ID siswa yang dipilih dan kelas baru
+        // Log::info('Selected IDs: ', ['ids' => $selectedIds]);
+        // Log::info('New Class to be updated: ', ['kelas' => $newClass]);
+
+        try {
+            // Memulai transaksi database
+            DB::beginTransaction();
+
+            // Update kelas untuk siswa yang dipilih
+            $updatedRows = Siswa::whereIn('id_siswa', $selectedIds)
+                ->update(['kelas' => $newClass]);
+
+            // Mengecek apakah ada baris yang ter-update
+            if ($updatedRows > 0) {
+                // Jika update berhasil, commit transaksi
+                DB::commit();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Kelas siswa berhasil diperbarui.'
+                ]);
+            } else {
+                // Jika tidak ada yang diupdate, rollback transaksi
+                DB::rollBack();
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tidak ada siswa yang diperbarui, mungkin ID tidak valid.'
+                ], 400); // Bad Request jika tidak ada yang diupdate
+            }
+        } catch (\Exception $e) {
+            // Jika terjadi error, rollback transaksi
+            DB::rollBack();
+
+            // Jika terjadi error, log error
+            Log::error('Error saat update kelas siswa: ' . $e->getMessage(), [
+                'exception' => $e->getTraceAsString(),
+                'ids' => $selectedIds,
+                'kelas' => $newClass
+            ]);
+
+            // Mengembalikan response error
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat memperbarui kelas siswa.',
+                'error' => $e->getMessage()
+            ], 500); // Status 500 (Internal Server Error)
+        }
+    }
+
 
     public function validateData(array $data, array $rules, array $messages = [])
     {
