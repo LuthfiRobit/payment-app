@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Transaksi;
 
+use App\Exports\TransaksiExport;
 use App\Http\Controllers\Controller;
 use App\Models\RincianTransaksi;
 use App\Models\Siswa;
@@ -11,6 +12,7 @@ use App\Services\ResponseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Number;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class LaporanController extends Controller
@@ -110,6 +112,41 @@ class LaporanController extends Controller
 
             // Mengembalikan response error jika terjadi exception
             return $this->responseService->errorResponse('Terjadi kesalahan saat mengambil data transaksi', $e->getMessage());
+        }
+    }
+
+    public function export(Request $request)
+    {
+        try {
+            // Validate incoming request
+            $request->validate([
+                'tahun_akademik_id' => 'required|exists:tahun_akademik,id_tahun_akademik',
+                'bulan' => 'required|date_format:m',
+            ]);
+
+            // Prepare export data
+            $tahunAkademikId = $request->input('tahun_akademik_id');
+            $bulan = $request->input('bulan');
+
+            // Prepare file name
+            $fileName = 'transaksi_bulan_' . $bulan . '.xlsx';
+
+            // Download the file using Laravel Excel
+            return Excel::download(new TransaksiExport($tahunAkademikId, $bulan), $fileName);
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error saat export transaksi: ' . $e->getMessage(), [
+                'exception' => $e->getTraceAsString(),
+                'tahun_akademik_id' => $request->input('tahun_akademik_id'),
+                'bulan' => $request->input('bulan'),
+            ]);
+
+            // Return error response
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengekspor data transaksi.',
+                'error' => $e->getMessage(),
+            ], 500); // Internal Server Error
         }
     }
 }
