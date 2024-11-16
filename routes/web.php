@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landpage\LandpageController;
 use App\Http\Controllers\Main\DashboardController;
+use App\Http\Controllers\Main\DashboardPpdbController;
 use App\Http\Controllers\Master\IuranController;
 use App\Http\Controllers\Master\PotonganController;
 use App\Http\Controllers\Master\SiswaController;
@@ -49,6 +50,13 @@ Route::middleware(['auth', 'role:developer,kepsek,admin'])->prefix('main')->name
             Route::get('/show/report-two', [DashboardController::class, 'showReportTwo'])->name('show.report.two');
             Route::get('/show/report-three', [DashboardController::class, 'showReportThree'])->name('show.report.three');
             Route::get('/show/report-four', [DashboardController::class, 'showReportFour'])->name('show.report.four');
+        });
+
+        Route::prefix('dashboard-ppdb')->name('dashboard-ppdb.')->group(function () {
+            Route::get('/', [DashboardPpdbController::class, 'index'])->name('index');
+            Route::get('/show/report-one', [DashboardPpdbController::class, 'showReportOne'])->name('show.report.one');
+            Route::get('/show/report-two', [DashboardPpdbController::class, 'showReportTwo'])->name('show.report.two');
+            Route::get('/show/report-three', [DashboardPpdbController::class, 'showReportThree'])->name('show.report.three');
         });
     }
 );
