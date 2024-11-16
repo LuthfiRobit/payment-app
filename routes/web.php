@@ -182,7 +182,7 @@ Route::prefix('transaksi')->name('transaksi.')->group(function () {
         Route::get('/', [LaporanController::class, 'index'])->name('index');
         Route::get('/list', [LaporanController::class, 'getData'])->name('list');
         Route::get('/show/{id}', [LaporanController::class, 'show'])->name('show');
-        // Route::post('store', [PembayaranController::class, 'store'])->name('store');
+        Route::post('export', [LaporanController::class, 'export'])->name('export');
     });
 });
 
