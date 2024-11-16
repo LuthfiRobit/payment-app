@@ -1,0 +1,75 @@
+<script>
+    $(document).ready(function() {
+        // Open modal when export button is clicked
+        $('#btnExport').on('click', function() {
+            $('#modalExport').modal('show');
+        });
+
+        // Handle export submission
+        $('#btnExportSubmit').on('click', function() {
+            var tahunAkademik = $('#tahunAkademik').val();
+            var bulan = $('#bulan').val();
+
+            // Validate input
+            if (!tahunAkademik || !bulan) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Peringatan',
+                    text: 'Harap pilih semua opsi (Tahun Akademik dan Bulan) untuk melanjutkan export.',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            // Send export request to server
+            $.ajax({
+                url: "{{ route('transaksi.laporan.export') }}",
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    tahun_akademik_id: tahunAkademik,
+                    bulan: bulan
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function(response) {
+                    // Handle file download
+                    var blob = response;
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'transaksi_bulan_' + bulan + '.xlsx';
+                    link.click();
+
+                    // After success, close the modal and show success alert
+                    $('#modalExport').modal('hide');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sukses',
+                        text: 'Data export berhasil.',
+                        confirmButtonText: 'OK'
+                    });
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.responseJSON ? xhr.responseJSON.message :
+                        'Terjadi kesalahan saat melakukan export.';
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: errorMessage,
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+        });
+
+        // Reset the modal form when it is closed
+        $('#modalExport').on('hidden.bs.modal', function() {
+            // Reset the form fields
+            $('#formExportData')[0].reset();
+            // Optionally reset select picker (if you're using one)
+            $('#tahunAkademik').selectpicker('refresh');
+            $('#bulan').selectpicker('refresh');
+        });
+    });
+</script>
