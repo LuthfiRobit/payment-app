@@ -39,10 +39,44 @@
                                 <option value="">Silahkan input nis atau nama siswa</option>
                             </select>
                             <input type="date" name="filter_tanggal" id="filter_tanggal"
-                                class="form-control form-control-sm" placeholder="Pilih tanggal" />
+                                class="form-control form-control-md" placeholder="Pilih tanggal" />
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="alert alert-primary">
+                            <div class="row g-1">
+                                <div class="col-lg-6 col-sm-12">
+                                    <strong>Catatan:</strong> <br />
+                                    <span>Gunakan fitur ini untuk melihat dan mengekspor data transaksi siswa dengan lebih
+                                        mudah. Anda dapat melakukan hal-hal berikut:</span> <br />
+                                    <ul>
+                                        <li>Menampilkan daftar transaksi berdasarkan tahun akademik, siswa, atau tanggal
+                                            transaksi.</li>
+                                        <li>Memfilter transaksi berdasarkan tahun akademik, nama siswa (NIS), dan tanggal
+                                            transaksi untuk menemukan data dengan cepat.</li>
+                                        <li>Mengekspor data transaksi ke dalam format Excel untuk laporan lebih lanjut atau
+                                            arsip.</li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6 col-sm-12">
+                                    <strong>Ekstra:</strong> <br />
+                                    <span>* Pastikan semua filter sudah dipilih dengan benar sebelum mengekspor data untuk
+                                        memastikan laporan yang akurat.</span> <br />
+                                    <span>Hanya transaksi yang sesuai dengan filter yang akan diekspor ke file Excel.</span>
+                                    <br />
+                                    <span>Setelah mengekspor data, Anda bisa mengunduh file Excel untuk analisis lebih
+                                        lanjut atau arsip.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <!-- Tombol untuk membuka modal export -->
+                            <a href="javascript:void(0)" class="btn btn-sm btn-rounded btn-outline-primary light btn-sm"
+                                id="btnExport" title="Export transaksi">
+                                <i class="las la-file-export scale5 me-1"></i> Export *
+                            </a>
+                        </div>
                         <div class="table-responsive">
                             <table id="example" class="table table-striped display min-w850">
                                 <thead>
@@ -70,6 +104,7 @@
     {{-- @include('transaksi.laporan.views.create') --}}
     {{-- @include('transaksi.laporan.views.import') --}}
     @include('transaksi.laporan.views.detail')
+    @include('transaksi.laporan.views.export')
 @endsection
 
 @section('this-page-scripts')
@@ -86,5 +121,6 @@
     @include('transaksi.laporan.scripts.list')
     @include('transaksi.laporan.scripts.show')
     @include('transaksi.laporan.scripts.print')
+    @include('transaksi.laporan.scripts.export')
     {{-- @include('transaksi.laporan.scripts.update') --}}
 @endsection
