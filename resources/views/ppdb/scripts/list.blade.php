@@ -28,7 +28,7 @@
                 {
                     data: 'no_registrasi', // Menampilkan no registrasi
                     name: 'no_registrasi',
-                    orderable: false,
+                    orderable: true,
                     searchable: true
                 },
                 {
