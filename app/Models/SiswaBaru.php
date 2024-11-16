@@ -139,4 +139,14 @@ class SiswaBaru extends Model
 
         return $query->get();
     }
+
+    public static function getPendaftarToday()
+    {
+        return self::select('siswa_baru.no_registrasi', 'siswa_baru.nama_panggilan', 'siswa_baru.usia_saat_mendaftar', 'siswa_baru.status')
+            // ->where('tahun_akademik_id',)
+            ->whereDate('siswa_baru.created_at', today())
+            ->orderBy('siswa_baru.created_at', 'DESC')
+            ->limit(5)
+            ->get();
+    }
 }
