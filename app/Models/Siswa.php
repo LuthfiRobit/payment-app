@@ -135,8 +135,14 @@ class Siswa extends Model
         }
 
         // Filter by class if provided
-        if (!empty($filters['filter_kelas'])) {
-            $query->where('siswa.kelas', $filters['filter_kelas']);
+        if (isset($filters['filter_kelas']) && $filters['filter_kelas'] !== '') {
+            // Jika filter kelas bernilai 0, cari siswa dengan kelas 0
+            if ($filters['filter_kelas'] == '0') {
+                $query->where('siswa.kelas', '0');
+            } else {
+                // Jika nilai kelas lainnya, filter berdasarkan kelas yang dipilih
+                $query->where('siswa.kelas', $filters['filter_kelas']);
+            }
         }
 
         // Return the retrieved Siswa data with tagihan
@@ -173,8 +179,14 @@ class Siswa extends Model
             ->orderBy('siswa.created_at', 'DESC');
 
         // Filter by class if provided
-        if (!empty($filters['filter_kelas'])) {
-            $query->where('siswa.kelas', $filters['filter_kelas']);
+        if (isset($filters['filter_kelas']) && $filters['filter_kelas'] !== '') {
+            // Jika filter kelas bernilai 0, cari siswa dengan kelas 0
+            if ($filters['filter_kelas'] == '0') {
+                $query->where('siswa.kelas', '0');
+            } else {
+                // Jika nilai kelas lainnya, filter berdasarkan kelas yang dipilih
+                $query->where('siswa.kelas', $filters['filter_kelas']);
+            }
         }
 
         // Filter by potongan (whether they have a discount or not)
@@ -231,8 +243,14 @@ class Siswa extends Model
             ->orderBy('siswa.created_at', 'DESC');
 
         // Filter by class if provided
-        if (!empty($filters['filter_kelas'])) {
-            $query->where('siswa.kelas', $filters['filter_kelas']);
+        if (isset($filters['filter_kelas']) && $filters['filter_kelas'] !== '') {
+            // Jika filter kelas bernilai 0, cari siswa dengan kelas 0
+            if ($filters['filter_kelas'] == '0') {
+                $query->where('siswa.kelas', '0');
+            } else {
+                // Jika nilai kelas lainnya, filter berdasarkan kelas yang dipilih
+                $query->where('siswa.kelas', $filters['filter_kelas']);
+            }
         }
 
         // Filter by potongan (whether they have a discount or not)

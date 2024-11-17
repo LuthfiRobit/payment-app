@@ -42,6 +42,7 @@
                                     <option value="4">4 (Empat)</option>
                                     <option value="5">5 (Lima)</option>
                                     <option value="6">6 (Enam)</option>
+                                    <option value="0">0 (Lulus)</option>
                                 </select>
                             </div>
                             <div class="">

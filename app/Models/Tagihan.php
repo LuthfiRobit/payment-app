@@ -136,9 +136,15 @@ class Tagihan extends Model
             $query->where('tagihan.status', $filters['filter_status']);
         }
 
-        // Filter berdasarkan kelas jika ada
-        if (!empty($filters['filter_kelas'])) {
-            $query->where('siswa.kelas', $filters['filter_kelas']);
+        // Filter by class if provided
+        if (isset($filters['filter_kelas']) && $filters['filter_kelas'] !== '') {
+            // Jika filter kelas bernilai 0, cari siswa dengan kelas 0
+            if ($filters['filter_kelas'] == '0') {
+                $query->where('siswa.kelas', '0');
+            } else {
+                // Jika nilai kelas lainnya, filter berdasarkan kelas yang dipilih
+                $query->where('siswa.kelas', $filters['filter_kelas']);
+            }
         }
 
         // Mengurutkan berdasarkan tanggal dibuat dan mengembalikan hasil
@@ -176,9 +182,15 @@ class Tagihan extends Model
             $query->where('tagihan.status', $filters['filter_status']);
         }
 
-        // Filter berdasarkan kelas jika ada
-        if (!empty($filters['filter_kelas'])) {
-            $query->where('siswa.kelas', $filters['filter_kelas']);
+        // Filter by class if provided
+        if (isset($filters['filter_kelas']) && $filters['filter_kelas'] !== '') {
+            // Jika filter kelas bernilai 0, cari siswa dengan kelas 0
+            if ($filters['filter_kelas'] == '0') {
+                $query->where('siswa.kelas', '0');
+            } else {
+                // Jika nilai kelas lainnya, filter berdasarkan kelas yang dipilih
+                $query->where('siswa.kelas', $filters['filter_kelas']);
+            }
         }
 
         // Filter berdasarkan tahun akademik jika ada

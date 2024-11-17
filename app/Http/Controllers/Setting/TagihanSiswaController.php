@@ -47,8 +47,15 @@ class TagihanSiswaController extends Controller
             $siswaData->where('siswa.status', $filters['filter_status']);
         }
 
-        if (!empty($filters['filter_kelas'])) {
-            $siswaData->where('siswa.kelas', $filters['filter_kelas']);
+        // Filter by class if provided
+        if (isset($filters['filter_kelas']) && $filters['filter_kelas'] !== '') {
+            // Jika filter kelas bernilai 0, cari siswa dengan kelas 0
+            if ($filters['filter_kelas'] == '0') {
+                $siswaData->where('siswa.kelas', '0');
+            } else {
+                // Jika nilai kelas lainnya, filter berdasarkan kelas yang dipilih
+                $siswaData->where('siswa.kelas', $filters['filter_kelas']);
+            }
         }
 
         // Mengambil data dengan Yajra DataTables
