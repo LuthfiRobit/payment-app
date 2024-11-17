@@ -81,6 +81,15 @@
                     <li><a href="{{ route('ppdb.index') }}" class="fs-6">List data siswa</a></li>
                 </ul>
             </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
+                    <i class="fas fa-cogs fw-bold"></i> <!-- Ganti dengan ikon yang lebih sesuai untuk aplikasi -->
+                    <span class="nav-text">Aplikasi</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('application.user.index') }}" class="fs-6">Manajemen Pengguna</a></li>
+                </ul>
+            </li>
         </ul>
 
         <!-- Footer with copyright information -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -24,7 +25,7 @@ class AuthController extends Controller
 
         // Specify the number of attempts and delay in seconds
         $maxAttempts = 5;
-        $decaySeconds = 60; // Lock out for 3 minutes
+        $decaySeconds = 60; // Lock out for 1 minute
 
         if (RateLimiter::tooManyAttempts($throttleKey, $maxAttempts)) {
             $secondsUntilNextAttempt = RateLimiter::availableIn($throttleKey);
@@ -38,7 +39,11 @@ class AuthController extends Controller
         // Validate credentials and attempt login
         $request->validate(['email' => 'required|email', 'password' => 'required|string']);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        // Attempt to authenticate the user
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && $user->status === 'aktif' && Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            // Clear the throttle counter if login is successful
             RateLimiter::clear($throttleKey);
 
             return response()->json(['message' => 'Login successful']);
@@ -47,6 +52,11 @@ class AuthController extends Controller
         // Increment the throttle count and set custom delay
         RateLimiter::hit($throttleKey, $decaySeconds);
 
+        if ($user && $user->status !== 'aktif') {
+            return response()->json(['message' => 'Your account is inactive. Please contact support.'], 403); // 403 Forbidden
+        }
+
+        // Invalid credentials
         return response()->json(['message' => 'Invalid credentials. Please try again.'], 401);
     }
 
