@@ -27,11 +27,19 @@ class UserManagementController extends Controller
 
     public function getData(Request $request)
     {
-        // Ambil data dari tabel users dengan kolom yang relevan
+        // Get the currently authenticated user
+        $authUser = auth()->user();
+
+        // Start the query to get users
         $query = User::select('id_user', 'name', 'email', 'status', 'role')
             ->orderBy('created_at', 'DESC');
 
-        // Filter berdasarkan status jika ada
+        // If the authenticated user is not a developer, exclude developers from the query
+        if ($authUser->role !== 'developer') {
+            $query->where('role', '!=', 'developer');
+        }
+
+        // Apply status filter if provided in the request
         if ($request->has('filter_status') && $request->filter_status != '') {
             $query->where('status', $request->filter_status);
         }
