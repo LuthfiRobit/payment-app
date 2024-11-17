@@ -221,7 +221,7 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
 
 
 // Route group untuk user (guest pada halaman landpage)
-Route::middleware(['auth', 'role:developer'])->prefix('application')->name('application.')->group(function () {
+Route::middleware(['auth', 'role:developer,admin'])->prefix('application')->name('application.')->group(function () {
 
     // Route group untuk PPDB
     Route::prefix('user')->name('user.')->group(function () {
