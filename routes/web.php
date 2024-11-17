@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Apps\UserManagementController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landpage\LandpageController;
 use App\Http\Controllers\Main\DashboardController;
@@ -32,8 +33,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    // return redirect()->route('auth.form');
     return redirect()->route('landpage.index');
 });
 
@@ -210,12 +209,27 @@ Route::middleware(['auth', 'role:developer,admin,kepsek'])->prefix('ppdb')->name
 });
 
 // Route group untuk user (guest pada halaman landpage)
-Route::prefix('landpage')->name('landpage.')->group(function () {
+Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(function () {
     Route::get('/', [LandpageController::class, 'index'])->name('index');
 
     // Route group untuk PPDB
     Route::prefix('ppdb')->name('ppdb.')->group(function () {
         Route::get('/', [LandpageController::class, 'registration'])->name('registration');
         Route::post('/store', [RegistrasiSiswaController::class, 'store'])->name('store');
+    });
+});
+
+
+// Route group untuk user (guest pada halaman landpage)
+Route::middleware(['auth', 'role:developer'])->prefix('application')->name('application.')->group(function () {
+
+    // Route group untuk PPDB
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('/', [UserManagementController::class, 'index'])->name('index');
+        Route::get('/list', [UserManagementController::class, 'getData'])->name('list');
+        Route::post('store', [UserManagementController::class, 'store'])->name('store');
+        Route::get('{id}', [UserManagementController::class, 'show'])->name('show');
+        Route::put('update/{id}', [UserManagementController::class, 'update'])->name('update');
+        Route::post('/update-status', [UserManagementController::class, 'updateStatus'])->name('update.status');
     });
 });
