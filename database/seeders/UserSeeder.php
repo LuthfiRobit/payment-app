@@ -20,23 +20,9 @@ class UserSeeder extends Seeder
                 'id_user' => Str::uuid(),
                 'name' => 'Developer',
                 'email' => 'luthfialid@gmail.com',
-                'password' => Hash::make('lnh545471'),
+                'password' => '$2y$10$CYCgj76/fJ7SP68febUhv.PplwdqhUMCMBhBLCJ/pe3zvK1ZxTA66',
                 'role' => 'developer',
-            ],
-            [
-                'id_user' => Str::uuid(),
-                'name' => 'Admin',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make('admin'),
-                'role' => 'admin',
-            ],
-            [
-                'id_user' => Str::uuid(),
-                'name' => 'Kepsek',
-                'email' => 'kepsek@gmail.com',
-                'password' => Hash::make('kepsek'),
-                'role' => 'kepsek',
-            ],
+            ]
         ];
 
         foreach ($users as $user) {
