@@ -36,6 +36,7 @@
                                     <option value="4">4 (Empat)</option>
                                     <option value="5">5 (Lima)</option>
                                     <option value="6">6 (Enam)</option>
+                                    <option value="0">0 (Lulus)</option>
                                 </select>
                             </div>
                             <!-- Filter Activation Status -->
@@ -46,6 +47,7 @@
                                     <option value="">Semua</option>
                                     <option value="aktif">Aktif</option>
                                     <option value="tidak aktif">Tidak aktif</option>
+                                    <option value="lulus">Lulus</option>
                                 </select>
                             </div>
                             <!-- Import Button -->
