@@ -52,8 +52,9 @@
 
     <!-- Global style start -->
     <link href="{{ asset('template/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet" />
-    <link class="main-css" href="http://payment-app.test/template/css/style.css" rel="stylesheet" />
+    {{-- <link class="main-css" href="http://payment-app.test/template/css/style.css" rel="stylesheet" /> --}}
     <!-- Global style end -->
+    <link class="main-css" href="{{ asset('template/css/style.css') }}" rel="stylesheet">
 
     <!-- This page style start -->
     <link rel="stylesheet" href="{{ asset('template/css/style-costume.css') }}">
