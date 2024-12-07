@@ -231,8 +231,8 @@ class SiswaController extends Controller
     public function getList(Request $request)
     {
         try {
-            $query = Siswa::select('id_siswa', 'nis', 'nama_siswa', 'kelas')
-                ->where('status', 'aktif');
+            $query = Siswa::select('id_siswa', 'nis', 'nama_siswa', 'kelas');
+            // ->where('status', 'aktif');
 
             // Cek jika ada parameter pencarian
             if ($request->has('search') && !empty($request->input('search'))) {
