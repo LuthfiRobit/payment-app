@@ -27,6 +27,9 @@
                     <li>
                         <a href="{{ route('transaksi.laporan.index') }}" class="fs-6">Laporan</a>
                     </li>
+                    <li>
+                        <a href="{{ route('transaksi.setor.keuangan.index') }}" class="fs-6">Setor Keuangan</a>
+                    </li>
                 </ul>
             </li>
             <li>
