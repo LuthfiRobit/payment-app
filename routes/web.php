@@ -6,11 +6,14 @@ use App\Http\Controllers\Landpage\LandpageController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\DashboardPpdbController;
 use App\Http\Controllers\Master\IuranController;
+use App\Http\Controllers\Master\KontakController;
 use App\Http\Controllers\Master\PotonganController;
 use App\Http\Controllers\Master\SiswaController;
 use App\Http\Controllers\Master\TahunAkademikController;
+use App\Http\Controllers\Master\TentangController;
 use App\Http\Controllers\Registrasi\RegistrasiController;
 use App\Http\Controllers\Registrasi\RegistrasiGeneratorController;
+use App\Http\Controllers\Registrasi\RegistrasiSettingController;
 use App\Http\Controllers\Registrasi\RegistrasiSiswaController;
 use App\Http\Controllers\Setting\PotonganSiswaController;
 use App\Http\Controllers\Setting\TagihanSiswaController;
@@ -110,6 +113,26 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
             Route::post('update-kelas', [SiswaController::class, 'updateKelas'])->name('update.kelas');
             Route::post('import-excel', [SiswaController::class, 'importExcel'])->name('import-excel');
         });
+    });
+
+    // Route group untuk Kontak
+    Route::middleware(['auth', 'role:developer,admin'])->prefix('kontak')->name('kontak.')->group(function () {
+        Route::get('/', [KontakController::class, 'index'])->name('index');
+        Route::get('/list', [KontakController::class, 'getData'])->name('list');
+        Route::post('store', [KontakController::class, 'store'])->name('store');
+        Route::get('{id}', [KontakController::class, 'show'])->name('show');
+        Route::put('update/{id}', [KontakController::class, 'update'])->name('update');
+        Route::post('update-status', [KontakController::class, 'updateStatus'])->name('update.status');
+    });
+
+    // Route group untuk Tentang
+    Route::middleware(['auth', 'role:developer,admin'])->prefix('tentang')->name('tentang.')->group(function () {
+        Route::get('/', [TentangController::class, 'index'])->name('index');
+        Route::get('/list', [TentangController::class, 'getData'])->name('list');
+        Route::post('store', [TentangController::class, 'store'])->name('store');
+        Route::get('{id}', [TentangController::class, 'show'])->name('show');
+        Route::put('update/{id}', [TentangController::class, 'update'])->name('update');
+        Route::post('update-status', [TentangController::class, 'updateStatus'])->name('update.status');
     });
 });
 
@@ -218,6 +241,16 @@ Route::middleware(['auth', 'role:developer,admin,kepsek'])->prefix('ppdb')->name
     Route::post('update-keluarga/{id}', [RegistrasiController::class, 'updateKeluarga'])->name('update.keluarga');
 
     Route::post('update-status/{id}', [RegistrasiController::class, 'updateStatusSiswa'])->name('update.status');
+
+    // Route group untuk setting
+    Route::prefix('setting')->name('setting.')->group(function () {
+        Route::get('/', [RegistrasiSettingController::class, 'index'])->name('index');
+        Route::get('/list', [RegistrasiSettingController::class, 'getData'])->name('list');
+        Route::post('store', [RegistrasiSettingController::class, 'store'])->name('store');
+        Route::get('{id}', [RegistrasiSettingController::class, 'show'])->name('show');
+        Route::put('update/{id}', [RegistrasiSettingController::class, 'update'])->name('update');
+        Route::post('update-status', [RegistrasiSettingController::class, 'updateStatus'])->name('update.status');
+    });
 });
 
 // Route group untuk user (guest pada halaman landpage)
