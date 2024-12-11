@@ -22,6 +22,7 @@ use App\Http\Controllers\Tagihan\GenerateTagihanController;
 use App\Http\Controllers\Tagihan\RiwayatTagihanController;
 use App\Http\Controllers\Transaksi\LaporanController;
 use App\Http\Controllers\Transaksi\PembayaranController;
+use App\Http\Controllers\Transaksi\SetorKeuanganController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,7 @@ Route::middleware(['auth', 'role:developer,kepsek,admin'])->prefix('main')->name
             Route::get('/show/report-two', [DashboardController::class, 'showReportTwo'])->name('show.report.two');
             Route::get('/show/report-three', [DashboardController::class, 'showReportThree'])->name('show.report.three');
             Route::get('/show/report-four', [DashboardController::class, 'showReportFour'])->name('show.report.four');
+            Route::get('/show/report-five', [DashboardController::class, 'showReportFive'])->name('show.report.five');
         });
 
         Route::prefix('dashboard-ppdb')->name('dashboard-ppdb.')->group(function () {
@@ -206,6 +208,16 @@ Route::prefix('transaksi')->name('transaksi.')->group(function () {
         Route::get('/show/{id}', [LaporanController::class, 'show'])->name('show');
         Route::post('export', [LaporanController::class, 'export'])->name('export');
     });
+
+    Route::prefix('setor-keuangan')->name('setor.keuangan.')->group(function () {
+        Route::get('/', [SetorKeuanganController::class, 'index'])->name('index');
+        Route::get('/list', [SetorKeuanganController::class, 'getData'])->name('list');
+        Route::get('/show/{id}', [SetorKeuanganController::class, 'show'])->name('show');
+        Route::get('create', [SetorKeuanganController::class, 'create'])->name('create');
+        Route::get('find', [SetorKeuanganController::class, 'find'])->name('find');
+        Route::post('store', [SetorKeuanganController::class, 'store'])->name('store');
+        Route::post('export', [SetorKeuanganController::class, 'export'])->name('export');
+    });
 });
 
 // Route group untuk PPDB
@@ -251,7 +263,6 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
         Route::post('/store', [RegistrasiSiswaController::class, 'store'])->name('store');
     });
 });
-
 
 // Route group untuk user (guest pada halaman landpage)
 Route::middleware(['auth', 'role:developer,admin'])->prefix('application')->name('application.')->group(function () {

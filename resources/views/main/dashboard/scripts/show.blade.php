@@ -22,15 +22,15 @@
                         .total_jumlah_bayar_today || 0));
 
                     // Menyembunyikan pesan "belum ada data"
-                    $('#no-data-message').addClass('d-none').removeClass('d-block');
+                    $('#no-data-message-one').addClass('d-none').removeClass('d-block');
                 } else {
                     // Menampilkan pesan jika tidak ada data
-                    $('#no-data-message').removeClass('d-none').addClass('d-block').text(
+                    $('#no-data-message-one').removeClass('d-none').addClass('d-block').text(
                         'Belum ada data');
                 }
             },
             error: function() {
-                $('#no-data-message').removeClass('d-none').addClass('d-block').text(
+                $('#no-data-message-one').removeClass('d-none').addClass('d-block').text(
                     'Terjadi kesalahan saat mengambil data.');
             }
         });
@@ -49,15 +49,45 @@
                     $('#total-bayar-value').text(formatCurrency(response.total_bayar || 0));
 
                     // Menyembunyikan pesan "belum ada data"
-                    $('#no-data-message').addClass('d-none').removeClass('d-block');
+                    $('#no-data-message-two').addClass('d-none').removeClass('d-block');
                 } else {
                     // Menampilkan pesan jika tidak ada data
-                    $('#no-data-message').removeClass('d-none').addClass('d-block').text(
+                    $('#no-data-message-two').removeClass('d-none').addClass('d-block').text(
                         'Belum ada data');
                 }
             },
             error: function() {
-                $('#no-data-message').removeClass('d-none').addClass('d-block').text(
+                $('#no-data-message-two').removeClass('d-none').addClass('d-block').text(
+                    'Terjadi kesalahan saat mengambil data.');
+            }
+        });
+
+        // AJAX untuk report lima
+        $.ajax({
+            url: '{{ route('main.dashboard.show.report.five') }}', // Ganti dengan URL yang sesuai
+            method: 'GET',
+            success: function(response) {
+                console.log(response);
+                // Menampilkan data jika ada
+                if (response.message === 'Data ditemukan') {
+                    // Mengupdate elemen HTML dengan data yang diterima
+                    const data = response.data; // Mengambil data dari response
+
+                    $('#total-tagihan-setoran-value').text(formatCurrency(data
+                        .total_tagihan_setoran || 0));
+                    $('#total-setoran-value').text(formatCurrency(data.total_setoran || 0));
+                    $('#total-sisa-value').text(formatCurrency(data.sisa_setoran || 0));
+
+                    // Menyembunyikan pesan "belum ada data"
+                    $('#no-data-message-five').addClass('d-none').removeClass('d-block');
+                } else {
+                    // Menampilkan pesan jika tidak ada data
+                    $('#no-data-message-five').removeClass('d-none').addClass('d-block').text(
+                        'Belum ada data');
+                }
+            },
+            error: function() {
+                $('#no-data-message-five').removeClass('d-none').addClass('d-block').text(
                     'Terjadi kesalahan saat mengambil data.');
             }
         });
@@ -105,7 +135,10 @@
             year: 'numeric'
         };
         const formattedDate = today.toLocaleDateString('id-ID', options); // Format for Indonesia
-        $('span.fs-12').text(formattedDate);
+        $('span.date-now').text(formattedDate);
+        $('span.month-now').text(today.toLocaleString('id-ID', {
+            month: 'long'
+        }) + ' ' + today.getFullYear());
     });
 </script>
 
@@ -147,7 +180,6 @@
             url: '{{ route('main.dashboard.show.report.four') }}',
             method: 'GET',
             success: function(response) {
-                console.log(response); // Log the response
                 if (response.success) {
                     const labels = response.data.map(item => item.date); // Extract dates
                     const data = response.data.map(item => parseFloat(item.total_bayar) ||

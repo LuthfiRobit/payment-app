@@ -1,11 +1,12 @@
 <script>
     const storeUrl = "{{ route('transaksi.pembayaran.store') }}"; // URL untuk menyimpan pembayaran
+
     $('#save-payment-btn').click(function(event) {
         event.preventDefault(); // Mencegah pengiriman form secara default
 
         const siswaId = $('#filter_siswa').val(); // Mendapatkan siswa_id dari filter
 
-        // Pastikan siswaId tersedia
+        // Validasi siswa_id
         if (!siswaId) {
             Swal.fire({
                 icon: 'error',
@@ -16,7 +17,7 @@
             return;
         }
 
-        // Pastikan tagihan_id tersedia (dari script show)
+        // Validasi tagihan_id
         if (!tagihanId) {
             Swal.fire({
                 icon: 'error',
@@ -27,69 +28,44 @@
             return;
         }
 
-        // Mendapatkan jumlah pembayaran dari input field
-        const totalBayar = $('#total_bayar').val();
-
-        // Pastikan totalBayar adalah angka yang valid sebelum melanjutkan
-        if (isNaN(totalBayar) || totalBayar <= 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Jumlah Pembayaran Tidak Valid',
-                text: 'Jumlah pembayaran harus berupa angka positif.',
-                confirmButtonText: 'OK'
-            });
-            return;
-        }
-
         // Menyiapkan data untuk disimpan
         const requestData = {
             siswa_id: siswaId,
-            tagihan_id: tagihanId, // Menambahkan tagihan_id di sini
-            jumlah_bayar: totalBayar,
-            status: 'sukses',
+            tagihan_id: tagihanId,
             rincian: []
         };
 
+        let valid = true; // Flag untuk menghentikan proses jika ada error
+
         // Loop melalui setiap rincian-item dan kumpulkan data
         $('#containerInput .rincian-item').each(function() {
-            const rincianTagihanId = $(this).data(
-                'rincian-tagihan-id'); // Mendapatkan rincian_tagihan_id dari atribut data
+            const rincianTagihanId = $(this).data('rincian-tagihan-id');
             const jumlahBayarInput = $(this).find('input[id^="jumlah_bayar_"]');
-            const maxBayar = parseFloat(jumlahBayarInput.attr('max')); // Mendapatkan nilai max
-            const jumlahBayar = parseFloat(jumlahBayarInput.val()); // Mendapatkan nilai input pengguna
+            const maxBayar = parseFloat(jumlahBayarInput.attr('max')); // Maksimum bayar dari backend
+            const jumlahBayar = parseFloat(jumlahBayarInput.val()); // Nilai input pengguna
 
-            // Pastikan jumlah yang dibayar tidak melebihi nilai max
-            if (isNaN(jumlahBayar) || jumlahBayar > maxBayar) {
+            // Validasi jumlah bayar terhadap maxBayar
+            if (isNaN(jumlahBayar) || jumlahBayar < 0 || jumlahBayar > maxBayar) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Jumlah Pembayaran Tidak Valid',
-                    text: `Jumlah yang dibayar tidak boleh lebih dari Rp ${maxBayar.toLocaleString('id-ID')},00.`,
+                    text: `Jumlah yang dibayar untuk rincian tagihan ID ${rincianTagihanId} tidak boleh lebih dari Rp ${maxBayar.toLocaleString('id-ID')},00.`,
                     confirmButtonText: 'OK'
                 });
-                return false; // Hentikan pengiriman form
+                valid = false; // Set flag ke false jika ada kesalahan
+                return false; // Hentikan iterasi
             }
 
-            // Cek apakah rincianTagihanId ada sebelum menambahkannya
-            if (rincianTagihanId) {
-                // Menambahkan rincian ke data permintaan
-                requestData.rincian.push({
-                    rincian_tagihan_id: rincianTagihanId, // Menambahkan rincian_tagihan_id di sini
-                    total_bayar: jumlahBayar
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Data Tidak Lengkap',
-                    text: 'Rincian Tagihan ID diperlukan untuk setiap rincian.',
-                    confirmButtonText: 'OK'
-                });
-                return false; // Hentikan pengiriman form jika rincian_tagihan_id hilang
-            }
+            // Tambahkan rincian ke requestData meskipun jumlah_bayar adalah 0
+            requestData.rincian.push({
+                rincian_tagihan_id: rincianTagihanId,
+                total_bayar: jumlahBayar
+            });
         });
 
-        // Jika ada rincian yang tidak valid, berhenti di sini dan jangan kirim request
-        if (requestData.rincian.length === 0) {
-            return; // Jangan kirim request AJAX jika tidak ada rincian yang valid
+        // Jika ada rincian yang tidak valid, hentikan proses
+        if (!valid || requestData.rincian.length === 0) {
+            return;
         }
 
         // Kirim request AJAX untuk menyimpan data
@@ -99,7 +75,6 @@
             data: requestData,
             success: function(response) {
                 if (response.success) {
-                    // Jika data berhasil disimpan, tampilkan alert sukses
                     Swal.fire({
                         icon: 'success',
                         title: 'Pembayaran Berhasil Disimpan',
@@ -109,7 +84,6 @@
                         location.reload(); // Muat ulang tabel jika perlu
                     });
                 } else {
-                    // Tampilkan alert error jika terjadi kesalahan
                     Swal.fire({
                         icon: 'error',
                         title: 'Kesalahan',
@@ -120,7 +94,6 @@
                 }
             },
             error: function(xhr) {
-                // Menangani kesalahan AJAX
                 Swal.fire({
                     icon: 'error',
                     title: 'Kesalahan',
@@ -129,5 +102,22 @@
                 });
             }
         });
+    });
+
+    // Validasi real-time jumlah bayar
+    $(document).on('input', 'input[id^="jumlah_bayar_"]', function() {
+        const maxBayar = parseFloat($(this).attr('max'));
+        const jumlahBayar = parseFloat($(this).val());
+
+        if (jumlahBayar < 0 || jumlahBayar > maxBayar) {
+            $(this).addClass('is-invalid');
+            $(this).siblings('.invalid-feedback').remove();
+            $(this).after(
+                `<div class="invalid-feedback">Jumlah tidak boleh lebih dari Rp ${maxBayar.toLocaleString('id-ID')},00 dan tidak boleh kurang dari 0.</div>`
+            );
+        } else {
+            $(this).removeClass('is-invalid');
+            $(this).siblings('.invalid-feedback').remove();
+        }
     });
 </script>
