@@ -6,7 +6,11 @@
 
 @section('content')
     @php
+        $currentDate = \Carbon\Carbon::now();
         $activeYear = \App\Helpers\AppHelper::getActiveAcademicYear();
+        $activeContact = \App\Helpers\AppHelper::getKontak();
+        $activeAbout = \App\Helpers\AppHelper::getTentang();
+        $activeSetting = \App\Helpers\AppHelper::getSettingPendaftaran();
     @endphp
 
     <!-- Conatiner Section start -->
@@ -67,7 +71,9 @@
                                 <h5 class="card-title">Jadwal Pendaftaran</h5>
                                 <p class="card-text text-muted">Pendaftaran Peserta Didik Baru akan dibuka dari:
                                 </p>
-                                <p class="fw-bold text-danger">1 Januari 2024 - 31 Maret 2024</p>
+                                <p class="fw-bold text-danger">
+                                    {{ $activeSetting ? \Carbon\Carbon::parse($activeSetting->tanggal_mulai)->translatedFormat('d F Y') . ' - ' . \Carbon\Carbon::parse($activeSetting->tanggal_selesai)->translatedFormat('d F Y') : 'Belum ada data' }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -81,7 +87,9 @@
                                 </div>
                                 <h5 class="card-title">Biaya Pendaftaran</h5>
                                 <p class="card-text text-muted">Biaya pendaftaran untuk Peserta Didik Baru:</p>
-                                <p class="fw-bold text-danger">Rp 200.000,-</p>
+                                <p class="fw-bold text-danger">
+                                    {{ $activeSetting ? \Number::currency($activeSetting->biaya_pendaftaran, 'IDR', 'id') : 'Belum ada data' }}
+                                </p>
                                 <small class="text-muted">Biaya ini sudah mencakup biaya administrasi dan
                                     perlengkapan awal.</small>
                             </div>
@@ -98,9 +106,13 @@
                                 <h5 class="card-title">Kontak Kami</h5>
                                 <p class="card-text text-muted">Jika Anda memiliki pertanyaan atau membutuhkan
                                     bantuan, silakan hubungi:</p>
-                                <p class="fw-bold text-info">+62 812-3456-7890</p>
-                                <small class="text-muted">Email: <a
-                                        href="mailto:pendaftaran@mihyauddiniyah.sch.id">pendaftaran@mihyauddiniyah.sch.id</a></small>
+                                <p class="fw-bold text-info">
+                                    {{ $activeContact ? $activeContact->kontak_telepon : 'Belum ada data' }}</p>
+                                <small class="text-muted">Email:
+                                    <a href="mailto:{{ $activeContact ? $activeContact->kontak_email : '' }}">
+                                        {{ $activeContact ? $activeContact->kontak_email : 'Belum ada data' }}
+                                    </a>
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -136,8 +148,8 @@
                     <!-- Image Column -->
                     <div class="col-lg-6">
                         <div class="about-image">
-                            <img src="{{ asset('template/images/big/img8.jpg') }}" alt="about"
-                                class="img-fluid rounded shadow-sm">
+                            <img src=" {{ $activeAbout ? asset($activeAbout->img) : asset('template/images/under-m.png') }}"
+                                alt="about" class="img-fluid rounded shadow-sm">
                         </div>
                     </div>
 
@@ -152,25 +164,7 @@
                             </div>
                             <div class="text">
                                 <p>
-                                    Madrasah Ibtidaiyah Ihyauddiniyah adalah lembaga pendidikan dasar Islam yang
-                                    terletak di Desa Kecil Besuk, Kabupaten Probolinggo. Didirikan dengan tujuan
-                                    untuk memberikan pendidikan agama dan umum secara seimbang, Madrasah ini telah
-                                    menjadi pilihan utama bagi banyak orang tua yang menginginkan pendidikan
-                                    berkualitas dengan pendekatan yang holistik bagi anak-anak mereka.
-                                </p>
-                                <p>
-                                    Kami percaya bahwa pendidikan yang baik adalah kunci untuk membangun karakter
-                                    dan moral yang kuat, serta kemampuan intelektual yang handal. Oleh karena itu,
-                                    Madrasah Ibtidaiyah Ihyauddiniyah berkomitmen untuk mendidik generasi penerus
-                                    dengan kurikulum yang menggabungkan ilmu agama, sains, bahasa, dan keterampilan
-                                    lainnya untuk mempersiapkan mereka menghadapi tantangan dunia modern.
-                                </p>
-                                <p>
-                                    Dengan fasilitas yang lengkap dan pengajaran yang berbasis pada nilai-nilai
-                                    keislaman, Madrasah Ibtidaiyah Ihyauddiniyah berusaha mencetak siswa yang tidak
-                                    hanya cerdas secara akademik, tetapi juga memiliki akhlak yang mulia dan
-                                    berkarakter. Kami mengutamakan pendidikan yang menyentuh aspek spiritual,
-                                    sosial, dan intelektual dalam setiap proses pembelajaran.
+                                    {{ $activeAbout ? $activeAbout->deskripsi : 'Belum ada data' }}
                                 </p>
                             </div>
                             <div class="signature"
@@ -205,10 +199,11 @@
                     <p>Dokumen yang perlu disiapkan antara lain: Kartu Keluarga, Akta Kelahiran, dan foto
                         terbaru.</p>
                     <h6>2. Bagaimana cara membayar biaya pendaftaran?</h6>
-                    <p>Pembayaran dapat dilakukan melalui transfer bank ke nomor rekening yang tertera pada
-                        halaman pembayaran.</p>
+                    <p>Silahkan hubungi admin pada nomor :
+                        {{ $activeContact ? $activeContact->kontak_telepon : 'Belum ada data' }}</p>
                     <h6>3. Apakah ada kuota pendaftaran?</h6>
-                    <p>Ya, kami menerima pendaftaran terbatas hingga 100 peserta didik per tahun ajaran.</p>
+                    <p>Silahkan hubungi admin pada nomor :
+                        {{ $activeContact ? $activeContact->kontak_telepon : 'Belum ada data' }}</p>
                 </div>
             </div>
         </div>
