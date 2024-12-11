@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
+use App\Models\SetoranKeuangan;
 use App\Models\Siswa;
 use App\Models\Tagihan;
 use App\Models\Transaksi;
@@ -13,15 +14,26 @@ use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
+    /**
+     * @var ResponseService
+     */
     protected $responseService;
 
-    // Konstruktor untuk menginisialisasi ResponseService
+    /**
+     * Konstruktor untuk menginisialisasi ResponseService.
+     *
+     * @param ResponseService $responseService
+     */
     public function __construct(ResponseService $responseService)
     {
         $this->responseService = $responseService;
     }
 
-    // Menampilkan halaman index dashboard
+    /**
+     * Menampilkan halaman index dashboard.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         // Mengembalikan tampilan index dashboard
@@ -29,7 +41,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Menampilkan laporan siswa dan transaksi hari ini
+     * Menampilkan laporan siswa dan transaksi hari ini.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -66,6 +78,11 @@ class DashboardController extends Controller
         }
     }
 
+    /**
+     * Menampilkan laporan total tagihan berdasarkan tahun akademik aktif.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function showReportTwo()
     {
         try {
@@ -94,15 +111,52 @@ class DashboardController extends Controller
         }
     }
 
+    /**
+     * Menampilkan laporan transaksi hari ini.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function showReportThree()
     {
+        // Mendapatkan transaksi yang terjadi hari ini
         $transaksiToday = Transaksi::getTransaksiToday();
+
+        // Mengembalikan response menggunakan responseService
         return $this->responseService->successResponse('Data ditemukan', $transaksiToday, []);
     }
 
+    /**
+     * Menampilkan laporan transaksi mingguan.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function showReportFour()
     {
+        // Mendapatkan transaksi yang terjadi dalam seminggu terakhir
         $transaksiWeekly = Transaksi::getTransaksiWeekly();
+
+        // Mengembalikan response menggunakan responseService
         return $this->responseService->successResponse('Data ditemukan', $transaksiWeekly, []);
+    }
+
+    /**
+     * Menampilkan laporan setoran keuangan untuk bulan dan tahun saat ini.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function showReportFive()
+    {
+        // Mendapatkan bulan dan tahun saat ini
+        $bulanSekarang = now()->format('m'); // Mengambil bulan dalam format dua digit (01-12)
+        $tahunSekarang = now()->year; // Mengambil tahun saat ini (2024)
+
+        // Query untuk mendapatkan data berdasarkan bulan dan tahun saat ini
+        $setoranMonthly = SetoranKeuangan::where([
+            ['bulan', '=', $bulanSekarang],
+            ['tahun', '=', $tahunSekarang]
+        ])->first(); // Gunakan first() untuk mengambil satu data yang sesuai
+
+        // Mengembalikan response menggunakan responseService
+        return $this->responseService->successResponse('Data ditemukan', $setoranMonthly, []);
     }
 }

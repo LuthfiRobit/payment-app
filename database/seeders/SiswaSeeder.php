@@ -20,7 +20,7 @@ class SiswaSeeder extends Seeder
         $jenisKelamin = ['laki-laki', 'perempuan'];
 
         foreach ($kelas as $k) {
-            for ($i = 1; $i <= 10; $i++) {
+            for ($i = 1; $i <= 5; $i++) {
                 Siswa::create([
                     'id_siswa' => Str::uuid(),
                     'user_id' => null,

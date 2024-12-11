@@ -137,4 +137,48 @@ class Transaksi extends Model
         // Mengembalikan hasil
         return $query->get();
     }
+
+    // Method untuk mendapatkan transaksi dengan filter tahun dan bulan
+    public static function getTransaksiSetoran($filters = [])
+    {
+        // Set default filter untuk tahun dan bulan jika tidak diberikan
+        $tahun = $filters['filter_tahun'] ?? date('Y'); // Default ke tahun saat ini
+        $bulan = $filters['filter_bulan'] ?? date('m'); // Default ke bulan saat ini
+
+        // Mengambil data transaksi
+        $transaksi = DB::table('transaksi')
+            ->select(
+                DB::raw('YEAR(transaksi.tanggal_bayar) AS tahun'),
+                DB::raw('MONTH(transaksi.tanggal_bayar) AS bulan'),
+                DB::raw('SUM(transaksi.jumlah_bayar) AS jumlah_bayar'),
+                'setoran_keuangan.total_tagihan_setoran',
+                'setoran_keuangan.total_setoran',
+                'setoran_keuangan.sisa_setoran',
+                'setoran_keuangan.keterangan',
+                'setoran_keuangan.status AS setoran_status'
+            )
+            ->leftJoin('setoran_keuangan', function ($join) use ($tahun, $bulan) {
+                $join->on(DB::raw('YEAR(transaksi.tanggal_bayar)'), '=', 'setoran_keuangan.tahun')
+                    ->on(DB::raw('MONTH(transaksi.tanggal_bayar)'), '=', 'setoran_keuangan.bulan');
+            })
+            ->whereYear('transaksi.tanggal_bayar', '=', $tahun)
+            ->whereMonth('transaksi.tanggal_bayar', '=', $bulan)
+            ->groupBy(
+                DB::raw('YEAR(transaksi.tanggal_bayar)'),
+                DB::raw('MONTH(transaksi.tanggal_bayar)'),
+                'setoran_keuangan.total_tagihan_setoran',
+                'setoran_keuangan.total_setoran',
+                'setoran_keuangan.sisa_setoran',
+                'setoran_keuangan.keterangan',
+                'setoran_keuangan.status'
+            )
+            ->first();
+
+        // Menambahkan field "harus_dibayar"
+        if ($transaksi) {
+            $transaksi->harus_dibayar = $transaksi->sisa_setoran > 0 ? $transaksi->sisa_setoran : $transaksi->jumlah_bayar;
+        }
+
+        return $transaksi;
+    }
 }

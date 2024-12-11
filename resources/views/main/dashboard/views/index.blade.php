@@ -69,7 +69,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="no-data-message" class="alert alert-danger d-none" role="alert">
+                                <div id="no-data-message-one" class="alert alert-danger d-none" role="alert">
                                     Belum ada data
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="no-data-message" class="alert alert-danger d-none" role="alert">
+                            <div id="no-data-message-two" class="alert alert-danger d-none" role="alert">
                                 Belum ada data
                             </div> <!-- Pesan untuk tidak ada data -->
                         </div>
@@ -152,7 +152,7 @@
                         <div class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap">
                             <div class="pr-3 me-auto mb-sm-0 mb-3">
                                 <h4 class="fs-20 text-black mb-1">Pembayaran Hari Ini</h4>
-                                <span class="fs-12">
+                                <span class="fs-12 date-now">
                                     {{-- isi tanggal hari ini dengan format "10 oktober 2024" --}}
                                 </span>
                             </div>
@@ -189,6 +189,80 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Row for overview setoran cards -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header d-sm-flex d-block border-0 pb-0 flex-wrap">
+                            <div class="pr-3 me-auto mb-sm-0 mb-3">
+                                <h4 class="fs-20 text-black mb-1">Setoran Keuangan Bulan ini</h4>
+                                <span class="fs-12 month-now">
+                                    {{-- isi tanggal bulan dengan format "oktober 2024" --}}
+                                </span>
+                            </div>
+                            <!-- Icon Detail -->
+                            <a href="{{ route('transaksi.setor.keuangan.index') }}"
+                                class="btn btn-rounded btn-outline-primary light btn-sm" title="Detail">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-xl-4 mb-3 col-xxl-4">
+                                    <div class="media align-items-center bgl-secondary rounded p-2">
+                                        <span
+                                            class="bg-white p-3 me-4 rounded text-center d-flex justify-content-center align-items-center"
+                                            style="width: 50px; height: 50px;">
+                                            <i class="fas fa-money-bill-wave"
+                                                style="font-size: 24px; color: #6c757d;"></i> <!-- Ikon pembayaran -->
+                                        </span>
+                                        <div class="media-body">
+                                            <h4 class="fs-18 text-black font-w600 mb-0">Pembayaran</h4>
+                                            <span class="fs-16" id="total-tagihan-setoran-value">0</span>
+                                            <!-- Tambahkan ID -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 mb-3 col-xxl-4">
+                                    <div class="media align-items-center bgl-danger rounded p-2">
+                                        <span
+                                            class="bg-white p-3 me-4 rounded text-center d-flex justify-content-center align-items-center"
+                                            style="width: 50px; height: 50px;">
+                                            <i class="fas fa-credit-card" style="font-size: 24px; color: #dc3545;"></i>
+                                            <!-- Ikon setoran -->
+                                        </span>
+                                        <div class="media-body">
+                                            <h4 class="fs-18 text-black font-w600 mb-0">Setoran</h4>
+                                            <span class="fs-16" id="total-setoran-value">0</span> <!-- Tambahkan ID -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 mb-3 col-xxl-4">
+                                    <div class="media align-items-center bgl-warning rounded p-2">
+                                        <span
+                                            class="bg-white p-3 me-4 rounded text-center d-flex justify-content-center align-items-center"
+                                            style="width: 50px; height: 50px;">
+                                            <i class="fas fa-wallet" style="font-size: 24px; color: #ffc107;"></i>
+                                            <!-- Ikon sisa saldo -->
+                                        </span>
+                                        <div class="media-body">
+                                            <h4 class="fs-18 text-black font-w600 mb-0">Sisa</h4>
+                                            <span class="fs-16" id="total-sisa-value">0</span>
+                                            <!-- Tambahkan ID -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="no-data-message-five" class="alert alert-danger d-none" role="alert">
+                                Belum ada data
+                            </div> <!-- Pesan untuk tidak ada data -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
     <!-- Content body end -->
