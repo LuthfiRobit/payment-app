@@ -22,7 +22,7 @@
                     class="custom-overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center text-white">
                     <div class="custom-text-content text-center">
                         <h3 class="fw-bold">Aplikasi Pendaftaran Peserta Didik Baru</h3>
-                        <span class="d-block mb-3">Untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk
+                        <span class="d-block mb-3">Untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecik Besuk
                             Probolinggo</span>
                         <p class="mb-4">Aplikasi ini memudahkan proses pendaftaran, pengelolaan data peserta
                             didik,
