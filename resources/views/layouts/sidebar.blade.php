@@ -69,6 +69,10 @@
                     <li><a href="{{ route('master-data.iuran.index') }}" class="fs-6">Iuran</a></li>
                     <li><a href="{{ route('master-data.potongan.index') }}" class="fs-6">Potongan</a></li>
                     <li><a href="{{ route('master-data.siswa.index') }}" class="fs-6">Siswa</a></li>
+
+                    <li><a href="{{ route('master-data.kontak.index') }}" class="fs-6">CMS Kontak</a></li>
+
+                    <li><a href="{{ route('master-data.tentang.index') }}" class="fs-6">CMS Tentang</a></li>
                 </ul>
             </li>
             <li>
@@ -79,6 +83,8 @@
                 <ul aria-expanded="false">
                     <li><a href="{{ route('ppdb.create') }}" class="fs-6">Tambah data siswa</a></li>
                     <li><a href="{{ route('ppdb.index') }}" class="fs-6">List data siswa</a></li>
+
+                    <li><a href="{{ route('ppdb.setting.index') }}" class="fs-6">Setting</a></li>
                 </ul>
             </li>
             <li>
