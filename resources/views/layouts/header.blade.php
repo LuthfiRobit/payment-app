@@ -56,7 +56,7 @@
                              <div class="header-info">
                                  @if (Auth::check())
                                      <span class="text-black"><strong>{{ Auth::user()->name }}</strong></span>
-                                     <p class="fs-12 mb-0">{{ ucfirst(Auth::user()->role) }}</p>
+                                     <p class="fs-12 mb-0">{{ ucwords(str_replace('_', ' ', Auth::user()->role)) }}</p>
                                  @else
                                      <span class="text-black">Hello,<strong>Guest</strong></span>
                                      <p class="fs-12 mb-0">Please log in</p>
@@ -68,10 +68,10 @@
                          <!-- Dropdown menu with profile and logout options -->
                          <div class="dropdown-menu dropdown-menu-end">
                              @if (Auth::check())
-                                 {{-- <a href="{{ route('profile') }}" class="dropdown-item ai-icon">
+                                 <a href="{{ route('application.profil.index') }}" class="dropdown-item ai-icon">
                                      <i class="fas fa-user text-primary" style="font-size: 18px"></i>
                                      <span class="ms-2">Profile</span>
-                                 </a> --}}
+                                 </a>
                                  <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
                                      style="display: none;">
                                      @csrf

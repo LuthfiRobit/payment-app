@@ -23,8 +23,10 @@
                         <select id="role" class="selectpicker form-control wide form-select-md"
                             data-live-search="false" aria-describedby="role-feedback" placeholder="Pilih peran"
                             required>
-                            <option value="admin">Admin</option>
-                            <option value="kepsek">Kepsek</option>
+                            <option value="kepsek">Kepala Sekolah</option>
+                            <option value="bendahara">Bendahara</option>
+                            <option value="petugas_pembayaran">Petugas Pembayaran</option>
+                            <option value="petugas_emis">Petugas Emis</option>
                             <!-- Add other roles as needed -->
                         </select>
                     </div>

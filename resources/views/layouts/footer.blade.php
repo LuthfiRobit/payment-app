@@ -3,7 +3,7 @@
      <div class="copyright">
          <p>
              Copyright © Designed &amp; Developed by
-             <a href="" target="_blank">_LnH'79</a>
+             <a href="https://www.poterteknik.com" target="_blank">PT. POTER TEKNIK INTERNASIONAL</a>
              <span class="current-year">2024</span>
          </p>
      </div>

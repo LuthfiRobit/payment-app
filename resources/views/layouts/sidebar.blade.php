@@ -104,7 +104,7 @@
         <!-- Footer with copyright information -->
         <div class="copyright">
             <p><strong>Payment App</strong> © 2024 All Rights Reserved</p>
-            <p>Developed by _LnH'79</p>
+            <p>Developed by <a href="https://www.poterteknik.com" target="_blank">PT. POTER TEKNIK INTERNASIONAL</a></p>
         </div>
     </div>
 </div>
