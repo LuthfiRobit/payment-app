@@ -5,7 +5,7 @@
     <!-- Judul Halaman -->
     <title>
         Aplikasi Pendaftaran Peserta Didik Baru Madrasah Ibtidaiyah Ihyauddiniyah
-        Desa Kecil Besuk Probolinggo
+        Desa Kecik Besuk Probolinggo
     </title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -22,22 +22,22 @@
 
     <!-- Kata Kunci SEO -->
     <meta name="keywords"
-        content="Pendaftaran Peserta Didik, Madrasah Ibtidaiyah, Desa Kecil Besuk, Probolinggo, Aplikasi Pendaftaran, Sistem Pendaftaran, Pendidikan, Madrasah Ibtidaiyah, Formulir Pendaftaran, Pendaftaran Online, Administrasi Madrasah, Manajemen Data Peserta Didik" />
+        content="Pendaftaran Peserta Didik, Madrasah Ibtidaiyah, Desa Kecik Besuk, Probolinggo, Aplikasi Pendaftaran, Sistem Pendaftaran, Pendidikan, Madrasah Ibtidaiyah, Formulir Pendaftaran, Pendaftaran Online, Administrasi Madrasah, Manajemen Data Peserta Didik" />
 
     <!-- Deskripsi Halaman -->
     <meta name="description"
-        content="Aplikasi Pendaftaran Peserta Didik Baru untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pendaftaran, pengelolaan data peserta didik, dan administrasi dengan desain responsif dan fitur yang user-friendly." />
+        content="Aplikasi Pendaftaran Peserta Didik Baru untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecik Besuk Probolinggo. Aplikasi ini memudahkan proses pendaftaran, pengelolaan data peserta didik, dan administrasi dengan desain responsif dan fitur yang user-friendly." />
 
     <!-- Metadata Open Graph -->
     <meta property="og:title" content="Aplikasi Pendaftaran Peserta Didik Baru" />
     <meta property="og:description"
-        content="Aplikasi Pendaftaran Peserta Didik Baru untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pendaftaran, pengelolaan data peserta didik, dan administrasi dengan desain responsif dan fitur yang user-friendly." />
+        content="Aplikasi Pendaftaran Peserta Didik Baru untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecik Besuk Probolinggo. Aplikasi ini memudahkan proses pendaftaran, pengelolaan data peserta didik, dan administrasi dengan desain responsif dan fitur yang user-friendly." />
     <meta property="og:image" content="{{ asset('template/social-image.png') }}" />
 
     <!-- Twitter Card Metadata -->
     <meta name="twitter:title" content="Aplikasi Pendaftaran Peserta Didik Baru" />
     <meta name="twitter:description"
-        content="Aplikasi Pendaftaran Peserta Didik Baru untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecil Besuk Probolinggo. Aplikasi ini memudahkan proses pendaftaran, pengelolaan data peserta didik, dan administrasi dengan desain responsif dan fitur yang user-friendly." />
+        content="Aplikasi Pendaftaran Peserta Didik Baru untuk Madrasah Ibtidaiyah Ihyauddiniyah di Desa Kecik Besuk Probolinggo. Aplikasi ini memudahkan proses pendaftaran, pengelolaan data peserta didik, dan administrasi dengan desain responsif dan fitur yang user-friendly." />
     <meta name="twitter:image" content="{{ asset('template/social-image.png') }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <!-- Meta end -->
