@@ -76,7 +76,7 @@
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
     <script src="{{ asset('template-landpage/js/vendor/bootstrap.min.js') }}"></script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script> -->
+    <!--  -->
     <script src="{{ asset('template-landpage/js/easing.min.js') }}"></script>
     <script src="{{ asset('template-landpage/js/hoverIntent.js') }}"></script>
     <script src="{{ asset('template-landpage/js/superfish.min.js') }}"></script>
