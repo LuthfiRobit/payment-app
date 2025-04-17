@@ -9,7 +9,7 @@ class LandpageController extends Controller
 {
     public function index()
     {
-        return view('landpage.home.views.index');
+        return view('landpage.beranda.views.index');
     }
 
     public function registration()
