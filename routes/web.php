@@ -4,6 +4,7 @@ use App\Http\Controllers\Apps\ProfilController;
 use App\Http\Controllers\Apps\UserManagementController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landpage\LandpageController;
+use App\Http\Controllers\Landpage\PrestasiLandpageController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\DashboardPpdbController;
 use App\Http\Controllers\Master\IuranController;
@@ -302,6 +303,29 @@ Route::prefix('application')->name('application.')->group(function () {
 // Route group untuk user (guest pada halaman landpage)
 Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(function () {
     Route::get('/', [LandpageController::class, 'index'])->name('index');
+
+    // Route group untuk Prestasi
+    Route::prefix('prestasi')->name('prestasi.')->group(function () {
+        Route::get('/', [PrestasiLandpageController::class, 'index'])->name('index');
+        Route::get('/show-paginate', [PrestasiLandpageController::class, 'showListPaginated'])->name('show.list.paginated');
+        Route::get('/show-list', [PrestasiLandpageController::class, 'showList'])->name('show.list');
+        Route::get('/{id}', [PrestasiLandpageController::class, 'show'])->name('show');
+    });
+
+    //Route static pages
+
+    Route::get('/profil', function () {
+        return view('landpage.profil.views.index');
+    })->name('profil.index');
+
+    Route::get('/visi', function () {
+        return view('landpage.visi.views.index');
+    })->name('visi.index');
+
+    Route::get('/kontak', function () {
+        return view('landpage.kontak.views.index');
+    })->name('kontak.index');
+    //End route static pages
 
     // Route group untuk PPDB
     Route::prefix('ppdb')->name('ppdb.')->group(function () {

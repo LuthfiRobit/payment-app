@@ -5,10 +5,14 @@
                 <div class="col-lg-6 col-sm-6 col-8 header-top-left no-padding">
                     <ul>
                         <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.facebook.com/mi.ihyauddiniyah.90"><i class="fa fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/miihyauddiniyah/"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/@miihyauddiniyahofficial9877?si=DEMvqyXn_5xcmFxe"><i
+                                    class="fa fa-youtube"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -28,7 +32,7 @@
     <div class="container main-menu">
         <div class="row align-items-center justify-content-between d-flex">
             <div id="logo">
-                <a href="beranda.html" class="d-flex align-items-center text-white text-decoration-none">
+                <a href="{{ url('/') }}" class="d-flex align-items-center text-white text-decoration-none">
                     <img src="{{ asset('template-landpage/img/logo_mi_new.png') }}"
                         alt="Logo Madrasah Ibtidaiyah Ihyauddiniyah" style="max-width: 50px; margin-right: 10px" />
                     <h6 class="mb-0 text-white">MI Ihyauddiniyah</h6>
@@ -37,12 +41,12 @@
 
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li><a href="beranda.html">Beranda</a></li>
+                    <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li class="menu-has-children">
                         <a href="">Informasi</a>
                         <ul>
-                            <li><a href="profil.html">Profil</a></li>
-                            <li><a href="visi.html">Visi Misi</a></li>
+                            <li><a href="{{ route('landpage.profil.index') }}">Profil</a></li>
+                            <li><a href="{{ route('landpage.visi.index') }}">Visi Misi</a></li>
                             <li>
                                 <a href="ppdb.html">Pendaftaran Peserta Didik Baru
                                     (PPDB)</a>
@@ -57,11 +61,11 @@
                                 <a href="galeri.html">Galeri Foto</a>
                             </li>
                             <li>
-                                <a href="prestasi.html">Prestasi</a>
+                                <a href="{{ route('landpage.prestasi.index') }}">Prestasi</a>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="kontak.html">Kontak</a></li>
+                    <li><a href="{{ route('landpage.kontak.index') }}">Kontak</a></li>
                 </ul>
             </nav>
             <!-- #nav-menu-container -->

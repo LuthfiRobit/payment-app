@@ -4,13 +4,6 @@
 @endsection
 
 @section('content')
-    @php
-        $currentDate = \Carbon\Carbon::now();
-        $activeYear = \App\Helpers\AppHelper::getActiveAcademicYear();
-        $activeContact = \App\Helpers\AppHelper::getKontak();
-        $activeAbout = \App\Helpers\AppHelper::getTentang();
-        $activeSetting = \App\Helpers\AppHelper::getSettingPendaftaran();
-    @endphp
     <!-- start banner Area -->
     <section class="banner-area relative" style="background: url({{ asset('template-landpage/img/bg-ai-2.png') }}) !important"
         id="home">
@@ -48,7 +41,7 @@
                                 cerdas, berakhlak mulia, dan berwawasan
                                 keislaman.
                             </p>
-                            <a href="#">Selengkapnya</a>
+                            <a href="{{ route('landpage.profil.index') }}">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -84,7 +77,7 @@
                                 kerja sama. Kami siap membantu Anda dengan
                                 senang hati.
                             </p>
-                            <a href="#">Hubungi Kami</a>
+                            <a href="{{ route('landpage.kontak.index') }}">Hubungi Kami</a>
                         </div>
                     </div>
                 </div>
@@ -276,129 +269,16 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
-                <div class="active-popular-carusel">
-                    <div class="single-popular-carusel mx-auto">
-                        <div class="thumb-wrap relative">
-                            <div class="thumb relative">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{{ asset('template-landpage/img/p1.jpg') }}"
-                                    alt="Prestasi Siswa" />
-                            </div>
-                            <div class="meta d-flex justify-content-between">
-                                <p>
-                                    <span class="lnr lnr-calendar-full"></span>
-                                    2023
-                                </p>
-                            </div>
-                        </div>
-                        <div class="details">
-                            <a href="#">
-                                <h4>Juara 1 MTQ Tingkat Kabupaten</h4>
-                            </a>
-                            <p>
-                                Siswa kami meraih juara pertama dalam
-                                Musabaqah Tilawatil Quran tingkat kabupaten
-                                tahun 2023
-                            </p>
-                        </div>
-                    </div>
-                    <div class="single-popular-carusel mx-auto">
-                        <div class="thumb-wrap relative">
-                            <div class="thumb relative">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{{ asset('template-landpage/img/p2.jpg') }}"
-                                    alt="Prestasi Siswa" />
-                            </div>
-                            <div class="meta d-flex justify-content-between">
-                                <p>
-                                    <span class="lnr lnr-calendar-full"></span>
-                                    2022
-                                </p>
-                            </div>
-                        </div>
-                        <div class="details">
-                            <a href="#">
-                                <h4>Olimpiade Matematika Nasional</h4>
-                            </a>
-                            <p>
-                                Medali perak dalam Olimpiade Matematika
-                                Nasional untuk tingkat Sekolah
-                                Dasar/Madrasah Ibtidaiyah
-                            </p>
-                        </div>
-                    </div>
-                    <div class="single-popular-carusel mx-auto">
-                        <div class="thumb-wrap relative">
-                            <div class="thumb relative">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{{ asset('template-landpage/img/about-img.jpg') }}"
-                                    alt="Prestasi Siswa" />
-                            </div>
-                            <div class="meta d-flex justify-content-between">
-                                <p>
-                                    <span class="lnr lnr-calendar-full"></span>
-                                    2023
-                                </p>
-                            </div>
-                        </div>
-                        <div class="details">
-                            <a href="#">
-                                <h4>Festival Seni Islami</h4>
-                            </a>
-                            <p>
-                                Juara harapan 1 dalam Festival Seni Islami
-                                Tingkat Provinsi kategori kaligrafi
-                            </p>
-                        </div>
-                    </div>
-                    <div class="single-popular-carusel mx-auto">
-                        <div class="thumb-wrap relative">
-                            <div class="thumb relative">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{{ asset('template-landpage/img/p4.jpg') }}"
-                                    alt="Prestasi Siswa" />
-                            </div>
-                            <div class="meta d-flex justify-content-between">
-                                <p>
-                                    <span class="lnr lnr-calendar-full"></span>
-                                    2023
-                                </p>
-                            </div>
-                        </div>
-                        <div class="details">
-                            <a href="#">
-                                <h4>Festival Seni Islami</h4>
-                            </a>
-                            <p>
-                                Juara harapan 1 dalam Festival Seni Islami
-                                Tingkat Provinsi kategori kaligrafi
-                            </p>
-                        </div>
-                    </div>
+                <div class="active-popular-carusel" id="prestasi-carousel">
+                    <!-- Konten awal (opsional) -->
                 </div>
             </div>
+
         </div>
     </section>
     <!-- End prestasi-siswa Area -->
-
-    <!-- Start ppdb-cta Area -->
-    <section class="cta-two-area bg-success">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8 cta-left text-white">
-                    <h1 class="mb-3 mb-lg-0">
-                        Daftarkan Putra/Putri Anda Sekarang!
-                    </h1>
-                    <!-- <p class="mb-0">Tahun Ajaran 2024/2025 - Kuota Terbatas</p> -->
-                </div>
-                <div class="col-lg-4 cta-right text-lg-right">
-                    <a class="primary-btn wh" href="#">Informasi PPDB</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End ppdb-cta Area -->
 @endsection
 
 @section('this-page-scripts')
+    @include('landpage.beranda.scripts.listPrestasi')
 @endsection
