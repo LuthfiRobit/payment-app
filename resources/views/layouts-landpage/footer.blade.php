@@ -36,8 +36,8 @@
                 <div class="single-footer-widget">
                     <h4>Informasi</h4>
                     <ul>
-                        <li><a href="profil.html">Profil</a></li>
-                        <li><a href="visi.html">Visi & Misi</a></li>
+                        <li><a href="{{ route('landpage.profil.index') }}">Profil</a></li>
+                        <li><a href="{{ route('landpage.visi.index') }}">Visi & Misi</a></li>
                         <li><a href="{{ route('landpage.prestasi.index') }}">Prestasi</a></li>
                         <li><a href="galeri.html">Galeri</a></li>
                     </ul>
@@ -84,21 +84,23 @@
             <p class="footer-text m-0 col-lg-6 col-md-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;
-                <script>
-                    document.write(new Date().getFullYear());
-                </script>
-                All rights reserved | Made with
+                <span id="year"></span>
+                All rights reserved Madrasah Ibtidaiyah Ihyauddiniyah | Made with
                 <i class="fa fa-heart-o" aria-hidden="true"></i> by
                 <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                &amp; distributed by
-                <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                &amp; developed by
+                <a href="https://www.poterteknik.com" target="_blank">PT. POTER TEKNIK INTERNASIONAL</a>
             </p>
+
+            <script>
+                document.getElementById('year').textContent = new Date().getFullYear();
+            </script>
+
             <div class="col-lg-6 col-sm-12 footer-social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-dribbble"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <a href="https://www.facebook.com/mi.ihyauddiniyah.90"><i class="fa fa-facebook"></i></a>
+                <a href="https://www.instagram.com/miihyauddiniyah/"><i class="fa fa-instagram"></i></a>
+                <a href="https://youtube.com/@miihyauddiniyahofficial9877?si=DEMvqyXn_5xcmFxe"><i
+                        class="fa fa-youtube"></i></a>
             </div>
         </div>
     </div>

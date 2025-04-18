@@ -5,10 +5,14 @@
                 <div class="col-lg-6 col-sm-6 col-8 header-top-left no-padding">
                     <ul>
                         <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.facebook.com/mi.ihyauddiniyah.90"><i class="fa fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/miihyauddiniyah/"><i class="fa fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/@miihyauddiniyahofficial9877?si=DEMvqyXn_5xcmFxe"><i
+                                    class="fa fa-youtube"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -41,8 +45,8 @@
                     <li class="menu-has-children">
                         <a href="">Informasi</a>
                         <ul>
-                            <li><a href="profil.html">Profil</a></li>
-                            <li><a href="visi.html">Visi Misi</a></li>
+                            <li><a href="{{ route('landpage.profil.index') }}">Profil</a></li>
+                            <li><a href="{{ route('landpage.visi.index') }}">Visi Misi</a></li>
                             <li>
                                 <a href="ppdb.html">Pendaftaran Peserta Didik Baru
                                     (PPDB)</a>
@@ -61,7 +65,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="kontak.html">Kontak</a></li>
+                    <li><a href="{{ route('landpage.kontak.index') }}">Kontak</a></li>
                 </ul>
             </nav>
             <!-- #nav-menu-container -->
