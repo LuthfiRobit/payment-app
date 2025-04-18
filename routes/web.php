@@ -312,6 +312,21 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
         Route::get('/{id}', [PrestasiLandpageController::class, 'show'])->name('show');
     });
 
+    //Route static pages
+
+    Route::get('/profil', function () {
+        return view('landpage.profil.views.index');
+    })->name('profil.index');
+
+    Route::get('/visi', function () {
+        return view('landpage.visi.views.index');
+    })->name('visi.index');
+
+    Route::get('/kontak', function () {
+        return view('landpage.kontak.views.index');
+    })->name('kontak.index');
+    //End route static pages
+
     // Route group untuk PPDB
     Route::prefix('ppdb')->name('ppdb.')->group(function () {
         Route::get('/', [LandpageController::class, 'registration'])->name('registration');
