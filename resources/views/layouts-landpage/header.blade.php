@@ -28,7 +28,7 @@
     <div class="container main-menu">
         <div class="row align-items-center justify-content-between d-flex">
             <div id="logo">
-                <a href="beranda.html" class="d-flex align-items-center text-white text-decoration-none">
+                <a href="{{ url('/') }}" class="d-flex align-items-center text-white text-decoration-none">
                     <img src="{{ asset('template-landpage/img/logo_mi_new.png') }}"
                         alt="Logo Madrasah Ibtidaiyah Ihyauddiniyah" style="max-width: 50px; margin-right: 10px" />
                     <h6 class="mb-0 text-white">MI Ihyauddiniyah</h6>
@@ -37,7 +37,7 @@
 
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
-                    <li><a href="beranda.html">Beranda</a></li>
+                    <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li class="menu-has-children">
                         <a href="">Informasi</a>
                         <ul>
@@ -57,7 +57,7 @@
                                 <a href="galeri.html">Galeri Foto</a>
                             </li>
                             <li>
-                                <a href="prestasi.html">Prestasi</a>
+                                <a href="{{ route('landpage.prestasi.index') }}">Prestasi</a>
                             </li>
                         </ul>
                     </li>
