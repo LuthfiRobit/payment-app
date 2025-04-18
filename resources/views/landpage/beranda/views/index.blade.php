@@ -41,7 +41,7 @@
                                 cerdas, berakhlak mulia, dan berwawasan
                                 keislaman.
                             </p>
-                            <a href="#">Selengkapnya</a>
+                            <a href="{{ route('landpage.profil.index') }}">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                                 kerja sama. Kami siap membantu Anda dengan
                                 senang hati.
                             </p>
-                            <a href="#">Hubungi Kami</a>
+                            <a href="{{ route('landpage.kontak.index') }}">Hubungi Kami</a>
                         </div>
                     </div>
                 </div>

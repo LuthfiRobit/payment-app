@@ -23,9 +23,9 @@
                 <div class="about-content col-lg-12">
                     <h1 class="text-white">Prestasi Madrasah</h1>
                     <p class="text-white link-nav">
-                        <a href="beranda.html">Beranda </a>
+                        <a href="{{ url('/') }}">Beranda</a>
                         <span class="lnr lnr-arrow-right"></span>
-                        <a href="prestasi.html"> Prestasi</a>
+                        <a href="{{ route('landpage.prestasi.index') }}"> Prestasi</a>
                     </p>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                                 cerdas, berakhlak mulia, dan berwawasan
                                 keislaman.
                             </p>
-                            <a href="#">Selengkapnya</a>
+                            <a href="{{ route('landpage.profil.index') }}">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                                 kerja sama. Kami siap membantu Anda dengan
                                 senang hati.
                             </p>
-                            <a href="#">Hubungi Kami</a>
+                            <a href="{{ route('landpage.kontak.index') }}">Hubungi Kami</a>
                         </div>
                     </div>
                 </div>
