@@ -9,7 +9,7 @@
                 <!-- <p class="mb-0">Tahun Ajaran 2024/2025 - Kuota Terbatas</p> -->
             </div>
             <div class="col-lg-4 cta-right text-lg-right">
-                <a class="primary-btn wh" href="#">Informasi PPDB</a>
+                <a class="primary-btn wh" href="{{ route('landpage.ppdb.index') }}">Informasi PPDB</a>
             </div>
         </div>
     </div>
