@@ -39,7 +39,7 @@
                         <li><a href="{{ route('landpage.profil.index') }}">Profil</a></li>
                         <li><a href="{{ route('landpage.visi.index') }}">Visi & Misi</a></li>
                         <li><a href="{{ route('landpage.prestasi.index') }}">Prestasi</a></li>
-                        <li><a href="galeri.html">Galeri</a></li>
+                        <li><a href="{{ route('landpage.galeri.index') }}">Galeri</a></li>
                     </ul>
                 </div>
             </div>

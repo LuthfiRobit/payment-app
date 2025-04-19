@@ -3,6 +3,7 @@
 use App\Http\Controllers\Apps\ProfilController;
 use App\Http\Controllers\Apps\UserManagementController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Landpage\GaleriLandpageController;
 use App\Http\Controllers\Landpage\LandpageController;
 use App\Http\Controllers\Landpage\PrestasiLandpageController;
 use App\Http\Controllers\Main\DashboardController;
@@ -310,6 +311,14 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
         Route::get('/show-paginate', [PrestasiLandpageController::class, 'showListPaginated'])->name('show.list.paginated');
         Route::get('/show-list', [PrestasiLandpageController::class, 'showList'])->name('show.list');
         Route::get('/{id}', [PrestasiLandpageController::class, 'show'])->name('show');
+    });
+
+    // Route group untuk Galeri
+    Route::prefix('galeri')->name('galeri.')->group(function () {
+        Route::get('/', [GaleriLandpageController::class, 'index'])->name('index');
+        Route::get('/show-paginate', [GaleriLandpageController::class, 'showListPaginated'])->name('show.list.paginated');
+        Route::get('/show-list', [GaleriLandpageController::class, 'showList'])->name('show.list');
+        Route::get('/{id}', [GaleriLandpageController::class, 'show'])->name('show');
     });
 
     //Route static pages
