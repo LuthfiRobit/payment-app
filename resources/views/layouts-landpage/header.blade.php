@@ -48,7 +48,7 @@
                             <li><a href="{{ route('landpage.profil.index') }}">Profil</a></li>
                             <li><a href="{{ route('landpage.visi.index') }}">Visi Misi</a></li>
                             <li>
-                                <a href="ppdb.html">Pendaftaran Peserta Didik Baru
+                                <a href="{{ route('landpage.ppdb.index') }}">Pendaftaran Peserta Didik Baru
                                     (PPDB)</a>
                             </li>
                         </ul>
