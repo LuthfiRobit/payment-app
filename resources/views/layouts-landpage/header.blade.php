@@ -58,7 +58,7 @@
                         <ul>
                             <li><a href="berita.html">Berita</a></li>
                             <li>
-                                <a href="galeri.html">Galeri Foto</a>
+                                <a href="{{ route('landpage.galeri.index') }}">Galeri Foto</a>
                             </li>
                             <li>
                                 <a href="{{ route('landpage.prestasi.index') }}">Prestasi</a>
