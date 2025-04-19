@@ -5,6 +5,7 @@ use App\Http\Controllers\Apps\UserManagementController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landpage\GaleriLandpageController;
 use App\Http\Controllers\Landpage\LandpageController;
+use App\Http\Controllers\Landpage\PpdbLandpageController;
 use App\Http\Controllers\Landpage\PrestasiLandpageController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\DashboardPpdbController;
@@ -338,7 +339,8 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
 
     // Route group untuk PPDB
     Route::prefix('ppdb')->name('ppdb.')->group(function () {
-        Route::get('/', [LandpageController::class, 'registration'])->name('registration');
+        Route::get('/', [PpdbLandpageController::class, 'index'])->name('index');
+        // Route::get('/', [LandpageController::class, 'registration'])->name('registration');
         Route::post('/store', [RegistrasiSiswaController::class, 'store'])->name('store');
     });
 });
