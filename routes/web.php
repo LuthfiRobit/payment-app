@@ -3,6 +3,7 @@
 use App\Http\Controllers\Apps\ProfilController;
 use App\Http\Controllers\Apps\UserManagementController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Landpage\BeritaLandpageController;
 use App\Http\Controllers\Landpage\GaleriLandpageController;
 use App\Http\Controllers\Landpage\LandpageController;
 use App\Http\Controllers\Landpage\PpdbLandpageController;
@@ -320,6 +321,15 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
         Route::get('/show-paginate', [GaleriLandpageController::class, 'showListPaginated'])->name('show.list.paginated');
         Route::get('/show-list', [GaleriLandpageController::class, 'showList'])->name('show.list');
         Route::get('/{id}', [GaleriLandpageController::class, 'show'])->name('show');
+    });
+
+    // Route group untuk Berita
+    Route::prefix('berita')->name('berita.')->group(function () {
+        Route::get('/', [BeritaLandpageController::class, 'index'])->name('index');
+        Route::get('/detail/{id}', [BeritaLandpageController::class, 'detail'])->name('detail');
+        Route::get('/show-paginate', [BeritaLandpageController::class, 'showListPaginated'])->name('show.list.paginated');
+        Route::get('/show-list', [BeritaLandpageController::class, 'showList'])->name('show.list');
+        Route::get('/{id}', [BeritaLandpageController::class, 'show'])->name('show');
     });
 
     //Route static pages
