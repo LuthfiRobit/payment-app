@@ -56,7 +56,7 @@
                     <li class="menu-has-children">
                         <a href="">Media</a>
                         <ul>
-                            <li><a href="berita.html">Berita</a></li>
+                            <li><a href="{{ route('landpage.berita.index') }}">Berita</a></li>
                             <li>
                                 <a href="{{ route('landpage.galeri.index') }}">Galeri Foto</a>
                             </li>

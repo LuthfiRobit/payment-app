@@ -97,73 +97,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-0">
-                <div class="col-lg-3 col-md-6 single-blog">
-                    <div class="thumb">
-                        <img class="img-fluid" src="{{ asset('template-landpage/img/b1.jpg') }}" alt="" />
-                    </div>
-                    <p class="meta">25 April 2018 | Oleh <a href="#">Mark Wiens</a></p>
-                    <a href="blog-single.html">
-                        <h5>Kecanduan: Saat Judi Menjadi Masalah</h5>
-                    </a>
-                    <p>
-                        Komputer telah menjadi bagian dari hampir setiap aspek kehidupan
-                        kita. Di tempat kerja, banyak yang menghabiskan waktu berjam-jam
-                        di depannya.
-                    </p>
-                    <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span
-                            class="details">Detail</span><span class="lnr lnr-arrow-right"></span></a>
-                </div>
-
-                <div class="col-lg-3 col-md-6 single-blog">
-                    <div class="thumb">
-                        <img class="img-fluid" src="{{ asset('template-landpage/img/b2.jpg') }}" alt="" />
-                    </div>
-                    <p class="meta">25 April 2018 | Oleh <a href="#">Mark Wiens</a></p>
-                    <a href="blog-single.html">
-                        <h5>Perangkat Keras Komputer: PC dan Laptop</h5>
-                    </a>
-                    <p>
-                        Ah, wawancara teknis. Bukan hanya menimbulkan kecemasan, tetapi
-                        juga karena berbagai alasan yang berbeda.
-                    </p>
-                    <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span
-                            class="details">Detail</span><span class="lnr lnr-arrow-right"></span></a>
-                </div>
-
-                <div class="col-lg-3 col-md-6 single-blog">
-                    <div class="thumb">
-                        <img class="img-fluid" src="{{ asset('template-landpage/img/b3.jpg') }}" alt="" />
-                    </div>
-                    <p class="meta">25 April 2018 | Oleh <a href="#">Mark Wiens</a></p>
-                    <a href="blog-single.html">
-                        <h5>Desain Terbaik di MySpace Anda</h5>
-                    </a>
-                    <p>
-                        Plantronics bersama GN Netcom menciptakan generasi terbaru headset
-                        nirkabel dan produk lainnya seperti headset nirkabel lainnya.
-                    </p>
-                    <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span
-                            class="details">Detail</span><span class="lnr lnr-arrow-right"></span></a>
-                </div>
-
-                <div class="col-lg-3 col-md-6 single-blog">
-                    <div class="thumb">
-                        <img class="img-fluid" src="{{ asset('template-landpage/img/b4.jpg') }}" alt="" />
-                    </div>
-                    <p class="meta">25 April 2018 | Oleh <a href="#">Mark Wiens</a></p>
-                    <a href="blog-single.html">
-                        <h5>Video Game dan Imajinasi Anak</h5>
-                    </a>
-                    <p>
-                        Sekitar 64% remaja online melakukan hal-hal yang tidak ingin
-                        diketahui orang tua mereka. 11% pengguna dewasa juga melakukan hal
-                        serupa.
-                    </p>
-                    <a href="#" class="details-btn d-flex justify-content-center align-items-center"><span
-                            class="details">Detail</span><span class="lnr lnr-arrow-right"></span></a>
-                </div>
+            <div class="row mb-0" id="berita-list">
+                <!-- Item berita akan dimuat di sini lewat JS -->
             </div>
+
         </div>
     </section>
     <!-- End blog Area -->
@@ -196,7 +133,7 @@
                                 </div>
                                 <div class="content-details">
                                     <h4 class="content-title mx-auto text-uppercase">
-                                        300
+                                        239
                                     </h4>
                                     <span></span>
                                     <p>Total keseluruhan siswa kami</p>
@@ -216,10 +153,10 @@
                                 </div>
                                 <div class="content-details">
                                     <h4 class="content-title mx-auto text-uppercase">
-                                        30
+                                        31
                                     </h4>
                                     <span></span>
-                                    <p>Jumlah guru pengajar akademik</p>
+                                    <p>Total Pendidik dan Tenaga Kependidikan</p>
                                 </div>
                             </a>
                         </div>
@@ -236,7 +173,7 @@
                                 </div>
                                 <div class="content-details">
                                     <h4 class="content-title mx-auto text-uppercase">
-                                        30
+                                        12
                                     </h4>
                                     <span></span>
                                     <p>
@@ -280,5 +217,6 @@
 @endsection
 
 @section('this-page-scripts')
+    @include('landpage.beranda.scripts.listBerita')
     @include('landpage.beranda.scripts.listPrestasi')
 @endsection
