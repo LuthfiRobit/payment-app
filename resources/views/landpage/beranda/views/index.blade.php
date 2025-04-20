@@ -133,7 +133,7 @@
                                 </div>
                                 <div class="content-details">
                                     <h4 class="content-title mx-auto text-uppercase">
-                                        300
+                                        239
                                     </h4>
                                     <span></span>
                                     <p>Total keseluruhan siswa kami</p>
@@ -153,10 +153,10 @@
                                 </div>
                                 <div class="content-details">
                                     <h4 class="content-title mx-auto text-uppercase">
-                                        30
+                                        31
                                     </h4>
                                     <span></span>
-                                    <p>Jumlah guru pengajar akademik</p>
+                                    <p>Total Pendidik dan Tenaga Kependidikan</p>
                                 </div>
                             </a>
                         </div>
@@ -173,7 +173,7 @@
                                 </div>
                                 <div class="content-details">
                                     <h4 class="content-title mx-auto text-uppercase">
-                                        30
+                                        12
                                     </h4>
                                     <span></span>
                                     <p>
