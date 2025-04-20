@@ -34,9 +34,12 @@
             <!-- Visi -->
             <div class="mb-5">
                 <h4 class="mb-3">VISI</h4>
-                <blockquote class="generic-blockquote">
-                    Mewujudkan Madrasah Yang Unggul, Profesional,
-                    Berkarakter, Berkemajuan, dan Berwawasan Lingkungan.
+                <blockquote class="generic-blockquote text-center">
+                    Mencetak generasi yang Santun, Terampil, dan Islami <br>
+                    <strong class="text-bold">(SANTRI)</strong>
+                    <br>
+                    <em>SAN</em> -tun dalam perilaku, <em>TeR</em> -ampil dalam berkarya, <em>I</em> -slami dalam
+                    pengamalan
                 </blockquote>
             </div>
 
@@ -44,18 +47,26 @@
             <div class="mb-5">
                 <h4 class="mb-3">MISI</h4>
                 <ol class="ordered-list">
-                    <li><span>Mewujudkan Madrasah Yang Unggul</span></li>
                     <li>
-                        <span>Mewujudkan Madrasah Yang Berkualitas</span>
-                    </li>
-                    <li><span>Mewujudkan Madrasah Berkarakter</span></li>
-                    <li>
-                        <span>Mewujudkan Madrasah Yang Humanis, Responsif,
-                            dan Ramah Lingkungan</span>
+                        <span>Pembinaan dan Pengembangan sikap Perilaku dalam kehidupan sehari-hari dengan mengedepankan
+                            akhlaqul karimah.</span>
                     </li>
                     <li>
-                        <span>Mewujudkan Madrasah Sebagai Rumah Tumbuhnya
-                            Inovasi dan Kreativitas</span>
+                        <span>Penyelenggaraan pendidikan yang memberi kesempatan luas pada peserta didik untuk mengembangkan
+                            kemampuan, bakat dan minat.</span>
+                    </li>
+                    <li>
+                        <span>Meningkatkan penguasaan ilmu pengetahuan dan teknologi dengan mengoptimalkan potensi akademik
+                            yang dimiliki oleh setiap siswa.</span>
+                    </li>
+                    <li>
+                        <span>Melaksanakan pembinaan secara intensif serta berpartisipasi aktif dalam ajang kompetisi di
+                            bidang ilmu pengetahuan, teknologi, seni dan budaya baik di tingkat lokal maupun
+                            nasional.</span>
+                    </li>
+                    <li>
+                        <span>Mengutamakan dan menjunjung tinggi asas keislaman serta berwawasan kebangsaan dan berjiwa
+                            demokratis.</span>
                     </li>
                 </ol>
             </div>
@@ -72,50 +83,33 @@
             <div class="mb-5">
                 <h4 class="mb-3">TUJUAN MADRASAH</h4>
 
-                <h5 class="mb-2">Tujuan Umum</h5>
                 <ol class="ordered-list">
                     <li>
-                        <span>Mengembangkan Sistem Pendidikan Madrasah Secara
-                            Profesional, Agar Menjadi Madrasah Yang Unggul
-                            Dan Berdaya Saing Di Era Globalisasi.</span>
+                        <span>Pembiasaan berperilaku jujur, sopan, dan tanggung jawab.</span>
                     </li>
                     <li>
-                        <span>Meningkatkan Kompetensi Dan Profesionalisme
-                            Pendidik Dan Tenaga Kependidikan.</span>
+                        <span>Meningkatkan profesionalisme pendidik dan tenaga kependidikan yang sesuai dengan bidangnya
+                            masing-masing.</span>
                     </li>
                     <li>
-                        <span>Mengembangkan Kreasi, Inspirasi Dan Inovasi
-                            Siswa Melalui Sarana Dan Prasarana Yang
-                            Memadai.</span>
+                        <span>Meningkatkan prestasi akademik peserta didik.</span>
                     </li>
                     <li>
-                        <span>Membina Siswa-Siswi Shalih-Shalihah Dan
-                            Berprestasi Berdasarkan Iman Dan Taqwa.</span>
+                        <span>Memenuhi standar sarana dan prasarana yang sesuai dengan Standar Pendidikan Nasional.</span>
                     </li>
                     <li>
-                        <span>Membentuk Karakter Islami Siswa-Siswi Secara
-                            Optimal.</span>
+                        <span>Memenuhi standar manajemen madrasah yang transparan dan akuntabel.</span>
                     </li>
                     <li>
-                        <span>Mengembangkan Potensi Fisik Dan Intelektual
-                            Siswa-Siswi Secara Optimal.</span>
+                        <span>Meningkatkan kemampuan membaca, memahami, dan mengamalkan Al-Qur’an dengan baik dan
+                            benar.</span>
                     </li>
                     <li>
-                        <span>Menumbuhkan Jiwa Tawadhu’ (Ramah, Rendah Hati),
-                            Ta’awun (Tolong Menolong), Tasamuh (Toleransi),
-                            Dan Tawasuth (Moderat).</span>
-                    </li>
-                    <li><span>Menumbuhkan Nilai-Nilai Humanis.</span></li>
-                    <li>
-                        <span>Menumbuhkan Kepedulian Siswa-Siswi Terhadap
-                            Lingkungan Kehidupan (Caring, Sharing Dan
-                            Empati).</span>
-                    </li>
-                    <li>
-                        <span>Menumbuhkan Perilaku Ramah Lingkungan.</span>
+                        <span>Pembiasaan pengamalan sholat berjamaah (Dhuhur) di madrasah.</span>
                     </li>
                 </ol>
             </div>
+
         </div>
     </section>
 @endsection

@@ -145,15 +145,15 @@
                         <ul class="unordered-list">
                             <li class="mb-3">
                                 <strong>Nama Madrasah:</strong>
-                                MI Ihyauddiniyah
+                                MIS. IHYAUDDINIYAH
                             </li>
                             <li class="mb-3">
                                 <strong>NPSN:</strong>
-                                0xxxx
+                                60716322
                             </li>
                             <li class="mb-3">
                                 <strong>NSM:</strong>
-                                1xxxx
+                                111235130239
                             </li>
                             <li class="mb-3">
                                 <strong>Jenjang Pendidikan:</strong>
@@ -164,14 +164,38 @@
                                 Swasta
                             </li>
                             <li class="mb-3">
-                                <strong>Alamat Sekolah:</strong>
-                                Desa Kecik, Kec. Besuk, Kab. Probolinggo
+                                <strong>Akreditasi Madrasah:</strong>
+                                B
                             </li>
-                            <li>
-                                <strong>Kode Pos:</strong>
-                                6xxx
+                            <li class="mb-3">
+                                <strong>Alamat Sekolah:</strong>
+                                Jl Masjid Darussalam, Desa Kecik, Kec. Besuk, Kab. Probolinggo, Provinsi Jawa Timur
+                            </li>
+                            <li class="mb-3">
+                                <strong>Nama Yayasan:</strong>
+                                YAYASAN IHYAUDDINIYAH
+                            </li>
+                            <li class="mb-3">
+                                <strong>Alamat Yayasan:</strong>
+                                Jl Masjid Darussalam, Desa Kecik, Kec. Besuk, Kab. Probolinggo, Provinsi Jawa Timur
+                            </li>
+                            <li class="mb-3">
+                                <strong>No Akte Pendirian Yayasan:</strong>
+                                C-178.HT.03.01-Th. 2003
+                            </li>
+                            <li class="mb-3">
+                                <strong>Kepemilikan Tanah:</strong>Yayasan
+                            </li>
+                            <li class="mb-3">
+                                <strong>Luas Tanah:</strong>
+                                1605 m²
+                            </li>
+                            <li class="mb-3">
+                                <strong>Status Bangunan:</strong>
+                                Yayasan
                             </li>
                         </ul>
+
                     </blockquote>
                 </div>
 
