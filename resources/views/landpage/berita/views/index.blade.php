@@ -101,19 +101,25 @@
                 <div class="menu-content pb-70 col-lg-8">
                     <div class="title text-center">
                         <h1 class="mb-10">Berita Terbaru dari Madrasah</h1>
-                        <p>
-                            Informasi dan kabar terbaru seputar kegiatan
-                            kami.
-                        </p>
+                        <p>Informasi dan kabar terbaru seputar kegiatan kami.</p>
                     </div>
                 </div>
             </div>
-            <div class="row mb-20 justify-content-center" id="berita-container"></div>
 
+            <!-- Alert untuk pemberitahuan data kosong atau error -->
+            <div id="berita-alert"></div>
+
+            <!-- Kontainer untuk daftar berita -->
+            <div class="row mb-20 justify-content-center" id="berita-container">
+                <!-- Data berita akan di-render di sini -->
+            </div>
+
+            <!-- Pagination -->
             <nav class="blog-pagination justify-content-center d-flex">
                 <ul class="pagination" id="pagination"></ul>
             </nav>
         </div>
+
     </section>
     <!-- End blog Area -->
 @endsection

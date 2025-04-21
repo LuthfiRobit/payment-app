@@ -107,18 +107,21 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="container"> -->
-            <div class="row justify-content-center" id="prestasi-list">
-                <!-- Di sini akan di-render dari AJAX -->
-            </div>
 
+            <!-- Kontainer alert untuk menampilkan pesan jika data kosong atau error -->
+            <div id="prestasi-alert"></div>
+
+            <div class="row justify-content-center" id="prestasi-list">
+                <!-- Data prestasi akan di-render di sini -->
+            </div>
 
             <nav class="blog-pagination justify-content-center d-flex">
                 <ul class="pagination">
-
+                    <!-- Pagination akan di-generate di sini -->
                 </ul>
             </nav>
         </div>
+
     </section>
 
     <div class="modal fade" id="dynamicDetailModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
