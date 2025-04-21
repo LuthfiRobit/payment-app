@@ -37,11 +37,9 @@
                         </div>
                         <div class="desc-wrap mt-auto">
                             <p>
-                                Madrasah Ibtidaiyah Ihyauddiniyah merupakan
-                                lembaga pendidikan dasar Islam yang
-                                berkomitmen dalam membentuk generasi yang
-                                cerdas, berakhlak mulia, dan berwawasan
-                                keislaman.
+                                Madrasah Ibtidaiyah Ihyauddiniyah merupakan lembaga pendidikan dasar yang terletak di Desa
+                                Kecik,
+                                Kecamatan Besuk, Kabupaten Probolinggo.
                             </p>
                             <a href="{{ route('landpage.profil.index') }}">Selengkapnya</a>
                         </div>
@@ -93,41 +91,52 @@
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-lg-6 no-padding info-area-left">
-                    <img class="img-fluid" src="{{ asset('template-landpage/img/about-img.jpg') }}" alt="Gedung Madrasah" />
+                    <img class="img-fluid" src="{{ asset('template-landpage/img/bg-ai-2.png') }}"
+                        style="max-height: 450px !important" alt="Gedung Madrasah" />
                 </div>
                 <div class="col-lg-6 info-area-right">
                     <h1>Profil Madrasah</h1>
                     <p class="text-justify">
-                        Madrasah Ibtidaiyah Ihyauddiniyah merupakan lembaga
-                        pendidikan dasar berbasis Islam yang berlokasi di
-                        Desa Kecik, Kecamatan Besuk, Kabupaten Probolinggo.
-                        Kami berkomitmen untuk memberikan pendidikan
-                        berkualitas yang mengintegrasikan ilmu pengetahuan
-                        umum dengan nilai-nilai keislaman serta membentuk
-                        generasi yang berakhlak mulia.
+                        Madrasah Ibtidaiyah Ihyauddiniyah merupakan lembaga pendidikan dasar yang terletak di Desa Kecik,
+                        Kecamatan Besuk, Kabupaten Probolinggo. Madrasah ini menjadikan Al-Qur’an dan Hadits sebagai sumber
+                        rujukan utama dalam setiap aktivitas pendidikan serta menjunjung tinggi nilai-nilai dan tradisi
+                        pesantren sebagai budaya yang melekat dalam kehidupan sehari-hari di lingkungan madrasah. Dengan
+                        visi "Mencetak generasi yang Santun, Terampil, dan Islami (SANTRI): SANtun dalam perilaku, TeRampil
+                        dalam berkarya, Islami dalam pengamalan," MI Ihyauddiniyah terus mengembangkan diri dan terus
+                        berkomitmen untuk mencetak lulusan yang unggul secara akademik, kuat dalam kepribadian, serta
+                        berakhlakul karimah.
                     </p>
-                    <br />
-                    <p class="text-justify">
-                        Berdiri sejak tahun 1985, madrasah kami telah
-                        mencetak generasi-generasi muslim yang berakhlak
-                        mulia dan berprestasi. Dengan fasilitas yang memadai
-                        dan tenaga pendidik yang profesional, kami
-                        menyelenggarakan proses pembelajaran yang
-                        menyenangkan dan mengembangkan potensi peserta didik
-                        secara holistik. Kurikulum kami mengacu pada KMA 183
-                        tahun 2019 dengan penekanan pada penguatan karakter
-                        religius dan nasionalisme.
+                    <p id="moreText" class="text-justify" style="display:none;">
+                        Arah pengembangan lembaga difokuskan pada penguatan karakter, peningkatan mutu pembelajaran, serta
+                        pengintegrasian nilai-nilai keislaman dalam seluruh aspek pendidikan.
                     </p>
-                    <br />
-                    <p class="text-justify">
-                        Selain kegiatan intrakurikuler, kami juga memiliki
-                        berbagai program unggulan seperti tahfidz Al-Qur'an,
-                        kaligrafi, dan pembinaan ibadah praktis untuk
-                        membentuk siswa yang beriman, berilmu, dan beramal
-                        shaleh. Program-program tersebut dirancang untuk
-                        mengembangkan kemampuan spiritual, intelektual, dan
-                        sosial peserta didik secara seimbang.
+                    <p id="moreText" class="text-justify" style="display:none;">
+                        Didirikan pada tahun 1950, MI Ihyauddiniyah telah menjadi bagian penting dalam sejarah pendidikan
+                        Islam di wilayah Besuk, Probolinggo. Selama puluhan tahun, madrasah ini telah melahirkan alumni yang
+                        tersebar dan berkiprah di berbagai bidang kehidupan, mulai dari dunia pendidikan, keagamaan,
+                        aparatur pemerintahan, dunia usaha hingga menjadi pegiat sosial di tengah masyarakat. Beberapa di
+                        antaranya menjadi pendidik, tokoh masyarakat, pengusaha, hingga pemimpin di lingkup lokal maupun
+                        nasional. Capaian ini menjadi bukti bahwa MI Ihyauddiniyah tidak hanya mencetak lulusan yang cerdas
+                        secara intelektual, tetapi juga matang dalam spiritual dan sosial.
                     </p>
+                    <p id="moreText" class="text-justify" style="display:none;">
+                        Dalam upaya mengembangkan bakat dan minat siswa, MI Ihyauddiniyah menyelenggarakan berbagai kegiatan
+                        intrakurikuler, kokurikuler, dan ekstrakurikuler yang dirancang secara integratif. Kegiatan
+                        intrakurikuler difokuskan pada penguatan akademik dan nilai-nilai keislaman, sementara kegiatan
+                        kokurikuler mendukung pengayaan pembelajaran melalui kegiatan keagamaan dan sosial. Sedangkan
+                        kegiatan ekstrakurikuler di madrasah ini meliputi pencaksilat, drumband, olahraga, karate, hadrah,
+                        serta kepramukaan.
+                    </p>
+                    <p id="moreText" class="text-justify" style="display:none;">
+                        Kegiatan kelembagaan juga diperkuat dengan program unggulan tahfidz Al-Qur’an sebagai upaya
+                        menanamkan kecintaan terhadap Al-Qur’an sejak dini, serta pendalaman kitab kuning yang menjadi ciri
+                        khas tradisi keilmuan pesantren. Seluruh kegiatan ini bertujuan untuk menumbuhkan jiwa disiplin,
+                        semangat kebersamaan, serta kepemimpinan yang tangguh pada setiap peserta didik, sejalan dengan misi
+                        madrasah dalam membentuk generasi masa depan yang siap menghadapi tantangan zaman tanpa meninggalkan
+                        nilai-nilai keislaman.
+                    </p>
+
+                    <a href="javascript:void(0)" onclick="toggleText()" id="readMoreBtn">Baca Selengkapnya</a>
                 </div>
             </div>
         </div>
@@ -201,7 +210,7 @@
 
                 <!-- Kolom gambar dipindah ke kanan (urutan kedua) -->
                 <div class="col-lg-6 no-padding info-area-left order-lg-2 order-1">
-                    <img class="img-fluid" src="{{ asset('template-landpage/img/about-img.jpg') }}" alt="Gedung Madrasah" />
+                    <img class="img-fluid" src="{{ asset('template-landpage/img/bg-ai-4.png') }}" alt="Gedung Madrasah" />
                 </div>
             </div>
         </div>
@@ -210,4 +219,22 @@
 @endsection
 
 @section('this-page-scripts')
+    <script>
+        function toggleText() {
+            var moreText = document.querySelectorAll("#moreText");
+            var btnText = document.getElementById("readMoreBtn");
+
+            if (moreText[0].style.display === "none") {
+                moreText.forEach(function(paragraph) {
+                    paragraph.style.display = "block";
+                });
+                btnText.innerHTML = "Tampilkan Lebih Sedikit";
+            } else {
+                moreText.forEach(function(paragraph) {
+                    paragraph.style.display = "none";
+                });
+                btnText.innerHTML = "Baca Selengkapnya";
+            }
+        }
+    </script>
 @endsection
