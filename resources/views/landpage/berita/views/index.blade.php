@@ -45,11 +45,9 @@
                         </div>
                         <div class="desc-wrap mt-auto">
                             <p>
-                                Madrasah Ibtidaiyah Ihyauddiniyah merupakan
-                                lembaga pendidikan dasar Islam yang
-                                berkomitmen dalam membentuk generasi yang
-                                cerdas, berakhlak mulia, dan berwawasan
-                                keislaman.
+                                Madrasah Ibtidaiyah Ihyauddiniyah merupakan lembaga pendidikan dasar yang terletak di Desa
+                                Kecik,
+                                Kecamatan Besuk, Kabupaten Probolinggo.
                             </p>
                             <a href="{{ route('landpage.profil.index') }}">Selengkapnya</a>
                         </div>
