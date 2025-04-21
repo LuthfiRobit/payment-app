@@ -2,6 +2,7 @@
 <script>
     $(document).ready(function() {
         const $carousel = $('#prestasi-carousel');
+        const $alertContainer = $('#prestasi-alert'); // Container untuk alert
 
         // Ambil data prestasi
         $.ajax({
@@ -10,10 +11,11 @@
             dataType: "json",
             success: function(response) {
                 if (response.success && response.data.length) {
-                    // Kosongkan isi carousel dulu
+                    // Kosongkan isi carousel dan alert dulu
                     $carousel.empty();
+                    $alertContainer.empty();
 
-                    // Tambahkan isi baru
+                    // Tambahkan isi baru ke dalam carousel
                     $.each(response.data, function(index, item) {
                         $carousel.append(`
                             <div class="single-popular-carusel mx-auto">
@@ -33,7 +35,7 @@
                         `);
                     });
 
-                    // Baru inisialisasi Owl Carousel
+                    // Inisialisasi Owl Carousel
                     $carousel.owlCarousel({
                         items: 4,
                         margin: 30,
@@ -57,10 +59,24 @@
                             }
                         }
                     });
+                } else {
+                    // Jika data kosong, tampilkan pesan alert
+                    $alertContainer.html(`
+                        <div class="col-12 alert alert-warning text-center" role="alert">
+                            <strong>Perhatian!</strong> Data prestasi tidak tersedia saat ini.
+                        </div>
+                    `);
                 }
             },
             error: function(xhr) {
                 console.error('Gagal mengambil data prestasi:', xhr);
+
+                // Jika gagal memuat data, tampilkan pesan error
+                $alertContainer.html(`
+                    <div class="col-12 alert alert-danger text-center" role="alert">
+                        <strong>Oops!</strong> Gagal memuat data prestasi. Silakan coba lagi.
+                    </div>
+                `);
             }
         });
     });

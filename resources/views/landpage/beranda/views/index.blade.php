@@ -204,6 +204,10 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-center">
+                <!-- Alert untuk data kosong atau error -->
+                <div class="col-12" id="prestasi-alert"></div> <!-- Tempat untuk alert -->
+
+                <!-- Carousel Prestasi -->
                 <div class="active-popular-carusel" id="prestasi-carousel">
                     <!-- Konten awal (opsional) -->
                 </div>

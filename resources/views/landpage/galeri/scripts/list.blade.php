@@ -18,6 +18,14 @@
             var container = $("#galeri-container");
             container.empty();
 
+            if (!data.length) {
+                container.html(`<div class="col-12 alert alert-warning text-center" role="alert">
+                                <strong>Perhatian!</strong> Data galeri tidak tersedia saat ini.
+                            </div>
+                            `);
+                return;
+            }
+
             $.each(data, function(index, item) {
                 var galeriItem = `
                     <div class="col-lg-3 col-md-6 col-sm-12 d-flex mb-4">
