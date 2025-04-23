@@ -30,7 +30,7 @@
                             var card = `
                             <div class="col-lg-3 col-md-6 single-blog">
                                 <div class="thumb">
-                                    <img class="img-fluid" src="${berita.gambar}" alt="" />
+                                    <img class="img-fluid" src="${berita.gambar}" alt="Gambar Berita" style="height: 200px; object-fit: cover;" />
                                 </div>
                                 <p class="meta">${berita.info}</p>
                                 <a href="${urlDetail}">
