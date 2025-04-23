@@ -41,6 +41,7 @@ class BeritaLandpageController extends Controller
             ->map(function ($item) {
                 $item->judul = Str::words($item->judul, 6, '...');
                 $item->isi = Str::words(strip_tags($item->isi), 35, '...');
+                $item->gambar = asset('uploads/berita/' . $item->gambar);  // Fixed the concatenation
                 $formattedDate = Carbon::parse($item->created_at)->translatedFormat('d F Y');
                 $item->info = "{$formattedDate} | Oleh {$item->username}";
                 return $item;
@@ -83,6 +84,7 @@ class BeritaLandpageController extends Controller
             ->map(function ($item) {
                 $item->judul = Str::words($item->judul, 6, '...');
                 $item->isi = Str::words(strip_tags($item->isi), 35, '...');
+                $item->gambar = asset('uploads/berita/' . $item->gambar);  // Fixed the concatenation
                 $formattedDate = Carbon::parse($item->created_at)->translatedFormat('d F Y');
                 $item->info = "{$formattedDate} | Oleh {$item->username}";
                 return $item;
@@ -131,6 +133,15 @@ class BeritaLandpageController extends Controller
                     'data' => null,
                 ], 404);
             }
+
+            // Handle the 'gambar' field (make sure the path is correct)
+            $berita->gambar = asset('uploads/berita/' . $berita->gambar);
+
+            // Format the 'created_at' field
+            $berita->created_at = Carbon::parse($berita->created_at)->translatedFormat('d F Y');
+
+            // Add the 'info' field with formatted date and username
+            $berita->info = "{$berita->created_at} | Oleh {$berita->username}";
 
             return response()->json([
                 'success' => true,
