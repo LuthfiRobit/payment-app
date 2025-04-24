@@ -28,7 +28,10 @@ class PrestasiLandpageController extends Controller
             ->where('status', 'aktif')
             ->orderByDesc('tanggal')
             ->limit(5)
-            ->get();
+            ->get()->map(function ($item) {
+                $item->foto_prestasi = asset('uploads/prestasi/' . $item->foto_prestasi);  // Fixed the concatenation
+                return $item;
+            });
 
         return response()->json([
             'success' => true,
@@ -55,6 +58,9 @@ class PrestasiLandpageController extends Controller
                     'data' => null,
                 ], 404);
             }
+
+            // Handle the 'foto_prestasi' field (make sure the path is correct)
+            $prestasi->foto_prestasi = asset('uploads/prestasi/' . $prestasi->foto_prestasi);
 
             return response()->json([
                 'success' => true,
@@ -92,7 +98,11 @@ class PrestasiLandpageController extends Controller
         $results = $query
             ->offset(($currentPage - 1) * $perPage)
             ->limit($perPage)
-            ->get();
+            ->get()->map(function ($item) {
+                $item->foto_prestasi = asset('uploads/prestasi/' . $item->foto_prestasi);  // Fixed the concatenation
+                return $item;
+            });
+
 
         return response()->json([
             'current_page' => $currentPage,
