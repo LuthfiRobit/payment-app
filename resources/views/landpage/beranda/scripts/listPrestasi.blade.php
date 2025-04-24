@@ -22,7 +22,7 @@
                                 <div class="thumb-wrap relative">
                                     <div class="thumb relative">
                                         <div class="overlay overlay-bg"></div>
-                                        <img class="img-fluid" src="${item.foto_prestasi}" alt="Prestasi Siswa" />
+                                        <img class="img-fluid" src="${item.foto_prestasi}" alt="Prestasi Siswa" style="height: 175px; object-fit: cover;" />
                                     </div>
                                     <div class="meta d-flex justify-content-between">
                                         <p><span class="lnr lnr-calendar-full"></span> ${item.tanggal}</p>
