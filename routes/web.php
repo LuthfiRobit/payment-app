@@ -10,6 +10,7 @@ use App\Http\Controllers\Landpage\PpdbLandpageController;
 use App\Http\Controllers\Landpage\PrestasiLandpageController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\DashboardPpdbController;
+use App\Http\Controllers\Master\BeritaController;
 use App\Http\Controllers\Master\IuranController;
 use App\Http\Controllers\Master\KontakController;
 use App\Http\Controllers\Master\PotonganController;
@@ -153,7 +154,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::put('update/{id}', [TentangController::class, 'update'])->name('update');
         Route::post('update-status', [TentangController::class, 'updateStatus'])->name('update.status');
     });
-
+  
     // Route group untuk Prestasi
     Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('prestasi')->name('prestasi.')->group(function () {
         Route::get('/', [PrestasiController::class, 'index'])->name('index');
@@ -162,6 +163,16 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::get('{id}', [PrestasiController::class, 'show'])->name('show');
         Route::put('update/{id}', [PrestasiController::class, 'update'])->name('update');
         Route::post('update-status', [PrestasiController::class, 'updateStatus'])->name('update.status');
+
+    // Route group untuk Berita
+    Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('berita')->name('berita.')->group(function () {
+        // Rute yang bisa diakses oleh semua role (kepsek, developer, petugas_pembayaran)
+        Route::get('/', [BeritaController::class, 'index'])->name('index');
+        Route::get('/list', [BeritaController::class, 'getData'])->name('list');
+        Route::post('store', [BeritaController::class, 'store'])->name('store');
+        Route::get('{id}', [BeritaController::class, 'show'])->name('show');
+        Route::put('update/{id}', [BeritaController::class, 'update'])->name('update');
+
     });
 });
 
