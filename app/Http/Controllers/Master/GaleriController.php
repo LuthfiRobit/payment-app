@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Galeri;
 use Illuminate\Http\Request;
@@ -55,13 +56,9 @@ class GaleriController extends Controller
         ]);
 
         try {
-            $file = $request->file('foto');
             $fileName = null;
-
-            if ($file) {
-                $fileFolder = 'uploads/galeri';
-                $fileName = 'galeri_' . Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path($fileFolder), $fileName);
+            if ($request->hasFile('foto')) {
+                $fileName = UploadHelper::uploadFile($request->file('foto'), 'uploads/galeri', 'galeri');
             }
 
             $galeri = new Galeri();
@@ -136,17 +133,9 @@ class GaleriController extends Controller
                 ], 404);
             }
 
-            $file = $request->file('foto');
             $fileName = $galeri->foto;
-
-            if ($file) {
-                $fileFolder = 'uploads/galeri';
-                if ($fileName && file_exists(public_path($fileFolder . '/' . $fileName))) {
-                    unlink(public_path($fileFolder . '/' . $fileName));
-                }
-
-                $fileName = 'galeri_' . Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path($fileFolder), $fileName);
+            if ($request->hasFile('foto')) {
+                $fileName = UploadHelper::uploadFile($request->file('foto'), 'uploads/galeri', 'galeri', $galeri->foto);
             }
 
             $galeri->tanggal = $request->tanggal;
