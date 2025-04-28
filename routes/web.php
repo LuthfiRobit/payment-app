@@ -10,6 +10,7 @@ use App\Http\Controllers\Landpage\PpdbLandpageController;
 use App\Http\Controllers\Landpage\PrestasiLandpageController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\DashboardPpdbController;
+use App\Http\Controllers\Master\GaleriController;
 use App\Http\Controllers\Master\IuranController;
 use App\Http\Controllers\Master\KontakController;
 use App\Http\Controllers\Master\PotonganController;
@@ -151,6 +152,16 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::get('{id}', [TentangController::class, 'show'])->name('show');
         Route::put('update/{id}', [TentangController::class, 'update'])->name('update');
         Route::post('update-status', [TentangController::class, 'updateStatus'])->name('update.status');
+    });
+
+    // Route group untuk Galeri
+    Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('galeri')->name('galeri.')->group(function () {
+        Route::get('/', [GaleriController::class, 'index'])->name('index');
+        Route::get('/list', [GaleriController::class, 'getData'])->name('list');
+        Route::post('store', [GaleriController::class, 'store'])->name('store');
+        Route::get('{id}', [GaleriController::class, 'show'])->name('show');
+        Route::put('update/{id}', [GaleriController::class, 'update'])->name('update');
+        Route::post('update-status', [GaleriController::class, 'updateStatus'])->name('update.status');
     });
 });
 
