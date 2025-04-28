@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Prestasi;
 use Illuminate\Http\Request;
@@ -55,13 +56,10 @@ class PrestasiController extends Controller
         ]);
 
         try {
-            $file = $request->file('foto_prestasi');
-            $fileName = null;
 
-            if ($file) {
-                $fileFolder = 'uploads/prestasi';
-                $fileName = 'prestasi_' . Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path($fileFolder), $fileName);
+            $fileName = null;
+            if ($request->hasFile('foto_prestasi')) {
+                $fileName = UploadHelper::uploadFile($request->file('foto_prestasi'), 'uploads/prestasi', 'prestasi');
             }
 
             $prestasi = new Prestasi();
@@ -136,17 +134,9 @@ class PrestasiController extends Controller
                 ], 404);
             }
 
-            $file = $request->file('foto_prestasi');
             $fileName = $prestasi->foto_prestasi;
-
-            if ($file) {
-                $fileFolder = 'uploads/prestasi';
-                if ($fileName && file_exists(public_path($fileFolder . '/' . $fileName))) {
-                    unlink(public_path($fileFolder . '/' . $fileName));
-                }
-
-                $fileName = 'prestasi_' . Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path($fileFolder), $fileName);
+            if ($request->hasFile('foto_prestasi')) {
+                $fileName = UploadHelper::uploadFile($request->file('foto_prestasi'), 'uploads/prestasi', 'prestasi');
             }
 
             $prestasi->tanggal = $request->tanggal;
