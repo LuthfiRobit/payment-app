@@ -77,7 +77,10 @@
 
                     <li><a href="{{ route('master-data.tentang.index') }}" class="fs-6">CMS Tentang</a></li>
 
+                    <li><a href="{{ route('master-data.prestasi.index') }}" class="fs-6">CMS Prestasi</a></li>
+
                     <li><a href="{{ route('master-data.berita.index') }}" class="fs-6">CMS Berita</a></li>
+
                 </ul>
             </li>
             <li>

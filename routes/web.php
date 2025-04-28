@@ -14,6 +14,7 @@ use App\Http\Controllers\Master\BeritaController;
 use App\Http\Controllers\Master\IuranController;
 use App\Http\Controllers\Master\KontakController;
 use App\Http\Controllers\Master\PotonganController;
+use App\Http\Controllers\Master\PrestasiController;
 use App\Http\Controllers\Master\SiswaController;
 use App\Http\Controllers\Master\TahunAkademikController;
 use App\Http\Controllers\Master\TentangController;
@@ -153,6 +154,15 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::put('update/{id}', [TentangController::class, 'update'])->name('update');
         Route::post('update-status', [TentangController::class, 'updateStatus'])->name('update.status');
     });
+  
+    // Route group untuk Prestasi
+    Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('prestasi')->name('prestasi.')->group(function () {
+        Route::get('/', [PrestasiController::class, 'index'])->name('index');
+        Route::get('/list', [PrestasiController::class, 'getData'])->name('list');
+        Route::post('store', [PrestasiController::class, 'store'])->name('store');
+        Route::get('{id}', [PrestasiController::class, 'show'])->name('show');
+        Route::put('update/{id}', [PrestasiController::class, 'update'])->name('update');
+        Route::post('update-status', [PrestasiController::class, 'updateStatus'])->name('update.status');
 
     // Route group untuk Berita
     Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('berita')->name('berita.')->group(function () {
@@ -162,6 +172,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::post('store', [BeritaController::class, 'store'])->name('store');
         Route::get('{id}', [BeritaController::class, 'show'])->name('show');
         Route::put('update/{id}', [BeritaController::class, 'update'])->name('update');
+
     });
 });
 
