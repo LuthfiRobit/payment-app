@@ -28,7 +28,11 @@ class GaleriLandpageController extends Controller
             ->where('status', 'aktif')
             ->orderByDesc('tanggal')
             ->limit(5)
-            ->get();
+            ->get()->map(function ($item) {
+                $item->foto = asset('uploads/galeri/' . $item->foto);  // Fixed the concatenation
+                return $item;
+            });
+
 
         return response()->json([
             'success' => true,
@@ -55,6 +59,9 @@ class GaleriLandpageController extends Controller
                     'data' => null,
                 ], 404);
             }
+
+            // Handle the 'foto' field (make sure the path is correct)
+            $galeri->foto = asset('uploads/galeri/' . $galeri->foto);
 
             return response()->json([
                 'success' => true,
@@ -92,7 +99,10 @@ class GaleriLandpageController extends Controller
         $results = $query
             ->offset(($currentPage - 1) * $perPage)
             ->limit($perPage)
-            ->get();
+            ->get()->map(function ($item) {
+                $item->foto = asset('uploads/galeri/' . $item->foto);  // Fixed the concatenation
+                return $item;
+            });
 
         return response()->json([
             'current_page' => $currentPage,
