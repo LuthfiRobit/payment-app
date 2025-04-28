@@ -20,7 +20,7 @@
             });
 
             $.ajax({
-                url: '{{ route('landpage.ppdb.store') }}', // URL tujuan (sesuaikan dengan route yang ada)
+                url: '{{ route('ppdb.store') }}', // URL tujuan (sesuaikan dengan route yang ada)
                 type: 'POST',
                 data: formData,
                 processData: false, // Penting untuk menonaktifkan pemrosesan data, agar FormData dapat dikirim dengan benar

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use Illuminate\Http\Request;
@@ -64,13 +65,9 @@ class BeritaController extends Controller
                 ], 409);
             }
 
-            $file = $request->file('gambar');
             $fileName = null;
-
-            if ($file) {
-                $fileFolder = 'uploads/berita';
-                $fileName = 'berita_' . Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path($fileFolder), $fileName);
+            if ($request->hasFile('gambar')) {
+                $fileName = UploadHelper::uploadFile($request->file('gambar'), 'uploads/berita', 'berita');
             }
 
             $berita = new Berita();
@@ -156,17 +153,9 @@ class BeritaController extends Controller
                 ], 409);
             }
 
-            $file = $request->file('gambar');
             $fileName = $berita->gambar;
-
-            if ($file) {
-                $fileFolder = 'uploads/berita';
-                if ($fileName && file_exists(public_path($fileFolder . '/' . $fileName))) {
-                    unlink(public_path($fileFolder . '/' . $fileName));
-                }
-
-                $fileName = 'berita_' . Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path($fileFolder), $fileName);
+            if ($request->hasFile('gambar')) {
+                $fileName = UploadHelper::uploadFile($request->file('gambar'), 'uploads/berita', 'berita', $berita->gambar);
             }
 
             $berita->judul = $request->judul;

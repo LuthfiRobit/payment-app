@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Registrasi;
 
 use App\Exports\SiswaBaruExport;
+use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\AyahSiswaBaru;
 use App\Models\IbuSiswaBaru;
@@ -192,22 +193,14 @@ class RegistrasiController extends Controller
             ], 404);
         }
 
-        $file = $request->file('foto_siswa');
-        $file_name = $siswa->foto_siswa;
-
         DB::beginTransaction(); // Start DB transaction
 
         try {
             // Handle file upload if a new file is provided
-            if ($file) {
-                $file_folder = 'uploads/foto_siswa';
-                if ($file_name !== null) {
-                    if (file_exists($file_folder . '/' . $file_name)) {
-                        unlink($file_folder . '/' . $file_name);
-                    }
-                }
-                $file_name = 'foto_siswa_' . Str::uuid() . '.' . $file->getClientOriginalExtension();
-                $file->move($file_folder, $file_name);
+
+            $file_name = $siswa->foto_siswa;
+            if ($request->hasFile('foto_siswa')) {
+                $file_name = UploadHelper::uploadFile($request->file('foto_siswa'), 'uploads/foto_siswa', 'foto_siswa', $siswa->foto_siswa);
             }
 
             // Update the student's data
@@ -318,38 +311,23 @@ class RegistrasiController extends Controller
         DB::beginTransaction(); // Start DB transaction
 
         try {
-            // Handle file upload for Ayah's KTP scan if a new file is provided
+            // Upload file baru jika tersedia
             if ($request->hasFile('scan_ktp_ayah')) {
-                $file_ktp_ayah = $request->file('scan_ktp_ayah');
-
-                // Delete old file if it exists
-                if ($ayah->scan_ktp_ayah) {
-                    $oldFilePath = public_path('uploads/ktp_ayah/' . $ayah->scan_ktp_ayah);
-                    if (file_exists($oldFilePath)) {
-                        unlink($oldFilePath); // Remove the old file
-                    }
-                }
-
-                // Store the new file with a unique name
-                $ayah->scan_ktp_ayah = 'ktp_ayah_' . Str::uuid() . '.' . $file_ktp_ayah->getClientOriginalExtension();
-                $file_ktp_ayah->move(public_path('uploads/ktp_ayah'), $ayah->scan_ktp_ayah);
+                $ayah->scan_ktp_ayah = UploadHelper::uploadFile(
+                    $request->file('scan_ktp_ayah'),
+                    'uploads/ktp_ayah',
+                    'ktp_ayah',
+                    $ayah->scan_ktp_ayah
+                );
             }
 
-            // Handle file upload for Ibu's KTP scan if a new file is provided
             if ($request->hasFile('scan_ktp_ibu')) {
-                $file_ktp_ibu = $request->file('scan_ktp_ibu');
-
-                // Delete old file if it exists
-                if ($ibu->scan_ktp_ibu) {
-                    $oldFilePath = public_path('uploads/ktp_ibu/' . $ibu->scan_ktp_ibu);
-                    if (file_exists($oldFilePath)) {
-                        unlink($oldFilePath); // Remove the old file
-                    }
-                }
-
-                // Store the new file with a unique name
-                $ibu->scan_ktp_ibu = 'ktp_ibu_' . Str::uuid() . '.' . $file_ktp_ibu->getClientOriginalExtension();
-                $file_ktp_ibu->move(public_path('uploads/ktp_ibu'), $ibu->scan_ktp_ibu);
+                $ibu->scan_ktp_ibu = UploadHelper::uploadFile(
+                    $request->file('scan_ktp_ibu'),
+                    'uploads/ktp_ibu',
+                    'ktp_ibu',
+                    $ibu->scan_ktp_ibu
+                );
             }
 
             // Update the data for Ayah and Ibu
@@ -436,7 +414,6 @@ class RegistrasiController extends Controller
             'scan_kartu_kks' => $request->hasFile('scan_kartu_kks') ? 'nullable|mimes:jpeg,jpg,png|max:2048' : 'nullable', // Validasi file Kartu KKS
         ]);
 
-
         // Cari data wali berdasarkan siswa_baru_id
         $wali = WaliSiswaBaru::where('siswa_baru_id', $id)->first();
 
@@ -447,62 +424,39 @@ class RegistrasiController extends Controller
             ], 404);
         }
 
-        $file_kk = $request->file('scan_kk_wali');
-        $file_name_kk = $wali->scan_kk_wali;
-
-        $file_pkh = $request->file('scan_kartu_pkh');
-        $file_name_pkh = $wali->scan_kartu_pkh;
-
-        $file_kks = $request->file('scan_kartu_kks');
-        $file_name_kks = $wali->scan_kartu_kks;
         DB::beginTransaction();
         try {
 
-            // Handle file upload if a new file is provided for Scan KK
-            if ($file_kk) {
-                $file_folder = 'uploads/scan_kk_wali'; // folder tujuan untuk upload scan KK
-                if ($file_name_kk !== null) {
-                    // Hapus file lama jika ada
-                    if (file_exists($file_folder . '/' . $file_name_kk)) {
-                        unlink($file_folder . '/' . $file_name_kk);
-                    }
-                }
-                // Generate nama file baru
-                $file_name_kk = 'scan_kk_wali_' . Str::uuid() . '.' . $file_kk->getClientOriginalExtension();
-                // Pindahkan file ke folder yang ditentukan
-                $file_kk->move($file_folder, $file_name_kk);
+            $file_name_kk = $wali->scan_kk_wali;
+            $file_name_pkh = $wali->scan_kartu_pkh;
+            $file_name_kks = $wali->scan_kartu_kks;
+
+            if ($request->hasFile('scan_kk_wali')) {
+                $file_name_kk = UploadHelper::uploadFile(
+                    $request->file('scan_kk_wali'),
+                    'uploads/scan_kk_wali',
+                    'kk_wali',
+                    $wali->scan_kk_wali
+                );
             }
 
-            // Handle file upload if a new file is provided for Scan Kartu PKH
-            if ($file_pkh) {
-                $file_folder = 'uploads/scan_kartu_pkh'; // folder tujuan untuk upload scan kartu PKH
-                if ($file_name_pkh !== null) {
-                    // Hapus file lama jika ada
-                    if (file_exists($file_folder . '/' . $file_name_pkh)) {
-                        unlink($file_folder . '/' . $file_name_pkh);
-                    }
-                }
-                // Generate nama file baru
-                $file_name_pkh = 'scan_kartu_pkh_' . Str::uuid() . '.' . $file_pkh->getClientOriginalExtension();
-                // Pindahkan file ke folder yang ditentukan
-                $file_pkh->move($file_folder, $file_name_pkh);
+            if ($request->hasFile('scan_kartu_pkh')) {
+                $file_name_pkh = UploadHelper::uploadFile(
+                    $request->file('scan_kartu_pkh'),
+                    'uploads/scan_kartu_pkh',
+                    'kartu_pkh',
+                    $wali->scan_kartu_pkh
+                );
             }
 
-            // Handle file upload if a new file is provided for Scan Kartu KKS
-            if ($file_kks) {
-                $file_folder = 'uploads/scan_kartu_kks'; // folder tujuan untuk upload scan kartu KKS
-                if ($file_name_kks !== null) {
-                    // Hapus file lama jika ada
-                    if (file_exists($file_folder . '/' . $file_name_kks)) {
-                        unlink($file_folder . '/' . $file_name_kks);
-                    }
-                }
-                // Generate nama file baru
-                $file_name_kks = 'scan_kartu_kks_' . Str::uuid() . '.' . $file_kks->getClientOriginalExtension();
-                // Pindahkan file ke folder yang ditentukan
-                $file_kks->move($file_folder, $file_name_kks);
+            if ($request->hasFile('scan_kartu_kks')) {
+                $file_name_kks = UploadHelper::uploadFile(
+                    $request->file('scan_kartu_kks'),
+                    'uploads/scan_kartu_kks',
+                    'kartu_kks',
+                    $wali->scan_kartu_kks
+                );
             }
-
 
             $wali->update([
                 'nama_wali' => $request->nama_wali,

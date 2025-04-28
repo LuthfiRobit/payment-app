@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Registrasi;
 
 use App\Helpers\AppHelper;
+use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Models\AyahSiswaBaru;
 use App\Models\IbuSiswaBaru;
@@ -187,7 +188,7 @@ class RegistrasiSiswaController extends Controller
 
         // Handle foto siswa
         if ($request->hasFile('foto_siswa')) {
-            $siswaBaru->foto_siswa = $this->uploadFile($request->file('foto_siswa'), 'foto_siswa');
+            $siswaBaru->foto_siswa = UploadHelper::uploadFile($request->file('foto_siswa'), 'uploads/foto_siswa', 'siswa');
         }
 
         $siswaBaru->save();
@@ -213,7 +214,7 @@ class RegistrasiSiswaController extends Controller
 
         // Handle foto KTP ibu
         if ($request->hasFile('scan_ktp_ibu')) {
-            $ibuSiswaBaru->scan_ktp_ibu = $this->uploadFile($request->file('scan_ktp_ibu'), 'ktp_ibu');
+            $ibuSiswaBaru->scan_ktp_ibu = UploadHelper::uploadFile($request->file('scan_ktp_ibu'), 'uploads/ktp_ibu', 'ktp_ibu');
         }
 
         $ibuSiswaBaru->save();
@@ -239,7 +240,7 @@ class RegistrasiSiswaController extends Controller
 
         // Handle foto KTP ayah
         if ($request->hasFile('scan_ktp_ayah')) {
-            $ayahSiswaBaru->scan_ktp_ayah = $this->uploadFile($request->file('scan_ktp_ayah'), 'ktp_ayah');
+            $ayahSiswaBaru->scan_ktp_ayah = UploadHelper::uploadFile($request->file('scan_ktp_ayah'), 'uploads/ktp_ayah', 'ktp_ayah');
         }
 
         $ayahSiswaBaru->save();
@@ -254,9 +255,17 @@ class RegistrasiSiswaController extends Controller
         $waliSiswaBaru->nama_wali = $request->nama_wali;
 
         // Handle file uploads
-        $this->uploadFileIfExist($request, 'scan_kk_wali', $waliSiswaBaru, 'scan_kk_wali');
-        $this->uploadFileIfExist($request, 'scan_kartu_pkh', $waliSiswaBaru, 'scan_kartu_pkh');
-        $this->uploadFileIfExist($request, 'scan_kartu_kks', $waliSiswaBaru, 'scan_kartu_kks');
+        if ($request->hasFile('scan_kk_wali')) {
+            $waliSiswaBaru->scan_kk_wali = UploadHelper::uploadFile($request->file('scan_kk_wali'), 'uploads/scan_kk_wali', 'kk_wali');
+        }
+
+        if ($request->hasFile('scan_kartu_pkh')) {
+            $waliSiswaBaru->scan_kartu_pkh = UploadHelper::uploadFile($request->file('scan_kartu_pkh'), 'uploads/scan_kartu_pkh', 'kartu_pkh');
+        }
+
+        if ($request->hasFile('scan_kartu_kks')) {
+            $waliSiswaBaru->scan_kartu_kks = UploadHelper::uploadFile($request->file('scan_kartu_kks'), 'uploads/scan_kartu_kks', 'kartu_kks');
+        }
 
         $waliSiswaBaru->save();
         return $waliSiswaBaru;

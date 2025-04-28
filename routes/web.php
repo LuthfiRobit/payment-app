@@ -293,6 +293,7 @@ Route::middleware(['auth', 'role:developer,petugas_emis,kepsek'])->prefix('ppdb'
     Route::get('create', [RegistrasiController::class, 'create'])->name('create');
     Route::post('export', [RegistrasiController::class, 'export'])->name('export');
     Route::post('generate', [RegistrasiGeneratorController::class, 'generate'])->name('generate');
+    Route::post('store', [RegistrasiSiswaController::class, 'store'])->name('store');
 
     Route::get('show-siswa/{id}', [RegistrasiController::class, 'showSiswa'])->name('show.siswa');
     Route::post('update-siswa/{id}', [RegistrasiController::class, 'updateSiswa'])->name('update.siswa');
