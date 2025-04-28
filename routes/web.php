@@ -167,7 +167,8 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::get('{id}', [GaleriController::class, 'show'])->name('show');
         Route::put('update/{id}', [GaleriController::class, 'update'])->name('update');
         Route::post('update-status', [GaleriController::class, 'updateStatus'])->name('update.status');
-  
+    });
+
     // Route group untuk Prestasi
     Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('prestasi')->name('prestasi.')->group(function () {
         Route::get('/', [PrestasiController::class, 'index'])->name('index');
@@ -176,6 +177,7 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::get('{id}', [PrestasiController::class, 'show'])->name('show');
         Route::put('update/{id}', [PrestasiController::class, 'update'])->name('update');
         Route::post('update-status', [PrestasiController::class, 'updateStatus'])->name('update.status');
+    });
 
     // Route group untuk Berita
     Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('berita')->name('berita.')->group(function () {
@@ -185,7 +187,6 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::post('store', [BeritaController::class, 'store'])->name('store');
         Route::get('{id}', [BeritaController::class, 'show'])->name('show');
         Route::put('update/{id}', [BeritaController::class, 'update'])->name('update');
-
     });
 });
 
