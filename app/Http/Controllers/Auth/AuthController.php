@@ -46,7 +46,16 @@ class AuthController extends Controller
             // Clear the throttle counter if login is successful
             RateLimiter::clear($throttleKey);
 
-            return response()->json(['message' => 'Login successful']);
+            // Tentukan redirect berdasarkan role
+            $redirectUrl = match ($user->role) {
+                'petugas_emis' => route('main.dashboard-ppdb.index'),
+                default => route('main.dashboard.index'),
+            };
+
+            return response()->json([
+                'message' => 'Login successful',
+                'redirect_url' => $redirectUrl,
+            ]);
         }
 
         // Increment the throttle count and set custom delay
