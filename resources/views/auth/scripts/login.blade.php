@@ -36,8 +36,7 @@
 
                     // Handle successful login
                     if (response.message === "Login successful") {
-                        window.location.href =
-                            '{{ route('main.dashboard.index') }}'; // Redirect to dashboard
+                        window.location.href = response.redirect_url;
                     } else {
                         Swal.fire('Error', response.message, 'error');
                     }

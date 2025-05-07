@@ -51,9 +51,9 @@ Route::get('/', function () {
     return redirect()->route('landpage.index');
 });
 
-Route::get('/login', [AuthController::class, 'index'])->name('auth.form');
+Route::get('/login', [AuthController::class, 'index'])->middleware('guest')->name('auth.form');
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:login')->name('login');
-Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
 
 Route::prefix('main')->name('main.')->group(
     function () {

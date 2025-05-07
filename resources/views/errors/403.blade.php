@@ -11,9 +11,12 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="form-input-content error-page">
                         <h1 class="error-text text-primary">403</h1>
-                        <h4> Forbidden Error!</h4>
+                        <h4>Forbidden Error!</h4>
                         <p>Anda tidak memiliki izin untuk mengakses halaman ini.</p>
-                        <a class="btn btn-primary" href="{{ route('main.dashboard.index') }}">Kembali ke dashboard</a>
+                        <a class="btn btn-primary"
+                            href="{{ auth()->user()->role === 'petugas_emis' ? route('main.dashboard-ppdb.index') : route('main.dashboard.index') }}">
+                            Kembali ke dashboard
+                        </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12">
