@@ -36,6 +36,7 @@
 
         function displayTransaksiInfo(data) {
             $('#show_nomor_transaksi').text(data.nomor_transaksi)
+            $('#show_creator').text(data.creator_nama)
 
             if (data && data.jumlah_bayar !== undefined) {
                 $('#show_total_bayar').text(formatCurrency(data.jumlah_bayar));
