@@ -49,6 +49,7 @@ class AuthController extends Controller
             // Tentukan redirect berdasarkan role
             $redirectUrl = match ($user->role) {
                 'petugas_emis' => route('main.dashboard-ppdb.index'),
+                'petugas_ppdb' => route('ppdb.index'),
                 default => route('main.dashboard.index'),
             };
 
