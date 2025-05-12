@@ -27,6 +27,8 @@ class RedirectIfAuthenticated
                 switch ($user->role) {
                     case 'petugas_emis':
                         return redirect()->route('main.dashboard-ppdb.index');
+                    case 'petugas_ppdb':
+                        return redirect()->route('ppdb.index');
                     case 'kepsek':
                     case 'petugas_pembayaran':
                     case 'bendahara':
