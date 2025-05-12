@@ -286,15 +286,30 @@ Route::prefix('transaksi')->name('transaksi.')->group(function () {
     });
 });
 
-// Route group untuk PPDB
-Route::middleware(['auth', 'role:developer,petugas_emis,kepsek'])->prefix('ppdb')->name('ppdb.')->group(function () {
+// Route group utama untuk PPDB
+Route::middleware(['auth', 'role:developer,petugas_emis,petugas_ppdb,kepsek'])->prefix('ppdb')->name('ppdb.')->group(function () {
     Route::get('/', [RegistrasiController::class, 'index'])->name('index');
     Route::get('list', [RegistrasiController::class, 'getData'])->name('list');
     Route::get('create', [RegistrasiController::class, 'create'])->name('create');
-    Route::post('export', [RegistrasiController::class, 'export'])->name('export');
-    Route::post('generate', [RegistrasiGeneratorController::class, 'generate'])->name('generate');
     Route::post('store', [RegistrasiSiswaController::class, 'store'])->name('store');
 
+    // Hanya bisa diakses oleh developer dan petugas emis
+    Route::middleware(['role:developer,petugas_emis'])->group(function () {
+        Route::post('export', [RegistrasiController::class, 'export'])->name('export');
+        Route::post('generate', [RegistrasiGeneratorController::class, 'generate'])->name('generate');
+
+        // Route group untuk setting (hanya untuk developer & petugas emis)
+        Route::prefix('setting')->name('setting.')->group(function () {
+            Route::get('/', [RegistrasiSettingController::class, 'index'])->name('index');
+            Route::get('/list', [RegistrasiSettingController::class, 'getData'])->name('list');
+            Route::post('store', [RegistrasiSettingController::class, 'store'])->name('store');
+            Route::get('{id}', [RegistrasiSettingController::class, 'show'])->name('show');
+            Route::put('update/{id}', [RegistrasiSettingController::class, 'update'])->name('update');
+            Route::post('update-status', [RegistrasiSettingController::class, 'updateStatus'])->name('update.status');
+        });
+    });
+
+    // Akses umum untuk edit data
     Route::get('show-siswa/{id}', [RegistrasiController::class, 'showSiswa'])->name('show.siswa');
     Route::post('update-siswa/{id}', [RegistrasiController::class, 'updateSiswa'])->name('update.siswa');
 
@@ -308,17 +323,8 @@ Route::middleware(['auth', 'role:developer,petugas_emis,kepsek'])->prefix('ppdb'
     Route::post('update-keluarga/{id}', [RegistrasiController::class, 'updateKeluarga'])->name('update.keluarga');
 
     Route::post('update-status/{id}', [RegistrasiController::class, 'updateStatusSiswa'])->name('update.status');
-
-    // Route group untuk setting
-    Route::prefix('setting')->name('setting.')->group(function () {
-        Route::get('/', [RegistrasiSettingController::class, 'index'])->name('index');
-        Route::get('/list', [RegistrasiSettingController::class, 'getData'])->name('list');
-        Route::post('store', [RegistrasiSettingController::class, 'store'])->name('store');
-        Route::get('{id}', [RegistrasiSettingController::class, 'show'])->name('show');
-        Route::put('update/{id}', [RegistrasiSettingController::class, 'update'])->name('update');
-        Route::post('update-status', [RegistrasiSettingController::class, 'updateStatus'])->name('update.status');
-    });
 });
+
 
 // Route group untuk aplication
 Route::prefix('application')->name('application.')->group(function () {
