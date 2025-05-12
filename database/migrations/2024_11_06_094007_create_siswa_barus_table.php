@@ -35,9 +35,13 @@ return new class extends Migration
             $table->string('alamat_ra_tk')->nullable(); // Alamat RA/TK
             $table->string('foto_siswa')->nullable(); // Foto Siswa
             $table->json('imunisasi')->nullable(); // Imunisasi yang telah diikuti
+            $table->uuid('created_by')->nullable(); // Menyimpan ID user yang membuat data
+            $table->uuid('updated_by')->nullable(); // Menyimpan ID user yang mengedit data terakhir
             $table->timestamps(); // Timestamps
 
             $table->foreign('tahun_akademik_id')->references('id_tahun_akademik')->on('tahun_akademik')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('created_by')->references('id_user')->on('users')->onDelete('set null');
+            $table->foreign('updated_by')->references('id_user')->on('users')->onDelete('set null');
         });
     }
 
