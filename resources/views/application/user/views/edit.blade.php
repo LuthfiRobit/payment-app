@@ -28,6 +28,7 @@
                             <option value="bendahara">Bendahara</option>
                             <option value="petugas_pembayaran">Petugas Pembayaran</option>
                             <option value="petugas_emis">Petugas Emis</option>
+                            <option value="petugas_ppdb">Petugas PPDB</option>
                             <!-- Add other roles as needed -->
                         </select>
                     </div>
