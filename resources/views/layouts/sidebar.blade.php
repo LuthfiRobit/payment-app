@@ -100,18 +100,20 @@
             @endif
 
             {{-- PPDB --}}
-            @if (in_array($role, ['developer', 'kepsek', 'petugas_emis']))
+            @if (in_array($role, ['developer', 'kepsek', 'petugas_emis', 'petugas_ppdb']))
                 <li>
                     <a class="has-arrow ai-icon" href="javascript:void(0);">
                         <i class="fas fa-id-card fw-bold"></i><span class="nav-text">PPDB</span>
                     </a>
                     <ul>
-                        <li><a href="{{ route('ppdb.create') }}">Tambah data siswa</a></li>
-                        <li><a href="{{ route('ppdb.index') }}">List data siswa</a></li>
-                        <li><a href="{{ route('ppdb.setting.index') }}">Setting</a></li>
+                        <li><a href="{{ route('ppdb.index') }}">Data siswa baru</a></li>
+                        @if (in_array($role, ['developer', 'petugas_emis']))
+                            <li><a href="{{ route('ppdb.setting.index') }}">Setting</a></li>
+                        @endif
                     </ul>
                 </li>
             @endif
+
 
             {{-- APLIKASI --}}
             @if (in_array($role, ['developer', 'kepsek']))
