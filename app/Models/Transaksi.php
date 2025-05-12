@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Transaksi extends Model
@@ -26,8 +27,27 @@ class Transaksi extends Model
         'tanggal_bayar',
         'status',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'created_by',
+        'updated_by'
     ];
+
+    // Mengisi kolom created_by dan updated_by otomatis
+    protected static function booted()
+    {
+        static::creating(function ($transaksi) {
+            if (Auth::check()) {
+                $transaksi->created_by = Auth::id();
+                $transaksi->updated_by = Auth::id();
+            }
+        });
+
+        static::updating(function ($transaksi) {
+            if (Auth::check()) {
+                $transaksi->updated_by = Auth::id();
+            }
+        });
+    }
 
     /**
      * Relationships
@@ -62,6 +82,27 @@ class Transaksi extends Model
     {
         return $this->hasMany(RincianTransaksi::class, 'transaksi_id', 'id_transaksi');
     }
+
+    /**
+     * Get the creator that owns the Transaksi
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id_user');
+    }
+
+    /**
+     * Get the editor that owns the Transaksi
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function editor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id_user');
+    }
+
 
     /**
      * Additional method
@@ -112,12 +153,19 @@ class Transaksi extends Model
                 'siswa.nama_siswa',
                 'siswa.nis',
                 'tahun_akademik.tahun',
-                'tahun_akademik.semester'
+                'tahun_akademik.semester',
+                'creator.name as creator_nama',
             )
             ->leftJoin('siswa', 'siswa.id_siswa', '=', 'transaksi.siswa_id')
             ->leftJoin('tagihan', 'tagihan.id_tagihan', '=', 'transaksi.tagihan_id')
             ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'tagihan.tahun_akademik_id')
+            ->leftJoin('users as creator', 'creator.id_user', '=', 'transaksi.created_by')
             ->orderBy('transaksi.created_at', 'DESC');
+
+        // Filter berdasarkan auth petugas_ppdb
+        if (!empty($filters['filter_petugas'])) {
+            $query->where('transaksi.created_by', $filters['filter_petugas']);
+        }
 
         // Filter berdasarkan tahun akademik ID jika ada
         if (!empty($filters['filter_tahun'])) {

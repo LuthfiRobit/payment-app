@@ -55,6 +55,12 @@
                     name: 'status',
                     orderable: false,
                     searchable: false
+                },
+                {
+                    data: 'creator_nama',
+                    name: 'creator_nama',
+                    orderable: false,
+                    searchable: false
                 }
             ],
             language: {

@@ -37,8 +37,12 @@ class LaporanController extends Controller
 
     public function getData(Request $request)
     {
+        // Get the currently authenticated user
+        $authUser = auth()->user();
+
         // Menyiapkan filter dari request
         $filters = [
+            'filter_petugas' => $authUser->role == 'petugas_pembayaran' ? $authUser->id_user : '',
             'filter_tahun' => $request->input('filter_tahun', ''), // Filter untuk tahun akademik
             'filter_siswa' => $request->input('filter_siswa', ''), // Filter untuk ID siswa
             'filter_tanggal' => $request->input('filter_tanggal', ''), // Filter untuk tanggal bayar
@@ -75,6 +79,12 @@ class LaporanController extends Controller
                 // Mengubah format tanggal bayar menjadi "14 Agustus 2024" dengan locale Indonesia
                 return \Carbon\Carbon::parse($item->tanggal_bayar)->translatedFormat('d F Y');
             })
+            ->editColumn('creator_nama', function ($item) {
+                if ($item->creator_nama) {
+                    return $item->creator_nama;
+                }
+                return '-';
+            })
             ->editColumn('status', function ($item) {
                 // Menampilkan status dalam bentuk badge dengan warna sesuai status
                 $badgeClass = ($item->status == 'sukses') ? 'light badge-primary' : 'light badge-danger';
@@ -88,7 +98,15 @@ class LaporanController extends Controller
     {
         try {
             // Mencari data transaksi berdasarkan ID yang diberikan
-            $transaksi = Transaksi::find($id);
+            $transaksi = Transaksi::select(
+                'transaksi.id_transaksi',
+                'transaksi.nomor_transaksi',
+                'transaksi.siswa_id',
+                'transaksi.jumlah_bayar',
+                'transaksi.tanggal_bayar',
+                'transaksi.status',
+                'creator.name as creator_nama',
+            )->leftJoin('users as creator', 'creator.id_user', '=', 'transaksi.created_by')->find($id);
 
             // Jika data transaksi tidak ditemukan, kembalikan response 404
             if (!$transaksi) {

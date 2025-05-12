@@ -30,6 +30,10 @@
                              <strong>Tanggal Transaksi</strong>
                              <span id="show_tanggal">-</span>
                          </li>
+                         <li class="list-group-item d-flex p-1 justify-content-between m-1">
+                             <strong>Diproses Oleh</strong>
+                             <span id="show_creator">-</span>
+                         </li>
                      </ul>
                  </div>
 
