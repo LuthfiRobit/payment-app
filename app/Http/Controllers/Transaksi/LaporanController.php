@@ -98,7 +98,15 @@ class LaporanController extends Controller
     {
         try {
             // Mencari data transaksi berdasarkan ID yang diberikan
-            $transaksi = Transaksi::find($id);
+            $transaksi = Transaksi::select(
+                'transaksi.id_transaksi',
+                'transaksi.nomor_transaksi',
+                'transaksi.siswa_id',
+                'transaksi.jumlah_bayar',
+                'transaksi.tanggal_bayar',
+                'transaksi.status',
+                'creator.name as creator_nama',
+            )->leftJoin('users as creator', 'creator.id_user', '=', 'transaksi.created_by')->find($id);
 
             // Jika data transaksi tidak ditemukan, kembalikan response 404
             if (!$transaksi) {
