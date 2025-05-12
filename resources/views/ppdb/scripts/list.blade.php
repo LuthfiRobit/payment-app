@@ -66,6 +66,12 @@
                     name: 'status',
                     orderable: false,
                     searchable: true
+                },
+                {
+                    data: 'creator_nama', // Menampilkan status
+                    name: 'creator_nama',
+                    orderable: false,
+                    searchable: true
                 }
             ],
             language: {
