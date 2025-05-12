@@ -31,8 +31,12 @@ class RegistrasiController extends Controller
 
     public function getData(Request $request)
     {
+        // Get the currently authenticated user
+        $authUser = auth()->user();
+
         // Menyiapkan filter dari request
         $filters = [
+            'filter_petugas' => $authUser->role == 'petugas_ppdb' ? $authUser->id_user : '',
             'filter_tahun' => $request->input('filter_tahun', ''),
             'filter_status' => $request->input('filter_status', ''),
         ];
@@ -93,6 +97,12 @@ class RegistrasiController extends Controller
             ->addColumn('usia', function ($item) {
                 // Menampilkan usia siswa saat mendaftar
                 return $item->usia_saat_mendaftar;
+            })
+            ->editColumn('creator_nama', function ($item) {
+                if ($item->creator_nama) {
+                    return $item->creator_nama;
+                }
+                return '-';
             })
             ->editColumn('status', function ($item) {
                 // Menampilkan status dalam bentuk badge dengan warna sesuai status
