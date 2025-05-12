@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -67,5 +68,25 @@ class User extends Authenticatable
     public function siswa(): HasOne
     {
         return $this->hasOne(Siswa::class, 'user_id', 'id_user');
+    }
+
+    /**
+     * Get all of the siswaBaruDibuat for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function siswaBaruDibuat(): HasMany
+    {
+        return $this->hasMany(SiswaBaru::class, 'created_by', 'id_user');
+    }
+
+    /**
+     * Get all of the siswaBaruDiupdate for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function siswaBaruDiupdate(): HasMany
+    {
+        return $this->hasMany(SiswaBaru::class, 'updated_by', 'id_user');
     }
 }
