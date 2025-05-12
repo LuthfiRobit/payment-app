@@ -37,8 +37,12 @@ class LaporanController extends Controller
 
     public function getData(Request $request)
     {
+        // Get the currently authenticated user
+        $authUser = auth()->user();
+
         // Menyiapkan filter dari request
         $filters = [
+            'filter_petugas' => $authUser->role == 'petugas_pembayaran' ? $authUser->id_user : '',
             'filter_tahun' => $request->input('filter_tahun', ''), // Filter untuk tahun akademik
             'filter_siswa' => $request->input('filter_siswa', ''), // Filter untuk ID siswa
             'filter_tanggal' => $request->input('filter_tanggal', ''), // Filter untuk tanggal bayar
@@ -74,6 +78,12 @@ class LaporanController extends Controller
             ->editColumn('tanggal_bayar', function ($item) {
                 // Mengubah format tanggal bayar menjadi "14 Agustus 2024" dengan locale Indonesia
                 return \Carbon\Carbon::parse($item->tanggal_bayar)->translatedFormat('d F Y');
+            })
+            ->editColumn('creator_nama', function ($item) {
+                if ($item->creator_nama) {
+                    return $item->creator_nama;
+                }
+                return '-';
             })
             ->editColumn('status', function ($item) {
                 // Menampilkan status dalam bentuk badge dengan warna sesuai status
