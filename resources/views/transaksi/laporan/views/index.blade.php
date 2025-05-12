@@ -88,6 +88,7 @@
                                         <th>Total Transaksi</th>
                                         <th>Tanggal</th>
                                         <th>Status</th>
+                                        <th>Diproses</th>
                                     </tr>
                                 </thead>
                                 <tbody>
