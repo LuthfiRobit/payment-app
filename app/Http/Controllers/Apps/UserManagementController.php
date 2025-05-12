@@ -76,7 +76,7 @@ class UserManagementController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email', // Pastikan email unik
-            'role' => 'required|in:petugas_pembayaran,petugas_emis,kepsek,bendahara', // Sesuaikan dengan role yang ada
+            'role' => 'required|in:petugas_pembayaran,petugas_emis,petugas_ppdb,kepsek,bendahara', // Sesuaikan dengan role yang ada
             'password' => 'required|min:6|confirmed', // Password harus ada dan minimal 8 karakter
         ]);
 
@@ -150,7 +150,7 @@ class UserManagementController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $id . ',id_user', // Pastikan email unik kecuali milik pengguna yang sama
-            'role' => 'required|in:petugas_pembayaran,petugas_emis,kepsek,bendahara', // Sesuaikan dengan role yang ada
+            'role' => 'required|in:petugas_pembayaran,petugas_emis,petugas_ppdb,kepsek,bendahara', // Sesuaikan dengan role yang ada
             'password' => 'nullable|min:6|confirmed', // Password hanya dibutuhkan jika diubah
         ]);
 
