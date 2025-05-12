@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
 
 class SiswaBaru extends Model
 {
@@ -46,13 +47,32 @@ class SiswaBaru extends Model
         'nama_ra_tk',
         'alamat_ra_tk',
         'foto_siswa',
-        'imunisasi'
+        'imunisasi',
+        'created_by',
+        'updated_by'
     ];
 
     // Menentukan tipe atribut untuk JSON cast
     protected $casts = [
         'imunisasi' => 'array', // Untuk kolom imunisasi yang diikuti
     ];
+
+    // Mengisi kolom created_by dan updated_by otomatis
+    protected static function booted()
+    {
+        static::creating(function ($siswaBaru) {
+            if (Auth::check()) {
+                $siswaBaru->created_by = Auth::id();
+                $siswaBaru->updated_by = Auth::id();
+            }
+        });
+
+        static::updating(function ($siswaBaru) {
+            if (Auth::check()) {
+                $siswaBaru->updated_by = Auth::id();
+            }
+        });
+    }
 
     /**
      * Get the tahunAkademik that owns the SiswaBaru
@@ -104,6 +124,26 @@ class SiswaBaru extends Model
         return $this->hasOne(KeluargaSiswaBaru::class, 'siswa_baru_id', 'id_siswa_baru');
     }
 
+    /**
+     * Get the creator that owns the SiswaBaru
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id_user');
+    }
+
+    /**
+     * Get the editor that owns the SiswaBaru
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function editor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id_user');
+    }
+
     public static function getData($filters = [])
     {
         $query = self::select(
@@ -116,10 +156,17 @@ class SiswaBaru extends Model
             'siswa_baru.nik',
             'siswa_baru.sekolah_sebelum_mi',
             'siswa_baru.usia_saat_mendaftar',
-            'siswa_baru.status'
+            'siswa_baru.status',
+            'creator.name as creator_nama',
         )
             ->leftJoin('tahun_akademik', 'tahun_akademik.id_tahun_akademik', '=', 'siswa_baru.tahun_akademik_id') // Join menggunakan kolom yang benar
+            ->leftJoin('users as creator', 'creator.id_user', '=', 'siswa_baru.created_by')
             ->orderBy('siswa_baru.created_at', 'DESC');
+
+        // Filter berdasarkan auth petugas_ppdb
+        if (!empty($filters['filter_petugas'])) {
+            $query->where('siswa_baru.created_by', $filters['filter_petugas']);
+        }
 
         // Filter berdasarkan tahun jika ada
         if (!empty($filters['filter_tahun'])) {
