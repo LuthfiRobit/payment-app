@@ -8,6 +8,9 @@
 @endsection
 
 @section('content')
+    @php
+        $role = auth()->user()->role;
+    @endphp
     <div class="content-body default-height">
         <div class="container-fluid">
             <div class="form-head mb-4">
@@ -47,18 +50,30 @@
                                 </select>
                             </div>
                             <!-- Filter Activation Status -->
+                            {{-- Tombol Export - hanya untuk developer & petugas_emis --}}
+                            @if (in_array($role, ['developer', 'petugas_emis']))
+                                <div class="">
+                                    <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
+                                        id="btnExportSiswa" title="Export siswa baru">
+                                        <i class="las la-file-export scale5 me-1"></i> Export *
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
+                                        id="btnGenerateSiswa" title="Generate siswa baru">
+                                        <i class="las la-user-plus scale5 me-1"></i> Generate *
+                                    </a>
+                                </div>
+                            @endif
+                            {{-- Tombol Tambah - semua role diizinkan --}}
                             <div class="">
-                                <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
-                                    id="btnExportSiswa" title="Export siswa baru">
-                                    <i class="las la-file-export scale5 me-1"></i> Export *
+                                <a href="{{ route('ppdb.create') }}"
+                                    class="btn btn-rounded btn-outline-primary light btn-sm" id="btnTambahSiswa"
+                                    title="Tambah siswa baru">
+                                    <i class="las la-plus scale5 me-1"></i> Tambah
                                 </a>
                             </div>
-                            <div class="">
-                                <a href="javascript:void(0)" class="btn btn-rounded btn-outline-primary light btn-sm"
-                                    id="btnGenerateSiswa" title="Generate siswa baru">
-                                    <i class="las la-user-plus scale5 me-1"></i> Generate *
-                                </a>
-                            </div>
+
                         </div>
                     </div>
                     <div class="card-body">
@@ -120,6 +135,7 @@
                                         <th>Sekolah Sebelum MI</th>
                                         <th>Usia</th>
                                         <th>Status</th>
+                                        <th>Dibuat Oleh</th>
                                     </tr>
                                 </thead>
                                 <tbody>
