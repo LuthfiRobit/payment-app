@@ -388,6 +388,18 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
     Route::get('/kontak', function () {
         return view('landpage.kontak.views.index');
     })->name('kontak.index');
+
+    Route::get('/akademik', function () {
+        return view('landpage.akademik.views.index');
+    })->name('akademik.index');
+
+    Route::get('/ekstrakurikuler', function () {
+        return view('landpage.ekstrakurikuler.views.index');
+    })->name('ekstrakurikuler.index');
+
+    Route::get('/pimpinan', function () {
+        return view('landpage.pimpinan.views.index');
+    })->name('pimpinan.index');
     //End route static pages
 
     // Route group untuk PPDB
