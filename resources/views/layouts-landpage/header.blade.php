@@ -43,28 +43,31 @@
                 <ul class="nav-menu">
                     <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li class="menu-has-children">
-                        <a href="">Informasi</a>
+                        <a href="">Profil</a>
                         <ul>
-                            <li><a href="{{ route('landpage.profil.index') }}">Profil</a></li>
+                            <li><a href="{{ route('landpage.profil.index') }}">Profil Sekolah</a></li>
                             <li><a href="{{ route('landpage.visi.index') }}">Visi Misi</a></li>
-                            <li>
-                                <a href="{{ route('landpage.ppdb.index') }}">Pendaftaran Peserta Didik Baru
-                                    (PPDB)</a>
-                            </li>
+                            <li><a href="{{ route('landpage.pimpinan.index') }}">Pimpinan Sekolah</a></li>
+                            <li><a href="#">Guru dan Karyawan</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-has-children">
+                        <a href="">Program</a>
+                        <ul>
+                            <li><a href="{{ route('landpage.akademik.index') }}">Akademik</a></li>
+                            <li><a href="{{ route('landpage.ekstrakurikuler.index') }}">Ekstrakurikuler</a></li>
                         </ul>
                     </li>
                     <li class="menu-has-children">
                         <a href="">Media</a>
                         <ul>
+                            <li><a href="#">Artikel</a></li>
                             <li><a href="{{ route('landpage.berita.index') }}">Berita</a></li>
-                            <li>
-                                <a href="{{ route('landpage.galeri.index') }}">Galeri Foto</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('landpage.prestasi.index') }}">Prestasi</a>
-                            </li>
+                            <li><a href="{{ route('landpage.galeri.index') }}">Galeri Kegiatan</a></li>
+                            <li><a href="{{ route('landpage.prestasi.index') }}">Prestasi</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{ route('landpage.ppdb.index') }}">PPDB</a></li>
                     <li><a href="{{ route('landpage.kontak.index') }}">Kontak</a></li>
                 </ul>
             </nav>
