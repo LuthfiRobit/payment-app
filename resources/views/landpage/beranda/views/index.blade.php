@@ -3,6 +3,29 @@
 @section('this-page-style')
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <style>
+        @keyframes floatY {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .float-animation {
+            animation: floatY 3s ease-in-out infinite;
+        }
+
+        @media (max-width: 991.98px) {
+            .float-animation {
+                animation: none !important;
+            }
+        }
+
+
         /* Kontainer galeri */
         .gallery-grid {
             display: grid;
@@ -58,20 +81,31 @@
 @endsection
 
 @section('content')
-    <!-- start banner Area -->
-    <section class="banner-area relative" style="background: url({{ asset('template-landpage/img/bg-ai-2.png') }}) !important"
+    <!-- Start banner Area -->
+    <section class="banner-area relative"
+        style="background: url({{ asset('template-landpage/img/bg-ai-2.png') }}) center center / cover no-repeat !important;"
         id="home">
         <div class="overlay overlay-bg"></div>
         <div class="container">
-            <div class="row fullscreen d-flex align-items-center justify-content-between">
-                <div class="banner-content col-lg-9 col-md-12">
+            <div class="row fullscreen d-flex align-items-center justify-content-center text-center text-lg-left">
+                <!-- Banner Content (Always visible) -->
+                <div class="banner-content col-lg-9 col-md-12 order-2 order-lg-1">
                     <h1 class="text-uppercase" data-aos="zoom-in-down" data-aos-duration="1200">
                         Madrasah Ibtidaiyah Ihyauddiniyah
                     </h1>
-                    <p class="pt-10 pb-10" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
+                    <p class="pt-2 pb-2" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
                         Desa Kecik Kecamatan Besuk Kabupaten Probolinggo
                     </p>
                 </div>
+
+                <!-- Banner Image (Only visible on lg and up) -->
+                <div class="banner-img col-lg-3 d-none d-lg-flex justify-content-center order-1 order-lg-2"
+                    data-aos="fade-left" data-aos-duration="1000" data-aos-delay="400">
+                    <img src="{{ asset('template-landpage/img/logo_mi_new.png') }}"
+                        alt="Logo Madrasah Ibtidaiyah Ihyauddiniyah" class="img-fluid float-animation"
+                        style="max-width: 220px;">
+                </div>
+
             </div>
         </div>
     </section>
@@ -299,6 +333,9 @@
     @include('landpage.beranda.scripts.listGaleri')
     <script>
         AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+
             once: true
         });
     </script>
