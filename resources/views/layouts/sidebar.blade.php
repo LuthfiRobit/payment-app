@@ -95,6 +95,7 @@
                             <li><a href="{{ route('master-data.galeri.index') }}">CMS Galeri</a></li>
                             <li><a href="{{ route('master-data.prestasi.index') }}">CMS Prestasi</a></li>
                             <li><a href="{{ route('master-data.berita.index') }}">CMS Berita</a></li>
+                            <li><a href="{{ route('master-data.artikel.index') }}">CMS Artikel</a></li>
                         @endif
                     </ul>
                 </li>
