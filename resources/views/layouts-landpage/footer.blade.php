@@ -2,19 +2,24 @@
 <section class="cta-two-area bg-success">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-8 cta-left text-white">
+            <!-- Kiri: Teks -->
+            <div class="col-lg-8 cta-left text-white" data-aos="fade-right" data-aos-duration="1000">
                 <h1 class="mb-3 mb-lg-0">
                     Daftarkan Putra/Putri Anda Sekarang!
                 </h1>
                 <!-- <p class="mb-0">Tahun Ajaran 2024/2025 - Kuota Terbatas</p> -->
             </div>
-            <div class="col-lg-4 cta-right text-lg-right">
+
+            <!-- Kanan: Tombol -->
+            <div class="col-lg-4 cta-right text-lg-right" data-aos="zoom-in-left" data-aos-duration="1000"
+                data-aos-delay="300">
                 <a class="primary-btn wh" href="{{ route('landpage.ppdb.index') }}">Informasi PPDB</a>
             </div>
         </div>
     </div>
 </section>
 <!-- End ppdb-cta Area -->
+
 
 <!-- start footer Area -->
 <footer class="footer-area section-gap">

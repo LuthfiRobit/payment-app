@@ -22,13 +22,13 @@
                             </div>
                         `);
                     } else {
-                        // Menambahkan berita ke dalam kontainer
+                        // Menambahkan berita ke dalam kontainer dengan efek AOS
                         $.each(response.data, function(i, berita) {
                             var urlDetail = '{{ route('landpage.berita.detail', ':id') }}'
                                 .replace(':id', berita.id_berita);
 
                             var card = `
-                            <div class="col-lg-3 col-md-6 single-blog">
+                            <div class="col-lg-3 col-md-6 single-blog" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="${i * 200}">
                                 <div class="thumb">
                                     <img class="img-fluid" src="${berita.gambar}" alt="Gambar Berita" style="height: 200px; object-fit: cover;" />
                                 </div>
@@ -48,6 +48,7 @@
 
                     // Generate pagination
                     generatePagination(response);
+                    AOS.refresh(); // Refresh AOS after adding new elements
                 },
                 error: function(xhr) {
                     console.error('Gagal memuat data berita:', xhr);

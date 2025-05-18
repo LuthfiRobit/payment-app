@@ -10,9 +10,9 @@
                 dataType: 'json',
                 success: function(response) {
                     var container = $('#artikel-container');
-                    var alertContainer = $('#artikel-alert'); // Tempat untuk alert
+                    var alertContainer = $('#artikel-alert');
                     container.empty();
-                    alertContainer.empty(); // Kosongkan alert sebelumnya
+                    alertContainer.empty();
 
                     // Jika data kosong, tampilkan alert
                     if (response.data.length === 0) {
@@ -28,7 +28,7 @@
                                 .replace(':id', artikel.id_artikel);
 
                             var card = `
-                            <div class="col-lg-3 col-md-6 single-blog">
+                            <div class="col-lg-3 col-md-6 single-blog" data-aos="flip-left" data-aos-duration="1000">
                                 <div class="thumb">
                                     <img class="img-fluid" src="${artikel.gambar}" alt="Gambar Artikel" style="height: 200px; object-fit: cover;" />
                                 </div>
@@ -51,8 +51,6 @@
                 },
                 error: function(xhr) {
                     console.error('Gagal memuat data artikel:', xhr);
-
-                    // Jika gagal memuat data, tampilkan pesan error
                     $('#artikel-alert').html(`
                         <div class="col-12 alert alert-danger text-center" role="alert">
                             <strong>Oops!</strong> Gagal memuat data artikel. Silakan coba lagi.

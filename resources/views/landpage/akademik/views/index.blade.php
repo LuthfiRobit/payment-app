@@ -1,6 +1,7 @@
 @extends('layouts-landpage.app')
 
 @section('this-page-style')
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -11,10 +12,11 @@
         <div class="container">
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="about-content col-lg-12">
-                    <h1 class="text-white">Akademik</h1>
-                    <p class="text-white link-nav">
-                        <a href="{{ url('/') }}">Home </a>
-                        <span class="lnr lnr-arrow-right"></span><a href="#">Akademik</a>
+                    <h1 class="text-white" data-aos="fade-up" data-aos-duration="1200"> Akademik</h1>
+                    <p class="text-white link-nav" data-aos="fade-down" data-aos-duration="1000">
+                        <a href="{{ url('/') }}">Beranda</a>
+                        <span class="lnr lnr-arrow-right"></span>
+                        <a href="#"> Akademik</a>
                     </p>
                 </div>
             </div>
@@ -29,8 +31,9 @@
                 <!-- Konten Utama: Informasi Akademik -->
                 <div class="col-lg-8 posts-list">
                     <div class="single-post">
+
                         <!-- Judul Halaman -->
-                        <div class="mb-4">
+                        <div class="mb-4" data-aos="fade-down" data-aos-duration="800">
                             <h2 class="mb-3">Informasi Akademik</h2>
                             <p class="text-muted mb-0">
                                 Madrasah Ibtidaiyah Ihyauddiniyah<br>
@@ -39,14 +42,14 @@
                         </div>
 
                         <!-- Gambaran Umum -->
-                        <p class="text-justify">
+                        <p class="text-justify" data-aos="fade-up" data-aos-delay="100" data-aos-duration="700">
                             MI Ihyauddiniyah adalah lembaga pendidikan dasar Islam yang berfokus pada pengembangan akhlak
                             mulia, kecerdasan akademik, dan keterampilan sosial siswa. Kami mengedepankan pendekatan
                             pembelajaran yang aktif, menyenangkan, dan berbasis nilai-nilai keislaman.
                         </p>
 
                         <!-- Kurikulum -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
                             <h4 class="mb-3">Kurikulum</h4>
                             <p class="text-justify">
                                 Madrasah menerapkan Kurikulum 2013 (K-13) yang terintegrasi dengan kurikulum dari
@@ -60,7 +63,7 @@
                         </div>
 
                         <!-- Mata Pelajaran -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="300" data-aos-duration="700">
                             <h4 class="mb-3">Mata Pelajaran</h4>
                             <p class="text-justify">Berikut adalah kelompok mata pelajaran yang diajarkan di MI
                                 Ihyauddiniyah:</p>
@@ -74,7 +77,7 @@
                         </div>
 
                         <!-- Kegiatan Akademik -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="400" data-aos-duration="700">
                             <h4 class="mb-3">Kegiatan Akademik</h4>
                             <p class="text-justify">
                                 Kegiatan akademik disusun dalam kalender pendidikan tahunan. Semua aktivitas dirancang untuk
@@ -90,7 +93,7 @@
                         </div>
 
                         <!-- Sistem Penilaian -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="500" data-aos-duration="700">
                             <h4 class="mb-3">Sistem Penilaian</h4>
                             <p class="text-justify">
                                 Penilaian di MI Ihyauddiniyah mencakup aspek pengetahuan, keterampilan, dan sikap. Evaluasi
@@ -106,7 +109,7 @@
                         </div>
 
                         <!-- Program Unggulan -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="600" data-aos-duration="700">
                             <h4 class="mb-3">Program Unggulan</h4>
                             <ul class="unordered-list">
                                 <li><strong>Tahfidz Juz 30</strong> – Menghafal Al-Qur’an secara bertahap dengan
@@ -121,7 +124,7 @@
                         </div>
 
                         <!-- Penutup -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="700" data-aos-duration="700">
                             <p class="text-justify">
                                 Melalui sistem akademik yang terstruktur dan berlandaskan nilai-nilai Islam, MI
                                 Ihyauddiniyah berkomitmen mendidik generasi yang unggul dalam ilmu, iman, dan akhlak. Kami
@@ -133,7 +136,7 @@
                 </div>
 
                 <!-- Sidebar Kanan -->
-                <div class="col-lg-4 sidebar-widgets">
+                <div class="col-lg-4 sidebar-widgets" data-aos="fade-left" data-aos-delay="300" data-aos-duration="800">
                     <div class="widget-wrap mb-3">
                         <div class="single-sidebar-widget popular-post-widget">
                             <h4 class="popular-title">Artikel Populer</h4>
@@ -159,5 +162,12 @@
 @endsection
 
 @section('this-page-scripts')
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
     @include('landpage.akademik.scripts.list')
+    <script>
+        AOS.init({
+            once: true // animasi hanya terjadi sekali
+        });
+    </script>
 @endsection

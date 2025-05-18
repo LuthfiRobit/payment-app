@@ -1,3 +1,4 @@
+<!-- Script AJAX untuk menampilkan data Guru dan Karyawan -->
 <script>
     $(document).ready(function() {
 
@@ -21,9 +22,9 @@
                     } else {
                         $.each(response.data, function(i, item) {
                             const card = `
-                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4" data-aos="flip-left" data-aos-duration="1500">
                                     <div class="card h-100 d-flex flex-column text-center p-3">
-                                        <img src="${item.foto}" class="img-fluid rounded mb-3 mx-auto" alt="${item.nama}" style="width: 100%;max-width:200px; max-height: 250px;">
+                                        <img src="${item.foto}" class="img-fluid rounded mb-3 mx-auto" alt="${item.nama}" style="width: 100%; max-width:200px; max-height: 250px;">
                                         <div class="mt-auto">
                                             <h6 class="mb-1">${item.nama}</h6>
                                             <p class="text-muted mb-0">${item.jabatan}</p>

@@ -1,6 +1,7 @@
 @extends('layouts-landpage.app')
 
 @section('this-page-style')
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <style>
         #modalImage {
             transition: opacity 0.3s ease-in-out;
@@ -14,15 +15,16 @@
 @endsection
 
 @section('content')
-    <!-- start banner Area -->
+    <!-- Start banner Area -->
     <section class="banner-area relative about-banner"
-        style="background: url({{ asset('template-landpage/img/bg-ai-4.png') }}) !important" id="home">
+        style="background: url({{ asset('template-landpage/img/bg-ai-4.png') }}) !important" id="home" data-aos="fade-up"
+        data-aos-duration="1000">
         <div class="overlay overlay-bg"></div>
         <div class="container">
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="about-content col-lg-12">
-                    <h1 class="text-white">Berita Madrasah</h1>
-                    <p class="text-white link-nav">
+                    <h1 class="text-white" data-aos="fade-up" data-aos-duration="1000">Berita Madrasah</h1>
+                    <p class="text-white link-nav" data-aos="fade-up" data-aos-duration="1000">
                         <a href="{{ url('/') }}">Beranda</a>
                         <span class="lnr lnr-arrow-right"></span>
                         <a href="{{ route('landpage.berita.index') }}"> Berita</a>
@@ -34,11 +36,12 @@
     <!-- End banner Area -->
 
     <!-- Start feature Area -->
-    <section class="feature-area pb-20">
+    <section class="feature-area pb-20" data-aos="fade-up" data-aos-duration="1000">
         <div class="container">
             <div class="row align-items-stretch">
-                <!-- Profil -->
-                <div class="col-lg-4 d-flex align-items-stretch">
+                <!-- Profil Madrasah -->
+                <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-duration="1000"
+                    data-aos-delay="200">
                     <div class="single-feature d-flex flex-column w-100">
                         <div class="title">
                             <h4>Profil Madrasah</h4>
@@ -46,8 +49,7 @@
                         <div class="desc-wrap mt-auto">
                             <p>
                                 Madrasah Ibtidaiyah Ihyauddiniyah merupakan lembaga pendidikan dasar yang terletak di Desa
-                                Kecik,
-                                Kecamatan Besuk, Kabupaten Probolinggo.
+                                Kecik, Kecamatan Besuk, Kabupaten Probolinggo.
                             </p>
                             <a href="{{ route('landpage.profil.index') }}">Selengkapnya</a>
                         </div>
@@ -55,35 +57,33 @@
                 </div>
 
                 <!-- PPDB -->
-                <div class="col-lg-4 d-flex align-items-stretch">
+                <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-duration="1000"
+                    data-aos-delay="400">
                     <div class="single-feature d-flex flex-column w-100">
                         <div class="title">
                             <h4>PPDB</h4>
                         </div>
                         <div class="desc-wrap mt-auto">
                             <p>
-                                Informasi Penerimaan Peserta Didik Baru
-                                (PPDB) MI Ihyauddiniyah tahun. Daftarkan
-                                segera putra-putri Anda untuk mendapatkan
-                                pendidikan terbaik berbasis Islam.
+                                Informasi Penerimaan Peserta Didik Baru (PPDB) MI Ihyauddiniyah tahun. Daftarkan segera
+                                putra-putri Anda untuk mendapatkan pendidikan terbaik berbasis Islam.
                             </p>
                             <a href="#">Daftar Sekarang</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Kontak -->
-                <div class="col-lg-4 d-flex align-items-stretch">
+                <!-- Kontak Kami -->
+                <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-duration="1000"
+                    data-aos-delay="600">
                     <div class="single-feature d-flex flex-column w-100">
                         <div class="title">
                             <h4>Kontak Kami</h4>
                         </div>
                         <div class="desc-wrap mt-auto">
                             <p>
-                                Hubungi kami untuk informasi lebih lanjut
-                                seputar kegiatan madrasah, pendaftaran, atau
-                                kerja sama. Kami siap membantu Anda dengan
-                                senang hati.
+                                Hubungi kami untuk informasi lebih lanjut seputar kegiatan madrasah, pendaftaran, atau kerja
+                                sama. Kami siap membantu Anda dengan senang hati.
                             </p>
                             <a href="{{ route('landpage.kontak.index') }}">Hubungi Kami</a>
                         </div>
@@ -95,13 +95,14 @@
     <!-- End feature Area -->
 
     <!-- Start blog Area -->
-    <section class="blog-area" id="blog">
+    <section class="blog-area" id="blog" data-aos="fade-up" data-aos-duration="1000">
         <div class="container">
             <div class="row d-flex justify-content-center">
                 <div class="menu-content pb-70 col-lg-8">
                     <div class="title text-center">
-                        <h1 class="mb-10">Berita Terbaru dari Madrasah</h1>
-                        <p>Informasi dan kabar terbaru seputar kegiatan kami.</p>
+                        <h1 class="mb-10" data-aos="fade-up" data-aos-duration="1000">Berita Terbaru dari Madrasah</h1>
+                        <p data-aos="fade-up" data-aos-duration="1000">Informasi dan kabar terbaru seputar kegiatan kami.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -119,11 +120,16 @@
                 <ul class="pagination" id="pagination"></ul>
             </nav>
         </div>
-
     </section>
     <!-- End blog Area -->
 @endsection
 
 @section('this-page-scripts')
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     @include('landpage.berita.scripts.list')
+    <script>
+        AOS.init({
+            once: true
+        });
+    </script>
 @endsection

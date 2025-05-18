@@ -19,42 +19,46 @@
             container.empty();
 
             if (!data.length) {
-                container.html(`<div class="col-12 alert alert-warning text-center" role="alert">
-                                <strong>Perhatian!</strong> Data galeri tidak tersedia saat ini.
-                            </div>
-                            `);
+                container.html(`
+            <div class="col-12 alert alert-warning text-center" role="alert">
+                <strong>Perhatian!</strong> Data galeri tidak tersedia saat ini.
+            </div>
+        `);
                 return;
             }
 
-            $.each(data, function(index, item) {
-                var galeriItem = `
-                    <div class="col-lg-3 col-md-6 col-sm-12 d-flex mb-4">
-                        <a href="${item.foto}" class="img-gal w-100" title="${item.kegiatan}">
-                            <div class="single-imgs relative w-100 h-100" style="min-height: 300px">
-                                <div class="overlay overlay-bg"></div>
-                                <div class="relative h-100">
-                                    <img class="img-fluid h-100 w-100" src="${item.foto}" alt="${item.kegiatan}" style="object-fit: cover" />
-                                     <p class="position-absolute text-white m-2" style="bottom: 0; left: 0">
-                                        <span class="lnr lnr-calendar-full"></span>
-                                        ${item.tanggal}
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                `;
+            $.each(data, function(i, item) {
+                const imageUrl = item.foto.startsWith('http') ? item.foto :
+                    `{{ url('/') }}${item.foto}`;
+
+                const galeriItem = `
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-4" data-aos="fade-up" data-aos-delay="${i * 100}">
+                <div class="gallery-item">
+                    <a href="${imageUrl}" class="img-gal" title="${item.kegiatan}">
+                        <img src="${imageUrl}" alt="${item.kegiatan}">
+                        <div class="custom-overlay">
+                            <div class="text">${item.kegiatan}</div>
+                        </div>
+                        <div class="tanggal-info">
+                            <span class="lnr lnr-calendar-full"></span> ${item.tanggal}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        `;
                 container.append(galeriItem);
             });
 
-            // Re-inisialisasi Lightbox
+            // Re-init magnificPopup
             $(".img-gal").magnificPopup({
                 type: "image",
                 gallery: {
                     enabled: true
                 },
-                titleSrc: 'title' // Ambil dari atribut title
+                titleSrc: 'title'
             });
         }
+
 
         function renderPagination(response) {
             var pagination = $("#pagination");

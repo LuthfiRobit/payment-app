@@ -1,6 +1,7 @@
 @extends('layouts-landpage.app')
 
 @section('this-page-style')
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -11,10 +12,11 @@
         <div class="container">
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="about-content col-lg-12">
-                    <h1 class="text-white">Ekstrakurikuler</h1>
-                    <p class="text-white link-nav">
-                        <a href="{{ url('/') }}">Home </a>
-                        <span class="lnr lnr-arrow-right"></span><a href="#">Ekstrakurikuler</a>
+                    <h1 class="text-white" data-aos="fade-up" data-aos-duration="1200"> Ekstrakurikuler</h1>
+                    <p class="text-white link-nav" data-aos="fade-down" data-aos-duration="1000">
+                        <a href="{{ url('/') }}">Beranda</a>
+                        <span class="lnr lnr-arrow-right"></span>
+                        <a href="{{ route('landpage.visi.index') }}"> Ekstrakurikuler</a>
                     </p>
                 </div>
             </div>
@@ -31,13 +33,13 @@
                     <div class="single-post">
 
                         <!-- Judul Halaman -->
-                        <h2 class="mb-3">Ekstrakurikuler</h2>
-                        <p class="text-muted mb-4">
+                        <h2 class="mb-3" data-aos="fade-down" data-aos-duration="800">Ekstrakurikuler</h2>
+                        <p class="text-muted mb-4" data-aos="fade-down" data-aos-delay="100" data-aos-duration="700">
                             Madrasah Ibtidaiyah Ihyauddiniyah – Desa Kecik, Kecamatan Besuk, Kabupaten Probolinggo
                         </p>
 
                         <!-- Paragraf Pembuka -->
-                        <p class="text-justify">
+                        <p class="text-justify" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
                             Untuk menunjang pengembangan potensi peserta didik secara menyeluruh, MI Ihyauddiniyah
                             menyediakan berbagai program ekstrakurikuler yang terbagi dalam dua kelompok utama: akademik dan
                             non-akademik. Program ini dirancang sebagai sarana pembentukan karakter, keterampilan, dan bakat
@@ -45,7 +47,7 @@
                         </p>
 
                         <!-- Ekstrakurikuler Akademik -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="300" data-aos-duration="700">
                             <h4 class="mb-3"><span class="lnr lnr-book"></span> Ekstrakurikuler Akademik</h4>
                             <p class="text-justify">
                                 Kegiatan ekstrakurikuler akademik dirancang untuk memperkuat kemampuan belajar dan
@@ -64,7 +66,7 @@
                         </div>
 
                         <!-- Ekstrakurikuler Non-Akademik -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="400" data-aos-duration="700">
                             <h4 class="mb-3"><span class="lnr lnr-graduation-hat"></span> Ekstrakurikuler Non-Akademik
                             </h4>
                             <p class="text-justify">
@@ -84,7 +86,7 @@
                         </div>
 
                         <!-- Jadwal Kegiatan -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="500" data-aos-duration="700">
                             <h4 class="mb-3"><span class="lnr lnr-calendar-full"></span> Jadwal Ekstrakurikuler</h4>
                             <ol class="ordered-list">
                                 <li><strong>Senin</strong> – Tahfidz & Hadrah</li>
@@ -95,7 +97,7 @@
                         </div>
 
                         <!-- Manfaat Ekstrakurikuler -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="600" data-aos-duration="700">
                             <h4 class="mb-3"><span class="lnr lnr-thumbs-up"></span> Manfaat Kegiatan Ekstrakurikuler</h4>
                             <ul class="unordered-list">
                                 <li>Meningkatkan kepercayaan diri dan kemampuan bersosialisasi</li>
@@ -106,7 +108,7 @@
                         </div>
 
                         <!-- Penutup -->
-                        <div class="mt-5">
+                        <div class="mt-5" data-aos="fade-up" data-aos-delay="700" data-aos-duration="700">
                             <p class="text-justify">
                                 Kami percaya bahwa pendidikan tidak hanya terbatas di ruang kelas. Melalui kegiatan
                                 ekstrakurikuler yang bervariasi dan bermakna, MI Ihyauddiniyah mendampingi siswa tumbuh
@@ -119,7 +121,7 @@
                 </div>
 
                 <!-- Sidebar Kanan -->
-                <div class="col-lg-4 sidebar-widgets">
+                <div class="col-lg-4 sidebar-widgets" data-aos="fade-left" data-aos-delay="300" data-aos-duration="800">
                     <div class="widget-wrap mb-3">
                         <div class="single-sidebar-widget popular-post-widget">
                             <h4 class="popular-title">Artikel Populer</h4>
@@ -145,5 +147,11 @@
 @endsection
 
 @section('this-page-scripts')
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     @include('landpage.ekstrakurikuler.scripts.list')
+    <script>
+        AOS.init({
+            once: true // animasi hanya terjadi sekali
+        });
+    </script>
 @endsection
