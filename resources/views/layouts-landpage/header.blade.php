@@ -45,9 +45,9 @@
                     <li class="menu-has-children">
                         <a href="">Profil</a>
                         <ul>
+                            <li><a href="{{ route('landpage.pimpinan.index') }}">Pimpinan Sekolah</a></li>
                             <li><a href="{{ route('landpage.profil.index') }}">Profil Sekolah</a></li>
                             <li><a href="{{ route('landpage.visi.index') }}">Visi Misi</a></li>
-                            <li><a href="{{ route('landpage.pimpinan.index') }}">Pimpinan Sekolah</a></li>
                             <li><a href="{{ route('landpage.guru.index') }}">Guru dan Karyawan</a></li>
                         </ul>
                     </li>
