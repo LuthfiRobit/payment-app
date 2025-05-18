@@ -61,7 +61,7 @@
                     <li class="menu-has-children">
                         <a href="">Media</a>
                         <ul>
-                            <li><a href="#">Artikel</a></li>
+                            <li><a href="{{ route('landpage.artikel.index') }}">Artikel</a></li>
                             <li><a href="{{ route('landpage.berita.index') }}">Berita</a></li>
                             <li><a href="{{ route('landpage.galeri.index') }}">Galeri Kegiatan</a></li>
                             <li><a href="{{ route('landpage.prestasi.index') }}">Prestasi</a></li>
