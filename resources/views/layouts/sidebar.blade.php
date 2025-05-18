@@ -89,6 +89,7 @@
                             <li><a href="{{ route('master-data.siswa.index') }}">Siswa</a></li>
                         @endif
                         @if (in_array($role, ['developer', 'kepsek', 'petugas_emis']))
+                            <li><a href="{{ route('master-data.guru.index') }}">Guru & Karyawan</a></li>
                             <li><a href="{{ route('master-data.kontak.index') }}">CMS Kontak</a></li>
                             <li><a href="{{ route('master-data.tentang.index') }}">CMS Tentang</a></li>
                             <li><a href="{{ route('master-data.galeri.index') }}">CMS Galeri</a></li>
