@@ -41,7 +41,7 @@ class BeritaLandpageController extends Controller
             ->map(function ($item) {
                 $item->judul = Str::words($item->judul, 6, '...');
                 $item->isi = Str::words(strip_tags($item->isi), 35, '...');
-                $item->gambar = asset('uploads/berita/' . $item->gambar);  // Fixed the concatenation
+                $item->gambar = $item->gambar ? asset('uploads/berita/' . $item->gambar) : 'https://placehold.co/300X200?text=' . Str::words($item->judul, 4, '...');  // Fixed the concatenation
                 $formattedDate = Carbon::parse($item->created_at)->translatedFormat('d F Y');
                 $item->info = "{$formattedDate} | Oleh {$item->username}";
                 return $item;
@@ -84,7 +84,7 @@ class BeritaLandpageController extends Controller
             ->map(function ($item) {
                 $item->judul = Str::words($item->judul, 6, '...');
                 $item->isi = Str::words(strip_tags($item->isi), 35, '...');
-                $item->gambar = asset('uploads/berita/' . $item->gambar);  // Fixed the concatenation
+                $item->gambar = $item->gambar ? asset('uploads/berita/' . $item->gambar) : 'https://placehold.co/300X200?text=' . Str::words($item->judul, 4, '...'); // Fixed the concatenation
                 $formattedDate = Carbon::parse($item->created_at)->translatedFormat('d F Y');
                 $item->info = "{$formattedDate} | Oleh {$item->username}";
                 return $item;
@@ -135,14 +135,13 @@ class BeritaLandpageController extends Controller
             }
 
             // Handle the 'gambar' field (make sure the path is correct)
-            $berita->gambar = asset('uploads/berita/' . $berita->gambar);
+            $berita->gambar = $berita->gambar ? asset('uploads/berita/' . $berita->gambar) : 'https://placehold.co/300X200?text=' . Str::words($berita->judul, 4, '...');
 
-            // Format the 'created_at' field
-            $berita->created_at = Carbon::parse($berita->created_at)->translatedFormat('d F Y');
-
-            // Add the 'info' field with formatted date and username
-            $berita->info = "{$berita->created_at} | Oleh {$berita->username}";
-
+            Carbon::setLocale('id');
+            // Gunakan formatted date langsung dari objek datetime
+            $berita->created_at_formatted = Carbon::parse($berita->created_at)->translatedFormat('d F Y');
+            // Tambahkan info
+            $berita->info = "{$berita->created_at_formatted} | Oleh {$berita->username}";
             return response()->json([
                 'success' => true,
                 'message' => 'Detail berhasil ditemukan',
