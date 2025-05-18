@@ -5,6 +5,7 @@ use App\Http\Controllers\Apps\UserManagementController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Landpage\BeritaLandpageController;
 use App\Http\Controllers\Landpage\GaleriLandpageController;
+use App\Http\Controllers\Landpage\GuruLandpageController;
 use App\Http\Controllers\Landpage\LandpageController;
 use App\Http\Controllers\Landpage\PpdbLandpageController;
 use App\Http\Controllers\Landpage\PrestasiLandpageController;
@@ -14,7 +15,7 @@ use App\Http\Controllers\Main\DashboardPpdbController;
 use App\Http\Controllers\Master\GaleriController;
 
 use App\Http\Controllers\Master\BeritaController;
-
+use App\Http\Controllers\Master\GuruController;
 use App\Http\Controllers\Master\IuranController;
 use App\Http\Controllers\Master\KontakController;
 use App\Http\Controllers\Master\PotonganController;
@@ -136,6 +137,20 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
             Route::put('update/{id}', [SiswaController::class, 'update'])->name('update');
             Route::post('update-kelas', [SiswaController::class, 'updateKelas'])->name('update.kelas');
             Route::post('import-excel', [SiswaController::class, 'importExcel'])->name('import-excel');
+        });
+    });
+
+    // Route group untuk Guru
+    Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('guru')->name('guru.')->group(function () {
+        // Rute yang bisa diakses oleh semua role
+        Route::get('/', [GuruController::class, 'index'])->name('index');
+        Route::get('/list', [GuruController::class, 'getData'])->name('list');
+        Route::get('{id}', [GuruController::class, 'show'])->name('show');
+
+        // Rute yang hanya bisa diakses oleh developer dan petugas emis
+        Route::middleware('role:developer,petugas_emis')->group(function () {
+            Route::post('store', [GuruController::class, 'store'])->name('store');
+            Route::put('update/{id}', [GuruController::class, 'update'])->name('update');
         });
     });
 
@@ -373,6 +388,12 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
         Route::get('/show-paginate', [BeritaLandpageController::class, 'showListPaginated'])->name('show.list.paginated');
         Route::get('/show-list', [BeritaLandpageController::class, 'showList'])->name('show.list');
         Route::get('/{id}', [BeritaLandpageController::class, 'show'])->name('show');
+    });
+
+    // Route group untuk Guru
+    Route::prefix('guru')->name('guru.')->group(function () {
+        Route::get('/', [GuruLandpageController::class, 'index'])->name('index');
+        Route::get('/show-list', [GuruLandpageController::class, 'showList'])->name('show.list');
     });
 
     //Route static pages
