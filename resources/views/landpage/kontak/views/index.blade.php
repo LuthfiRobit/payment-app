@@ -1,6 +1,7 @@
 @extends('layouts-landpage.app')
 
 @section('this-page-style')
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -19,8 +20,8 @@
         <div class="container">
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="about-content col-lg-12">
-                    <h1 class="text-white">Hubungi Kami</h1>
-                    <p class="text-white link-nav">
+                    <h1 class="text-white" data-aos="fade-up" data-aos-duration="1200"> Hubungi Kami</h1>
+                    <p class="text-white link-nav" data-aos="fade-down" data-aos-duration="1000">
                         <a href="{{ url('/') }}">Beranda</a>
                         <span class="lnr lnr-arrow-right"></span>
                         <a href="{{ route('landpage.kontak.index') }}"> Kontak</a>
@@ -35,28 +36,27 @@
     <section class="contact-page-area pt-70 pb-10">
         <div class="container">
             <div class="row">
+                <!-- Alamat, Telepon, Email -->
                 <div class="col-lg-4 d-flex flex-column address-wrap">
-                    <div class="single-contact-address d-flex flex-row">
+                    <div class="single-contact-address d-flex flex-row" data-aos="fade-right" data-aos-duration="700">
                         <div class="icon">
                             <span class="lnr lnr-home"></span>
                         </div>
                         <div class="contact-details">
-                            <h5> {{ $activeContact ? $activeContact->kontak_alamat : 'Belum ada data' }}</h5>
+                            <h5>{{ $activeContact ? $activeContact->kontak_alamat : 'Belum ada data' }}</h5>
                             <p>Jawa Timur, Indonesia</p>
                         </div>
                     </div>
-                    <div class="single-contact-address d-flex flex-row">
+
+                    <div class="single-contact-address d-flex flex-row" data-aos="fade-right" data-aos-delay="100"
+                        data-aos-duration="700">
                         <div class="icon">
                             <span class="lnr lnr-phone-handset"></span>
                         </div>
                         <div class="contact-details">
                             <h5>
                                 <a href="https://wa.me/{{ $activeContact ? $activeContact->kontak_telepon : '' }}"
-                                    target="_blank"
-                                    style="
-                                            text-decoration: none;
-                                            color: inherit;
-                                        ">
+                                    target="_blank" style="text-decoration: none; color: inherit;">
                                     {{ $activeContact ? $activeContact->kontak_telepon : 'Belum ada data' }}
                                 </a>
                             </h5>
@@ -64,17 +64,15 @@
                         </div>
                     </div>
 
-                    <div class="single-contact-address d-flex flex-row">
+                    <div class="single-contact-address d-flex flex-row" data-aos="fade-right" data-aos-delay="200"
+                        data-aos-duration="700">
                         <div class="icon">
                             <span class="lnr lnr-envelope"></span>
                         </div>
                         <div class="contact-details">
                             <h5>
-                                <a href="mailto: {{ $activeContact ? $activeContact->kontak_email : '' }}"
-                                    style="
-                                            text-decoration: none;
-                                            color: inherit;
-                                        ">
+                                <a href="mailto:{{ $activeContact ? $activeContact->kontak_email : '' }}"
+                                    style="text-decoration: none; color: inherit;">
                                     {{ $activeContact ? $activeContact->kontak_email : 'Belum ada data' }}
                                 </a>
                             </h5>
@@ -82,12 +80,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
+
+                <!-- Peta Lokasi -->
+                <div class="col-lg-8" data-aos="zoom-in" data-aos-delay="300" data-aos-duration="800">
                     <div class="map-wrap" style="width: 100%; height: 445px" id="map">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d988.1853076079682!2d113.49050132226458!3d-7.817192144160499!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6fdf5c5ea9d0f%3A0x4b6285952a92cd3!2sMIS%20IHYAUDDINIYAH!5e0!3m2!1sid!2sid!4v1744770187163!5m2!1sid!2sid"
                             width="100%" height="100%" style="border: 0" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
                 </div>
             </div>
@@ -97,4 +98,10 @@
 @endsection
 
 @section('this-page-scripts')
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true // animasi hanya terjadi sekali
+        });
+    </script>
 @endsection

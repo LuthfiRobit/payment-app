@@ -17,25 +17,30 @@
                     </ul>
                 </div>
                 <div class="col-lg-6 col-sm-6 col-4 header-top-right no-padding">
-                    <a href="tel: {{ $activeContact ? $activeContact->kontak_telepon : '' }}"><span
-                            class="lnr lnr-phone-handset"></span>
+                    <a href="tel:{{ $activeContact ? $activeContact->kontak_telepon : '' }}">
+                        <span class="lnr lnr-phone-handset"></span>
                         <span class="text">
-                            {{ $activeContact ? $activeContact->kontak_telepon : 'Belum ada data' }}</span></a>
-                    <a href="mailto: {{ $activeContact ? $activeContact->kontak_email : '' }}"><span
-                            class="lnr lnr-envelope"></span>
+                            {{ $activeContact ? $activeContact->kontak_telepon : 'Belum ada data' }}
+                        </span>
+                    </a>
+                    <a href="mailto:{{ $activeContact ? $activeContact->kontak_email : '' }}">
+                        <span class="lnr lnr-envelope"></span>
                         <span class="text">
-                            {{ $activeContact ? $activeContact->kontak_email : 'Belum ada data' }}</span></a>
+                            {{ $activeContact ? $activeContact->kontak_email : 'Belum ada data' }}
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="container main-menu">
         <div class="row align-items-center justify-content-between d-flex">
             <div id="logo">
-                <a href="{{ url('/') }}" class="d-flex align-items-center text-white text-decoration-none">
+                <a href="{{ url('/') }}">
                     <img src="{{ asset('template-landpage/img/logo_mi_new.png') }}"
-                        alt="Logo Madrasah Ibtidaiyah Ihyauddiniyah" style="max-width: 50px; margin-right: 10px" />
-                    <h6 class="mb-0 text-white">MI Ihyauddiniyah</h6>
+                        alt="Logo Madrasah Ibtidaiyah Ihyauddiniyah" title="MI Ihyauddiniyah"
+                        style="max-height: 40px;" />
                 </a>
             </div>
 
@@ -43,7 +48,7 @@
                 <ul class="nav-menu">
                     <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li class="menu-has-children">
-                        <a href="">Profil</a>
+                        <a href="#">Profil</a>
                         <ul>
                             <li><a href="{{ route('landpage.pimpinan.index') }}">Pimpinan Sekolah</a></li>
                             <li><a href="{{ route('landpage.profil.index') }}">Profil Sekolah</a></li>
@@ -52,14 +57,14 @@
                         </ul>
                     </li>
                     <li class="menu-has-children">
-                        <a href="">Program</a>
+                        <a href="#">Program</a>
                         <ul>
                             <li><a href="{{ route('landpage.akademik.index') }}">Akademik</a></li>
                             <li><a href="{{ route('landpage.ekstrakurikuler.index') }}">Ekstrakurikuler</a></li>
                         </ul>
                     </li>
                     <li class="menu-has-children">
-                        <a href="">Media</a>
+                        <a href="#">Media</a>
                         <ul>
                             <li><a href="{{ route('landpage.artikel.index') }}">Artikel</a></li>
                             <li><a href="{{ route('landpage.berita.index') }}">Berita</a></li>
@@ -75,4 +80,3 @@
         </div>
     </div>
 </header>
-<!-- #header -->

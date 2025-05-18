@@ -2,40 +2,41 @@
 <script>
     $(document).ready(function() {
         const $carousel = $('#prestasi-carousel');
-        const $alertContainer = $('#prestasi-alert'); // Container untuk alert
+        const $alertContainer = $('#prestasi-alert');
 
-        // Ambil data prestasi
         $.ajax({
             url: "{{ route('landpage.prestasi.show.list') }}",
             type: "GET",
             dataType: "json",
             success: function(response) {
-                if (response.success && response.data.length) {
-                    // Kosongkan isi carousel dan alert dulu
-                    $carousel.empty();
-                    $alertContainer.empty();
+                $carousel.empty();
+                $alertContainer.empty();
 
-                    // Tambahkan isi baru ke dalam carousel
+                if (response.success && response.data.length) {
                     $.each(response.data, function(index, item) {
-                        $carousel.append(`
-                            <div class="single-popular-carusel mx-auto">
-                                <div class="thumb-wrap relative">
-                                    <div class="thumb relative">
+                        const card = `
+                                <div class="item">
+                                    <div class="single-popular-carusel text-center p-3 border rounded shadow-sm">
+                                    <div class="thumb-wrap relative mb-3">
+                                        <div class="thumb position-relative">
                                         <div class="overlay overlay-bg"></div>
-                                        <img class="img-fluid" src="${item.foto_prestasi}" alt="Prestasi Siswa" style="height: 175px; object-fit: cover;" />
+                                        <img class="img-fluid w-100 rounded" src="${item.foto_prestasi}" alt="Prestasi Siswa"
+                                            style="height: 175px; object-fit: cover;">
+                                        </div>
+                                        <div class="meta d-flex justify-content-center mt-2">
+                                        <small class="text-muted"><i class="lnr lnr-calendar-full"></i> ${item.tanggal}</small>
+                                        </div>
                                     </div>
-                                    <div class="meta d-flex justify-content-between">
-                                        <p><span class="lnr lnr-calendar-full"></span> ${item.tanggal}</p>
+                                    <div class="details mt-3">
+                                        <h5 class="font-weight-bold">${item.nama_prestasi}</h5>
+                                    </div>
                                     </div>
                                 </div>
-                                <div class="details">
-                                    <a href="#"><h4>${item.nama_prestasi}</h4></a>
-                                </div>
-                            </div>
-                        `);
+                                `;
+                        $carousel.append(card);
                     });
 
-                    // Inisialisasi Owl Carousel
+                    // Inisialisasi carousel setelah semua item ditambahkan
                     $carousel.owlCarousel({
                         items: 4,
                         margin: 30,
@@ -48,7 +49,7 @@
                             0: {
                                 items: 1
                             },
-                            480: {
+                            576: {
                                 items: 1
                             },
                             768: {
@@ -59,24 +60,23 @@
                             }
                         }
                     });
+
+                    AOS.refresh(); // Untuk memunculkan animasi setelah elemen baru ditambahkan
                 } else {
-                    // Jika data kosong, tampilkan pesan alert
                     $alertContainer.html(`
-                        <div class="col-12 alert alert-warning text-center" role="alert">
-                            <strong>Perhatian!</strong> Data prestasi tidak tersedia saat ini.
-                        </div>
-                    `);
+            <div class="alert alert-warning text-center" role="alert">
+              <strong>Perhatian!</strong> Data prestasi tidak tersedia saat ini.
+            </div>
+          `);
                 }
             },
             error: function(xhr) {
                 console.error('Gagal mengambil data prestasi:', xhr);
-
-                // Jika gagal memuat data, tampilkan pesan error
                 $alertContainer.html(`
-                    <div class="col-12 alert alert-danger text-center" role="alert">
+                    <div class="alert alert-danger text-center" role="alert">
                         <strong>Oops!</strong> Gagal memuat data prestasi. Silakan coba lagi.
                     </div>
-                `);
+                    `);
             }
         });
     });
