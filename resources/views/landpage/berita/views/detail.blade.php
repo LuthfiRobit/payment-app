@@ -73,7 +73,7 @@
                 <div class="col-lg-4 sidebar-widgets">
                     <div class="widget-wrap">
                         <div class="single-sidebar-widget popular-post-widget">
-                            <h4 class="popular-title">Postingan Populer</h4>
+                            <h4 class="popular-title">Berita Populer</h4>
                             <div class="popular-post-list">
                             </div>
                         </div>
