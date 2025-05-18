@@ -27,9 +27,11 @@ class GaleriLandpageController extends Controller
             ->select('id_galeri', 'tanggal', 'kegiatan', 'foto')
             ->where('status', 'aktif')
             ->orderByDesc('tanggal')
-            ->limit(5)
+            ->limit(6)
             ->get()->map(function ($item) {
-                $item->foto = asset('uploads/galeri/' . $item->foto);  // Fixed the concatenation
+                $item->foto = $item->foto
+                    ? asset('uploads/galeri/' . $item->foto)
+                    : 'https://placehold.co/250x200?text=' . $item->kegiatan;
                 return $item;
             });
 
@@ -61,7 +63,10 @@ class GaleriLandpageController extends Controller
             }
 
             // Handle the 'foto' field (make sure the path is correct)
-            $galeri->foto = asset('uploads/galeri/' . $galeri->foto);
+
+            $galeri->foto = $galeri->foto
+                ? asset('uploads/galeri/' . $galeri->foto)
+                : 'https://placehold.co/250x200?text=' . $galeri->kegiatan;
 
             return response()->json([
                 'success' => true,
@@ -87,7 +92,7 @@ class GaleriLandpageController extends Controller
      */
     public function showListPaginated(Request $request): JsonResponse
     {
-        $perPage = (int) $request->input('per_page', 4);
+        $perPage = (int) $request->input('per_page', 8);
         $currentPage = (int) $request->input('page', 1);
 
         $query = DB::table('galeri')
@@ -100,7 +105,9 @@ class GaleriLandpageController extends Controller
             ->offset(($currentPage - 1) * $perPage)
             ->limit($perPage)
             ->get()->map(function ($item) {
-                $item->foto = asset('uploads/galeri/' . $item->foto);  // Fixed the concatenation
+                $item->foto = $item->foto
+                    ? asset('uploads/galeri/' . $item->foto)
+                    : 'https://placehold.co/250x200?text=' . $item->kegiatan;
                 return $item;
             });
 
