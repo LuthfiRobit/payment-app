@@ -4,44 +4,45 @@ namespace App\Http\Controllers\Landpage;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Berita;
+use App\Models\Artikel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 
-class BeritaLandpageController extends Controller
+class ArtikelLandpageController extends Controller
 {
+
     public function index()
     {
-        return view('landpage.berita.views.index');
+        return view('landpage.artikel.views.index');
     }
 
     /**
-     * Mengembalikan list semua berita dalam bentuk JSON (terbatas 5 data).
+     * Mengembalikan list semua artikel dalam bentuk JSON (terbatas 5 data).
      */
     public function showList(): JsonResponse
     {
-        $data = DB::table('berita')
-            ->leftJoin('users', 'berita.user_id', '=', 'users.id_user')
+        $data = DB::table('artikel')
+            ->leftJoin('users', 'artikel.user_id', '=', 'users.id_user')
             ->select(
-                'berita.id_berita',
-                'berita.user_id',
+                'artikel.id_artikel',
+                'artikel.user_id',
                 'users.name as username',
-                'berita.judul',
-                'berita.isi',
-                'berita.gambar',
-                'berita.created_at'
+                'artikel.judul',
+                'artikel.isi',
+                'artikel.gambar',
+                'artikel.created_at'
             )
-            ->where('berita.status', 'aktif')
-            ->orderByDesc('berita.created_at')
+            ->where('artikel.status', 'aktif')
+            ->orderByDesc('artikel.created_at')
             ->limit(4)
             ->get()
             ->map(function ($item) {
                 $item->judul = Str::words($item->judul, 6, '...');
                 $item->isi = Str::words(strip_tags($item->isi), 35, '...');
-                $item->gambar = $item->gambar ? asset('uploads/berita/' . $item->gambar) : 'https://placehold.co/300X200?text=' . Str::words($item->judul, 4, '...');  // Fixed the concatenation
+                $item->gambar = $item->gambar ? asset('uploads/artikel/' . $item->gambar) : 'https://placehold.co/300X200?text=' . Str::words($item->judul, 4, '...');  // Fixed the concatenation
                 $formattedDate = Carbon::parse($item->created_at)->translatedFormat('d F Y');
                 $item->info = "{$formattedDate} | Oleh {$item->username}";
                 return $item;
@@ -55,26 +56,26 @@ class BeritaLandpageController extends Controller
     }
 
     /**
-     * Mengembalikan data berita secara paginasi.
+     * Mengembalikan data artikel secara paginasi.
      */
     public function showListPaginated(Request $request): JsonResponse
     {
         $perPage = (int) $request->input('per_page', 4);
         $currentPage = (int) $request->input('page', 1);
 
-        $query = DB::table('berita')
-            ->leftJoin('users', 'berita.user_id', '=', 'users.id_user')
+        $query = DB::table('artikel')
+            ->leftJoin('users', 'artikel.user_id', '=', 'users.id_user')
             ->select(
-                'berita.id_berita',
-                'berita.user_id',
+                'artikel.id_artikel',
+                'artikel.user_id',
                 'users.name as username',
-                'berita.judul',
-                'berita.isi',
-                'berita.gambar',
-                'berita.created_at'
+                'artikel.judul',
+                'artikel.isi',
+                'artikel.gambar',
+                'artikel.created_at'
             )
-            ->where('berita.status', 'aktif')
-            ->orderByDesc('berita.created_at');
+            ->where('artikel.status', 'aktif')
+            ->orderByDesc('artikel.created_at');
 
         $total = $query->count();
         $results = $query
@@ -84,7 +85,7 @@ class BeritaLandpageController extends Controller
             ->map(function ($item) {
                 $item->judul = Str::words($item->judul, 6, '...');
                 $item->isi = Str::words(strip_tags($item->isi), 35, '...');
-                $item->gambar = $item->gambar ? asset('uploads/berita/' . $item->gambar) : 'https://placehold.co/300X200?text=' . Str::words($item->judul, 4, '...'); // Fixed the concatenation
+                $item->gambar = $item->gambar ? asset('uploads/artikel/' . $item->gambar) : 'https://placehold.co/300X200?text=' . Str::words($item->judul, 4, '...');  // Fixed the concatenation
                 $formattedDate = Carbon::parse($item->created_at)->translatedFormat('d F Y');
                 $item->info = "{$formattedDate} | Oleh {$item->username}";
                 return $item;
@@ -108,25 +109,25 @@ class BeritaLandpageController extends Controller
     }
 
     /**
-     * Menampilkan detail berita berdasarkan ID dalam format JSON.
+     * Menampilkan detail artikel berdasarkan ID dalam format JSON.
      */
     public function show($id): JsonResponse
     {
         try {
-            $berita = Berita::leftJoin('users', 'berita.user_id', '=', 'users.id_user')
+            $artikel = Artikel::leftJoin('users', 'artikel.user_id', '=', 'users.id_user')
                 ->select(
-                    'berita.id_berita',
-                    'berita.user_id',
+                    'artikel.id_artikel',
+                    'artikel.user_id',
                     'users.name as username',
-                    'berita.judul',
-                    'berita.isi',
-                    'berita.gambar',
-                    'berita.dilihat',
-                    'berita.created_at'
+                    'artikel.judul',
+                    'artikel.isi',
+                    'artikel.gambar',
+                    'artikel.dilihat',
+                    'artikel.created_at'
                 )
                 ->find($id);
 
-            if (!$berita) {
+            if (!$artikel) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Data tidak ditemukan',
@@ -135,20 +136,21 @@ class BeritaLandpageController extends Controller
             }
 
             // Handle the 'gambar' field (make sure the path is correct)
-            $berita->gambar = $berita->gambar ? asset('uploads/berita/' . $berita->gambar) : 'https://placehold.co/300X200?text=' . Str::words($berita->judul, 4, '...');
+            $artikel->gambar = $artikel->gambar ? asset('uploads/artikel/' . $artikel->gambar) : 'https://placehold.co/300X200?text=' . Str::words($artikel->judul, 4, '...');
 
             Carbon::setLocale('id');
             // Gunakan formatted date langsung dari objek datetime
-            $berita->created_at_formatted = Carbon::parse($berita->created_at)->translatedFormat('d F Y');
+            $artikel->created_at_formatted = Carbon::parse($artikel->created_at)->translatedFormat('d F Y');
             // Tambahkan info
-            $berita->info = "{$berita->created_at_formatted} | Oleh {$berita->username}";
+            $artikel->info = "{$artikel->created_at_formatted} | Oleh {$artikel->username}";
+
             return response()->json([
                 'success' => true,
                 'message' => 'Detail berhasil ditemukan',
-                'data' => $berita,
+                'data' => $artikel,
             ], 200);
         } catch (\Exception $e) {
-            Log::error('Error saat mengambil data berita: ' . $e->getMessage());
+            Log::error('Error saat mengambil data artikel: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Terjadi kesalahan saat mengambil data',
@@ -158,17 +160,17 @@ class BeritaLandpageController extends Controller
     }
 
     /**
-     * Menampilkan detail berita berdasarkan ID dalam bentuk view.
+     * Menampilkan detail artikel berdasarkan ID dalam bentuk view.
      */
     public function detail($id)
     {
-        $berita = Berita::find($id);
+        $artikel = Artikel::find($id);
 
-        if (!$berita) {
-            abort(404, 'Berita tidak ditemukan');
+        if (!$artikel) {
+            abort(404, 'Artikel tidak ditemukan');
         }
         // Tambah 1 view
-        $berita->increment('dilihat');
-        return view('landpage.berita.views.detail');
+        $artikel->increment('dilihat');
+        return view('landpage.artikel.views.detail');
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Apps\ProfilController;
 use App\Http\Controllers\Apps\UserManagementController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Landpage\ArtikelLandpageController;
 use App\Http\Controllers\Landpage\BeritaLandpageController;
 use App\Http\Controllers\Landpage\GaleriLandpageController;
 use App\Http\Controllers\Landpage\GuruLandpageController;
@@ -11,7 +12,7 @@ use App\Http\Controllers\Landpage\PpdbLandpageController;
 use App\Http\Controllers\Landpage\PrestasiLandpageController;
 use App\Http\Controllers\Main\DashboardController;
 use App\Http\Controllers\Main\DashboardPpdbController;
-
+use App\Http\Controllers\Master\ArtikelController;
 use App\Http\Controllers\Master\GaleriController;
 
 use App\Http\Controllers\Master\BeritaController;
@@ -203,6 +204,16 @@ Route::prefix('master-data')->name('master-data.')->group(function () {
         Route::get('{id}', [BeritaController::class, 'show'])->name('show');
         Route::put('update/{id}', [BeritaController::class, 'update'])->name('update');
     });
+
+    // Route group untuk Artikel
+    Route::middleware(['auth', 'role:developer,kepsek,petugas_emis'])->prefix('artikel')->name('artikel.')->group(function () {
+        // Rute yang bisa diakses oleh semua role (kepsek, developer, petugas_pembayaran)
+        Route::get('/', [ArtikelController::class, 'index'])->name('index');
+        Route::get('/list', [ArtikelController::class, 'getData'])->name('list');
+        Route::post('store', [ArtikelController::class, 'store'])->name('store');
+        Route::get('{id}', [ArtikelController::class, 'show'])->name('show');
+        Route::put('update/{id}', [ArtikelController::class, 'update'])->name('update');
+    });
 });
 
 // Route group untuk setting
@@ -388,6 +399,15 @@ Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(functio
         Route::get('/show-paginate', [BeritaLandpageController::class, 'showListPaginated'])->name('show.list.paginated');
         Route::get('/show-list', [BeritaLandpageController::class, 'showList'])->name('show.list');
         Route::get('/{id}', [BeritaLandpageController::class, 'show'])->name('show');
+    });
+
+    // Route group untuk Artikel
+    Route::prefix('artikel')->name('artikel.')->group(function () {
+        Route::get('/', [ArtikelLandpageController::class, 'index'])->name('index');
+        Route::get('/detail/{id}', [ArtikelLandpageController::class, 'detail'])->name('detail');
+        Route::get('/show-paginate', [ArtikelLandpageController::class, 'showListPaginated'])->name('show.list.paginated');
+        Route::get('/show-list', [ArtikelLandpageController::class, 'showList'])->name('show.list');
+        Route::get('/{id}', [ArtikelLandpageController::class, 'show'])->name('show');
     });
 
     // Route group untuk Guru

@@ -134,10 +134,20 @@
 
                 <!-- Sidebar Kanan -->
                 <div class="col-lg-4 sidebar-widgets">
+                    <div class="widget-wrap mb-3">
+                        <div class="single-sidebar-widget popular-post-widget">
+                            <h4 class="popular-title">Artikel Populer</h4>
+                            <div class="popular-post-list" id="artikel-populer">
+                                <!-- Artikel populer akan dimuat di sini -->
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="widget-wrap">
                         <div class="single-sidebar-widget popular-post-widget">
-                            <h4 class="popular-title">Postingan Populer</h4>
-                            <div class="popular-post-list">
+                            <h4 class="popular-title">Berita Populer</h4>
+                            <div class="popular-post-list" id="berita-populer">
+                                <!-- Berita populer akan dimuat di sini -->
                             </div>
                         </div>
                     </div>
@@ -149,5 +159,5 @@
 @endsection
 
 @section('this-page-scripts')
-    {{-- @include('landpage.berita.scripts.show') --}}
+    @include('landpage.akademik.scripts.list')
 @endsection
