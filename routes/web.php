@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('landpage.index');
+    return view('landpage.beranda.views.index');
 });
 
 Route::get('/login', [AuthController::class, 'index'])->middleware('guest')->name('auth.form');
@@ -374,7 +374,7 @@ Route::prefix('application')->name('application.')->group(function () {
 
 // Route group untuk user (guest pada halaman landpage)
 Route::middleware('guest')->prefix('landpage')->name('landpage.')->group(function () {
-    Route::get('/', [LandpageController::class, 'index'])->name('index');
+    // Route::get('/', [LandpageController::class, 'index'])->name('index');
 
     // Route group untuk Prestasi
     Route::prefix('prestasi')->name('prestasi.')->group(function () {
