@@ -323,6 +323,34 @@
         </div>
     </section>
     <!-- End Gallery Area -->
+
+    <!-- Start Guru Area -->
+    <section class="popular-course-area section-gap py-5 bg-white">
+        <div class="container">
+            <!-- Judul -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mb-5" data-aos="fade-up" data-aos-duration="800">
+                    <h2 class="font-weight-bold">Daftar Guru</h2>
+                    <p class="text-muted">Guru karyawan MI Ihyauddiniyah yang berdedikasi dan profesional</p>
+                </div>
+            </div>
+
+            <!-- Alert container -->
+            <div class="row justify-content-center">
+                <div class="col-12" id="guru-alert" data-aos="fade-in"></div>
+            </div>
+
+            <!-- Carousel container -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="owl-carousel owl-theme" id="guru-carousel" data-aos="zoom-in" data-aos-duration="1000">
+                        <!-- Item guru akan dimuat via AJAX -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Guru Area -->
 @endsection
 
 @section('this-page-scripts')
@@ -331,6 +359,7 @@
     @include('landpage.beranda.scripts.listBerita')
     @include('landpage.beranda.scripts.listPrestasi')
     @include('landpage.beranda.scripts.listGaleri')
+    @include('landpage.beranda.scripts.listGuru')
     <script>
         AOS.init({
             duration: 800,
