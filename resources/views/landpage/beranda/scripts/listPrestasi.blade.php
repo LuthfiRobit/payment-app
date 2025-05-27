@@ -13,6 +13,16 @@
                 $alertContainer.empty();
 
                 if (response.success && response.data.length) {
+
+                    // Destroy previous instance if exists
+                    if ($carousel.hasClass('owl-loaded')) {
+                        $carousel.trigger('destroy.owl.carousel');
+                        $carousel.removeClass('owl-loaded owl-theme owl-carousel');
+                        $carousel.find('.owl-stage-outer').children().unwrap();
+                        $carousel.find('.owl-stage').children().unwrap();
+                        $carousel.html("");
+                    }
+
                     $.each(response.data, function(index, item) {
                         const card = `
                                 <div class="item">
@@ -36,15 +46,18 @@
                         $carousel.append(card);
                     });
 
+                    let itemCount = response.data.length;
+
                     // Inisialisasi carousel setelah semua item ditambahkan
                     $carousel.owlCarousel({
                         items: 4,
                         margin: 30,
-                        loop: true,
+                        loop: itemCount > 1,
                         dots: true,
                         autoplay: true,
+                        autoplayTimeout: 2500,
                         autoplayHoverPause: true,
-                        smartSpeed: 650,
+                        smartSpeed: 500,
                         responsive: {
                             0: {
                                 items: 1

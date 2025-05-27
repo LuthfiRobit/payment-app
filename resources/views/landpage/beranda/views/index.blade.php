@@ -295,7 +295,7 @@
             <!-- Carousel container -->
             <div class="row">
                 <div class="col-12">
-                    <div class="owl-carousel owl-theme" id="prestasi-carousel" data-aos="zoom-in"
+                    <div class="owl-carousel owl-prestasi owl-theme" id="prestasi-carousel" data-aos="zoom-in"
                         data-aos-duration="1000">
                         <!-- Item prestasi akan dimuat via AJAX -->
                     </div>
@@ -343,7 +343,8 @@
             <!-- Carousel container -->
             <div class="row">
                 <div class="col-12">
-                    <div class="owl-carousel owl-theme" id="guru-carousel" data-aos="zoom-in" data-aos-duration="1000">
+                    <div class="owl-carousel owl-guru owl-theme" id="guru-carousel" data-aos="zoom-in"
+                        data-aos-duration="1000">
                         <!-- Item guru akan dimuat via AJAX -->
                     </div>
                 </div>
