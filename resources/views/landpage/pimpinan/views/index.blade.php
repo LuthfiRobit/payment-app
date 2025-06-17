@@ -33,9 +33,9 @@
                         <div class="row align-items-start">
                             <!-- Foto Kepala Sekolah -->
                             <div class="col-md-4 text-center mb-3" data-aos="zoom-in" data-aos-delay="100">
-                                <img src="https://placehold.co/300x400?text=FOTO+KEPALA-SEKOLAH" alt="Kepala Sekolah"
+                                <img src="{{ asset('template-landpage/img/foto_kepsek.jpg') }}" alt="Kepala Sekolah"
                                     class="img-fluid rounded shadow-sm">
-                                <h5 class="mt-3 mb-0">MUZAMMIL, M.Pd.</h5>
+                                <h5 class="mt-3 mb-0">Dr. MUZAMMIL, M.Pd.I</h5>
                                 <p class="mb-0">Kepala Sekolah</p>
                             </div>
 
