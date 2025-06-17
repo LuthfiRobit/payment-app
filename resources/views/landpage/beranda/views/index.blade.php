@@ -186,9 +186,9 @@
             <div class="row align-items-center">
                 <!-- Foto Kepala Sekolah -->
                 <div class="col-md-4 text-center mb-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
-                    <img src="https://placehold.co/300x400?text=FOTO+KEPALA-SEKOLAH" alt="Kepala Sekolah"
+                    <img src="{{ asset('template-landpage/img/foto_kepsek.jpg') }}" alt="Kepala Sekolah"
                         class="img-fluid rounded mb-3">
-                    <h5 class="mb-0">MUZAMMIL, M.Pd.</h5>
+                    <h5 class="mb-0">Dr. MUZAMMIL, M.Pd.I</h5>
                     <p class="text-muted">Kepala Sekolah</p>
                 </div>
 
