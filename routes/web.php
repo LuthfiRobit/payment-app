@@ -81,18 +81,15 @@ Route::prefix('main')->name('main.')->group(
 Route::prefix('master-data')->name('master-data.')->group(function () {
 
     // Route group untuk Tahun Akademik
-    Route::middleware(['auth', 'role:developer,kepsek,petugas_pembayaran'])->prefix('tahun-akademik')->name('tahun-akademik.')->group(function () {
+    Route::middleware(['auth', 'role:developer,kepsek,petugas_pembayaran,petugas_emis'])->prefix('tahun-akademik')->name('tahun-akademik.')->group(function () {
         // Rute yang bisa diakses oleh semua role (kepsek, developer, petugas_pembayaran)
         Route::get('/', [TahunAkademikController::class, 'index'])->name('index');
         Route::get('/list', [TahunAkademikController::class, 'getData'])->name('list');
 
-        // Rute yang hanya bisa diakses oleh developer dan petugas_pembayaran
-        Route::middleware('role:developer,petugas_pembayaran')->group(function () {
-            Route::post('store', [TahunAkademikController::class, 'store'])->name('store');
-            Route::get('{id}', [TahunAkademikController::class, 'show'])->name('show');
-            Route::put('update/{id}', [TahunAkademikController::class, 'update'])->name('update');
-            Route::post('update-status', [TahunAkademikController::class, 'updateStatus'])->name('update.status');
-        });
+        Route::post('store', [TahunAkademikController::class, 'store'])->name('store');
+        Route::get('{id}', [TahunAkademikController::class, 'show'])->name('show');
+        Route::put('update/{id}', [TahunAkademikController::class, 'update'])->name('update');
+        Route::post('update-status', [TahunAkademikController::class, 'updateStatus'])->name('update.status');
     });
 
 
