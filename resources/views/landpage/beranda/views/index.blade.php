@@ -208,8 +208,37 @@
     </section>
     <!-- End Sambutan Kepala Sekolah -->
 
+    <!-- Start Guru Area -->
+    <section class="popular-course-area section-gap py-5 bg-white">
+        <div class="container">
+            <!-- Judul -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mb-5" data-aos="fade-up" data-aos-duration="800">
+                    <h2 class="font-weight-bold">Daftar Guru</h2>
+                    <p class="text-muted">Guru karyawan MI Ihyauddiniyah yang berdedikasi dan profesional</p>
+                </div>
+            </div>
+
+            <!-- Alert container -->
+            <div class="row justify-content-center">
+                <div class="col-12" id="guru-alert" data-aos="fade-in"></div>
+            </div>
+
+            <!-- Carousel container -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="owl-carousel owl-guru owl-theme" id="guru-carousel" data-aos="zoom-in"
+                        data-aos-duration="1000">
+                        <!-- Item guru akan dimuat via AJAX -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Guru Area -->
+
     <!-- Start Blog Area -->
-    <section class="blog-area section-gap py-5" id="blog">
+    <section class="blog-area section-gap py-5 bg-light" id="blog">
         <div class="container">
             <!-- Judul -->
             <div class="row justify-content-center">
@@ -226,55 +255,6 @@
         </div>
     </section>
     <!-- End Blog Area -->
-
-    <!-- Start Data Statistik Madrasah -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <!-- Judul -->
-            <div class="row justify-content-center text-center mb-5">
-                <div class="col-lg-8" data-aos="fade-up" data-aos-duration="800">
-                    <h2 class="fw-bold">Data Statistik Madrasah</h2>
-                    <p class="text-muted">
-                        Menyajikan informasi terkini terkait jumlah siswa, guru, dan fasilitas madrasah kami.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Data Cards -->
-            <div class="row g-4">
-                <!-- Siswa -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card border-0 shadow text-center p-4 h-100">
-                        <img src="{{ asset('template-landpage/img/img-siswa.png') }}" alt="Total Siswa"
-                            class="img-fluid rounded mb-3" style="height: 175px; object-fit: cover;">
-                        <h3 class="fw-semibold mb-1 text-primary">239</h3>
-                        <p class="mb-0 text-muted">Total Siswa</p>
-                    </div>
-                </div>
-
-                <!-- Guru -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card border-0 shadow text-center p-4 h-100">
-                        <img src="{{ asset('template-landpage/img/img-guru.png') }}" alt="Total Guru"
-                            class="img-fluid rounded mb-3" style="height: 175px; object-fit: cover; ">
-                        <h3 class="fw-semibold mb-1 text-success">31</h3>
-                        <p class="mb-0 text-muted">Pendidik & Tenaga Kependidikan</p>
-                    </div>
-                </div>
-
-                <!-- Ruang Kelas -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card border-0 shadow text-center p-4 h-100">
-                        <img src="{{ asset('template-landpage/img/img-gedung.png') }}" alt="Ruang Kelas"
-                            class="img-fluid rounded mb-3" style="height: 175px; object-fit: cover;">
-                        <h3 class="fw-semibold mb-1 text-danger">12</h3>
-                        <p class="mb-0 text-muted">Ruang Kelas</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Data Statistik Madrasah -->
 
     <!-- Start Prestasi Siswa Area -->
     <section class="popular-course-area section-gap py-5 bg-white">
@@ -324,34 +304,54 @@
     </section>
     <!-- End Gallery Area -->
 
-    <!-- Start Guru Area -->
-    <section class="popular-course-area section-gap py-5 bg-white">
+    <!-- Start Data Statistik Madrasah -->
+    <section class="py-5">
         <div class="container">
             <!-- Judul -->
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center mb-5" data-aos="fade-up" data-aos-duration="800">
-                    <h2 class="font-weight-bold">Daftar Guru</h2>
-                    <p class="text-muted">Guru karyawan MI Ihyauddiniyah yang berdedikasi dan profesional</p>
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-duration="800">
+                    <h2 class="fw-bold">Data Statistik Madrasah</h2>
+                    <p class="text-muted">
+                        Menyajikan informasi terkini terkait jumlah siswa, guru, dan fasilitas madrasah kami.
+                    </p>
                 </div>
             </div>
 
-            <!-- Alert container -->
-            <div class="row justify-content-center">
-                <div class="col-12" id="guru-alert" data-aos="fade-in"></div>
-            </div>
+            <!-- Data Cards -->
+            <div class="row g-4">
+                <!-- Siswa -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow text-center p-4 h-100">
+                        <img src="{{ asset('template-landpage/img/img-siswa.png') }}" alt="Total Siswa"
+                            class="img-fluid rounded mb-3" style="height: 175px; object-fit: cover;">
+                        <h3 class="fw-semibold mb-1 text-primary">239</h3>
+                        <p class="mb-0 text-muted">Total Siswa</p>
+                    </div>
+                </div>
 
-            <!-- Carousel container -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="owl-carousel owl-guru owl-theme" id="guru-carousel" data-aos="zoom-in"
-                        data-aos-duration="1000">
-                        <!-- Item guru akan dimuat via AJAX -->
+                <!-- Guru -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow text-center p-4 h-100">
+                        <img src="{{ asset('template-landpage/img/img-guru.png') }}" alt="Total Guru"
+                            class="img-fluid rounded mb-3" style="height: 175px; object-fit: cover; ">
+                        <h3 class="fw-semibold mb-1 text-success">31</h3>
+                        <p class="mb-0 text-muted">Pendidik & Tenaga Kependidikan</p>
+                    </div>
+                </div>
+
+                <!-- Ruang Kelas -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card border-0 shadow text-center p-4 h-100">
+                        <img src="{{ asset('template-landpage/img/img-gedung.png') }}" alt="Ruang Kelas"
+                            class="img-fluid rounded mb-3" style="height: 175px; object-fit: cover;">
+                        <h3 class="fw-semibold mb-1 text-danger">12</h3>
+                        <p class="mb-0 text-muted">Ruang Kelas</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End Guru Area -->
+    <!-- End Data Statistik Madrasah -->
 @endsection
 
 @section('this-page-scripts')

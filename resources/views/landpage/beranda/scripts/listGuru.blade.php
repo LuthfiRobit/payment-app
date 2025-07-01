@@ -42,7 +42,7 @@
 
                     // Re-init Owl Carousel
                     $carousel.owlCarousel({
-                        items: 4,
+                        items: 3, // <- Ganti dari 4 ke 3
                         margin: 30,
                         loop: itemCount > 1,
                         dots: true,
@@ -61,7 +61,7 @@
                                 items: 2
                             },
                             992: {
-                                items: 4
+                                items: 3 // <- Sesuaikan juga di breakpoint besar
                             }
                         }
                     });
