@@ -344,6 +344,8 @@
                                 <!-- Input Foto KTP Ayah (Tidak required) -->
                                 <input type="file" class="form-control" id="scan_ktp_ayah" name="scan_ktp_ayah"
                                     accept="image/jpeg, image/png, image/jpg" />
+                                <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                    MB.</small>
                             </div>
                         </div>
 
@@ -433,6 +435,8 @@
                                 <!-- Input Foto KTP Ibu (Tidak required) -->
                                 <input type="file" class="form-control" id="scan_ktp_ibu" name="scan_ktp_ibu"
                                     accept="image/jpeg, image/png, image/jpg" />
+                                <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                    MB.</small>
                             </div>
                         </div>
                     </div>
@@ -494,6 +498,22 @@
                             <option value="wali">Wali</option>
                         </select>
                     </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label for="scan_kk_keluarga" class="form-label">Scan KK</label>
+                            <span id="scan-kk-keluarga-preview" style="display: none;">
+                                <a href="#" id="view-scan-kk-keluarga" target="_blank"
+                                    class="text-decoration-none">
+                                    <i class="fas fa-eye"></i> Lihat Foto KK
+                                </a>
+                            </span>
+                        </div>
+                        <input type="file" class="form-control" id="scan_kk_keluarga" name="scan_kk_keluarga"
+                            accept="image/jpeg, image/png, image/jpg" required />
+                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                            MB.</small>
+                    </div>
                 </div>
 
                 <!-- Modal Footer -->
@@ -523,6 +543,8 @@
                             tua)</label>
                         <input type="text" class="form-control" id="nama_wali" name="nama_wali"
                             placeholder="eg. Rahmat" />
+                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                            MB.</small>
                     </div>
 
                     <!-- Scan KK Wali -->
@@ -537,6 +559,8 @@
                         </div>
                         <input type="file" class="form-control" id="scan_kk_wali" name="scan_kk_wali"
                             accept="image/jpeg, image/png, image/jpg" />
+                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                            MB.</small>
                     </div>
 
                     <!-- Scan Kartu PKH -->
@@ -551,6 +575,8 @@
                         </div>
                         <input type="file" class="form-control" id="scan_kartu_pkh" name="scan_kartu_pkh"
                             accept="image/jpeg, image/png, image/jpg" />
+                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                            MB.</small>
                     </div>
 
                     <!-- Scan Kartu KKS -->
@@ -565,6 +591,8 @@
                         </div>
                         <input type="file" class="form-control" id="scan_kartu_kks" name="scan_kartu_kks"
                             accept="image/jpeg, image/png, image/jpg" />
+                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                            MB.</small>
                     </div>
                 </div>
 

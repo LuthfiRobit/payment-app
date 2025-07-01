@@ -128,6 +128,7 @@
                                         <th style="max-width: 5px"><input type="checkbox" class="form-check-input"
                                                 id="selectAll"> *</th>
                                         <th>Aksi</th>
+                                        <th>No. </th>
                                         <th>No. Registrasi</th>
                                         <th>Nama Siswa</th>
                                         <th>Tahun Akademik</th>

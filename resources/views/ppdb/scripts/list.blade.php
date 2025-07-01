@@ -26,6 +26,12 @@
                     searchable: false
                 },
                 {
+                    data: 'DT_RowIndex', // Kolom nomor urut
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false,
+                },
+                {
                     data: 'no_registrasi', // Menampilkan no registrasi
                     name: 'no_registrasi',
                     orderable: true,

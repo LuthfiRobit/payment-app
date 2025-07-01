@@ -327,12 +327,24 @@
 
                         // Isi form dengan data Status Keluarga
                         if (data) {
+
                             $(formId).find('input, select, textarea').each(function() {
                                 var name = $(this).attr('name');
-                                if (data[name]) {
+                                if (data[name] && name !== 'scan_kk_keluarga') {
                                     $(this).val(data[name]);
                                 }
                             });
+
+                            // Tampilkan pratinjau foto KTP Ibu jika ada
+                            if (data.scan_kk_keluarga) {
+                                $('#scan-kk-keluarga-preview').show();
+                                $('#view-scan-kk-keluarga').attr('href',
+                                    '{{ asset('uploads/kk_keluarga/') }}/' + data
+                                    .scan_kk_keluarga
+                                ); // Menambahkan path gambar
+                            } else {
+                                $('#scan-kk-keluarga-preview').hide();
+                            }
                         }
 
                         $(formId).attr('data-id', id);
