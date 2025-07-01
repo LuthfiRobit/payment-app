@@ -31,6 +31,7 @@ class KeluargaSiswaBaru extends Model
         'nomor_kk',
         'alamat_rumah',
         'yang_membiayai_sekolah',
+        'scan_kk_keluarga'
     ];
 
 

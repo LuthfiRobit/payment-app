@@ -46,6 +46,7 @@ class RegistrasiController extends Controller
 
         // Membuat DataTables dengan query yang sudah difilter
         return DataTables::of($query)
+            ->addIndexColumn() // Tambah baris nomor
             ->addColumn('checkbox', function ($item) {
                 return '<input type="checkbox" class="siswa-checkbox form-check-input" value="' . $item->id_siswa_baru . '">';
             })
@@ -190,7 +191,7 @@ class RegistrasiController extends Controller
             'imunisasi' => 'required|array',
             'imunisasi.*' => 'string', // Validation for array of immunization
             'foto_siswa' => $request->hasFile('foto_siswa')
-                ? 'nullable|mimes:jpeg,jpg,png|max:2048'
+                ? 'nullable|mimes:jpeg,jpg,png|max:3072'
                 : 'nullable', // Validation for optional file upload
         ]);
 
@@ -293,7 +294,7 @@ class RegistrasiController extends Controller
             'pekerjaan_ayah' => 'required|in:pegawaiNegeri,swasta,wiraswasta,buruh,lainnya',
             'penghasilan_per_bulan_ayah' => 'required|numeric|min:0',
             'alamat_ayah' => 'nullable|string|max:255',
-            'scan_ktp_ayah' => $request->hasFile('scan_ktp_ayah') ? 'nullable|mimes:jpeg,jpg,png|max:2048' : 'nullable',  // Validate file
+            'scan_ktp_ayah' => $request->hasFile('scan_ktp_ayah') ? 'nullable|mimes:jpeg,jpg,png|max:3072' : 'nullable',  // Validate file
 
             'nama_ibu_kandung' => 'required|string|max:255',
             'status_ibu_kandung' => 'required|string|max:255',
@@ -304,7 +305,7 @@ class RegistrasiController extends Controller
             'pekerjaan_ibu' => 'required|in:ibuRumahTangga,guru,pegawaiNegeri,swasta,wiraswasta,lainnya',
             'penghasilan_per_bulan_ibu' => 'required|numeric|min:0',
             'alamat_ibu' => 'nullable|string|max:255',
-            'scan_ktp_ibu' => $request->hasFile('scan_ktp_ibu') ? 'nullable|mimes:jpeg,jpg,png|max:2048' : 'nullable',  // Validate file
+            'scan_ktp_ibu' => $request->hasFile('scan_ktp_ibu') ? 'nullable|mimes:jpeg,jpg,png|max:3072' : 'nullable',  // Validate file
         ]);
 
         // Fetch Ayah and Ibu data from the database based on siswa_baru_id
@@ -419,9 +420,9 @@ class RegistrasiController extends Controller
         // Validasi input
         $request->validate([
             'nama_wali' => 'required|string|max:255',
-            'scan_kk_wali' => $request->hasFile('scan_kk_wali') ? 'nullable|mimes:jpeg,jpg,png|max:2048' : 'nullable', // Validasi file KK Wali
-            'scan_kartu_pkh' => $request->hasFile('scan_kartu_pkh') ? 'nullable|mimes:jpeg,jpg,png|max:2048' : 'nullable', // Validasi file Kartu PKH
-            'scan_kartu_kks' => $request->hasFile('scan_kartu_kks') ? 'nullable|mimes:jpeg,jpg,png|max:2048' : 'nullable', // Validasi file Kartu KKS
+            'scan_kk_wali' => $request->hasFile('scan_kk_wali') ? 'nullable|mimes:jpeg,jpg,png|max:3072' : 'nullable', // Validasi file KK Wali
+            'scan_kartu_pkh' => $request->hasFile('scan_kartu_pkh') ? 'nullable|mimes:jpeg,jpg,png|max:3072' : 'nullable', // Validasi file Kartu PKH
+            'scan_kartu_kks' => $request->hasFile('scan_kartu_kks') ? 'nullable|mimes:jpeg,jpg,png|max:3072' : 'nullable', // Validasi file Kartu KKS
         ]);
 
         // Cari data wali berdasarkan siswa_baru_id
@@ -523,11 +524,12 @@ class RegistrasiController extends Controller
     public function updateKeluarga(Request $request, $id)
     {
         // Validasi input form
-        $validatedData = $request->validate([
+        $request->validate([
             'nama_kepala_keluarga' => 'required|string|max:255',
             'nomor_kk' => 'required|string|regex:/\d{16}/', // Pastikan nomor KK 16 digit
             'alamat_rumah' => 'required|string|max:500',
             'yang_membiayai_sekolah' => 'required|in:ayah,ibu,wali',
+            'scan_kk_keluarga' => $request->hasFile('scan_kk_keluarga') ? 'nullable|mimes:jpeg,jpg,png|max:3072' : 'nullable',  // Validate file
         ]);
         // Cari data keluarga berdasarkan siswa_baru_id
         $keluarga = KeluargaSiswaBaru::where('siswa_baru_id', $id)->first();
@@ -541,6 +543,17 @@ class RegistrasiController extends Controller
 
         DB::beginTransaction();
         try {
+
+            // Upload file baru jika tersedia
+            if ($request->hasFile('scan_kk_keluarga')) {
+                $keluarga->scan_kk_keluarga = UploadHelper::uploadFile(
+                    $request->file('scan_kk_keluarga'),
+                    'uploads/kk_keluarga',
+                    'kk_keluarga',
+                    $keluarga->scan_kk_keluarga
+                );
+            }
+
             // Update data keluarga
             $keluarga->nama_kepala_keluarga = $request->nama_kepala_keluarga;
             $keluarga->nomor_kk = $request->nomor_kk;

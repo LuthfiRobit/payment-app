@@ -87,7 +87,7 @@ class RegistrasiSiswaController extends Controller
             'alamat_ra_tk' => 'required|string|max:255',
             'imunisasi' => 'required|array',
             'imunisasi.*' => 'string', // Validasi untuk array imunisasi
-            'foto_siswa' => 'nullable|mimes:jpeg,png,jpg|max:2048', // Validasi foto siswa (optional)
+            'foto_siswa' => 'nullable|mimes:jpeg,png,jpg|max:3072', // Validasi foto siswa (optional)
         ]);
     }
 
@@ -103,7 +103,7 @@ class RegistrasiSiswaController extends Controller
             'pekerjaan_ibu' => 'required|in:ibuRumahTangga,guru,pegawaiNegeri,swasta,wiraswasta,lainnya',
             'penghasilan_per_bulan_ibu' => 'required|numeric|min:0',
             'alamat_ibu' => 'nullable|string|max:255',
-            'scan_ktp_ibu' => 'nullable|mimes:jpeg,png,jpg|max:2048', // Validasi file KTP Ibu
+            'scan_ktp_ibu' => 'nullable|mimes:jpeg,png,jpg|max:3072', // Validasi file KTP Ibu
         ]);
     }
 
@@ -119,7 +119,7 @@ class RegistrasiSiswaController extends Controller
             'pekerjaan_ayah' => 'required|in:pegawaiNegeri,swasta,wiraswasta,buruh,lainnya',
             'penghasilan_per_bulan_ayah' => 'required|numeric|min:0',
             'alamat_ayah' => 'nullable|string|max:255',
-            'scan_ktp_ayah' => 'nullable|mimes:jpeg,png,jpg|max:2048', // Validasi file KTP Ayah
+            'scan_ktp_ayah' => 'nullable|mimes:jpeg,png,jpg|max:3072', // Validasi file KTP Ayah
         ]);
     }
 
@@ -127,9 +127,9 @@ class RegistrasiSiswaController extends Controller
     {
         $request->validate([
             'nama_wali' => 'nullable|string|max:255',
-            'scan_kk_wali' => 'nullable|mimes:jpeg,png,jpg|max:2048', // Validasi file KK Wali
-            'scan_kartu_pkh' => 'nullable|mimes:jpeg,png,jpg|max:2048', // Validasi file Kartu PKH
-            'scan_kartu_kks' => 'nullable|mimes:jpeg,png,jpg|max:2048', // Validasi file Kartu KKS
+            'scan_kk_wali' => 'nullable|mimes:jpeg,png,jpg|max:3072', // Validasi file KK Wali
+            'scan_kartu_pkh' => 'nullable|mimes:jpeg,png,jpg|max:3072', // Validasi file Kartu PKH
+            'scan_kartu_kks' => 'nullable|mimes:jpeg,png,jpg|max:3072', // Validasi file Kartu KKS
         ]);
     }
 
@@ -140,6 +140,7 @@ class RegistrasiSiswaController extends Controller
             'nomor_kk' => 'required|string|max:16',
             'alamat_rumah' => 'required|string|max:255',
             'yang_membiayai_sekolah' => 'required|in:ayah,ibu,wali',
+            'scan_kk_keluarga' => 'nullable|mimes:jpeg,png,jpg|max:3072', // Validasi file KTP Ayah
         ]);
     }
 
@@ -282,6 +283,11 @@ class RegistrasiSiswaController extends Controller
             'alamat_rumah',
             'yang_membiayai_sekolah'
         ]));
+
+        // Handle foto KTP ayah
+        if ($request->hasFile('scan_kk_keluarga')) {
+            $keluargaSiswaBaru->scan_kk_keluarga = UploadHelper::uploadFile($request->file('scan_kk_keluarga'), 'uploads/kk_keluarga', 'kk_keluarga');
+        }
 
         $keluargaSiswaBaru->save();
         return $keluargaSiswaBaru;

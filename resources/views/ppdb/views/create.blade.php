@@ -69,7 +69,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <small class="form-text text-muted">Gunakan foto 3x4 dengan ukuran maksimum 2
+                                        <small class="form-text text-muted">Gunakan foto 3x4 dengan ukuran maksimum 3
                                             MB.</small>
                                     </div>
                                 </div>
@@ -336,6 +336,8 @@
                                             jelas)</label>
                                         <input type="file" class="form-control" id="scan_ktp_ayah"
                                             name="scan_ktp_ayah" accept="image/jpeg, image/png, image/jpg" required />
+                                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                            MB.</small>
                                     </div>
                                 </div>
 
@@ -412,6 +414,8 @@
                                             jelas)</label>
                                         <input type="file" class="form-control" id="scan_ktp_ibu" name="scan_ktp_ibu"
                                             accept="image/jpeg, image/png, image/jpg" required />
+                                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                            MB.</small>
                                     </div>
                                 </div>
                             </div>
@@ -446,6 +450,13 @@
                                             <option value="wali">Wali</option>
                                         </select>
                                     </div>
+                                    <div class="mb-3">
+                                        <label for="scan_kk_keluarga" class="form-label required">Scan KK</label>
+                                        <input type="file" class="form-control" id="scan_kk_sk"
+                                            name="scan_kk_keluarga" accept="image/jpeg, image/png, image/jpg" required />
+                                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                            MB.</small>
+                                    </div>
                                 </div>
 
                                 <div class="col">
@@ -456,21 +467,29 @@
                                             tua)</label>
                                         <input type="text" class="form-control" id="nama_wali" name="nama_wali"
                                             placeholder="eg. Rahmat" />
+                                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                            MB.</small>
                                     </div>
                                     <div class="mb-3">
                                         <label for="scan_kk_wali" class="form-label">Scan KK Wali (jika ada)</label>
                                         <input type="file" class="form-control" id="scan_kk_wali" name="scan_kk_wali"
                                             accept="image/jpeg, image/png, image/jpg" />
+                                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                            MB.</small>
                                     </div>
                                     <div class="mb-3">
                                         <label for="scan_kartu_pkh" class="form-label">Scan Kartu PKH (jika ada)</label>
                                         <input type="file" class="form-control" id="scan_kartu_pkh"
                                             name="scan_kartu_pkh" accept="image/jpeg, image/png, image/jpg" />
+                                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                            MB.</small>
                                     </div>
                                     <div class="mb-3">
                                         <label for="scan_kartu_kks" class="form-label">Scan Kartu KKS (jika ada)</label>
                                         <input type="file" class="form-control" id="scan_kartu_kks"
                                             name="scan_kartu_kks" accept="image/jpeg, image/png, image/jpg" />
+                                        <small class="form-text text-muted">Gunakan foto dengan ukuran maksimum 3
+                                            MB.</small>
                                     </div>
                                 </div>
                             </div>
@@ -484,8 +503,13 @@
                             <div class="alert alert-info text-center" role="alert">
                                 <strong>Apakah semua data sudah sesuai?</strong>
                                 <br />
-                                <button type="submit" id="submitButton" class="btn btn-primary mb-1"> Ya, Simpan Data
-                                </button> <button type="button" class="btn btn-danger"> Tidak, Periksa Kembali </button>
+                                <button type="submit" id="submitButton"
+                                    class="btn btn-primary d-block d-sm-inline-block mb-2 mb-sm-0 me-sm-2">
+                                    Ya, Simpan Data
+                                </button>
+                                <button type="button" class="btn btn-danger d-block d-sm-inline-block">
+                                    Tidak, Periksa Kembali
+                                </button>
                             </div>
                         </form>
                     </div>
